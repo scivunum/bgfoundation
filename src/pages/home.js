@@ -10,9 +10,7 @@ function LandingPage({companyname}) {
     const [heroimg, setHeroImg] = useState(
         `url(${Heroimg})`
     );
-    setHeroImg(
-        `url(${Heroimg})`
-    );
+    
     const [index, setIndex] = useState(0);
     const herostyle = {
         backgroundImage: heroimg, // Use imported image directly
@@ -32,16 +30,20 @@ function LandingPage({companyname}) {
         "Experience the Beauty of Fine Art",
         "Find Your Next Masterpiece Here"
     ]);
-    setTexts([
-        "Discover, Bid, and Collect Unique Art Pieces",
-        "Explore Art from Different Cultures",
-        "Uncover Hidden Gems in the Art World",
-        "Experience the Beauty of Fine Art",
-        "Find Your Next Masterpiece Here"
-    ]);
+    
     
     // Function to update text index after a certain time interval
     useEffect(() => {
+        setHeroImg(
+            `url(${Heroimg})`
+        );
+        setTexts([
+            "Discover, Bid, and Collect Unique Art Pieces",
+            "Explore Art from Different Cultures",
+            "Uncover Hidden Gems in the Art World",
+            "Experience the Beauty of Fine Art",
+            "Find Your Next Masterpiece Here"
+        ]);
         const interval = setInterval(() => {
             setTimeout(() => {
                 setIndex((prevIndex) => (prevIndex + 1) % texts.length); // Cycle through texts array
@@ -51,8 +53,7 @@ function LandingPage({companyname}) {
         // Cleanup function to clear the interval when the component unmounts
         return () => clearInterval(interval);
     }, [texts]); // Re-run effect when texts array changes
-
-      
+ 
   return (
     <div>
         <div style={herostyle}>

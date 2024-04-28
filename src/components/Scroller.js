@@ -16,7 +16,7 @@ const { Title, Paragraph } = Typography;
 
 export default function Scroller({Items}) {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-    setIsMobile(window.innerWidth < 768);
+    
     const [visible, setVisible] = useState(false);
     const [currentItem, setCurrentItem] = useState({});
     const slideItems = Items || [
@@ -34,6 +34,7 @@ export default function Scroller({Items}) {
     const showModal = (item) => {
         setCurrentItem(item);
         setVisible(true);
+        setIsMobile(window.innerWidth < 768);
     };
 
     // Hide modal

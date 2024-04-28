@@ -10,7 +10,6 @@ import App from './App';
 import UserContextProvider from './contexts/UserContext.js'
 import { HashRouter } from 'react-router-dom'
 
-//import Toaster from './components/Toaster.js';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
