@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button as BtnComponent, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { colors, fontsizes } from './style';
+import { colors} from './style';
 
 const Button = ({ to, props, classname, style, text, onClick, icon }) => {
   const [isHovered, setIsHovered] = useState(false);

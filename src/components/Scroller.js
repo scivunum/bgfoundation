@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, {useState } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { colors, fontsizes } from './style';
-import { Layout, Typography, Row, Col, Card,Modal } from "antd";
+import {Typography,Card,Modal } from "antd";
 import slide1 from '../assets/slide1.jpg';
 import slide2 from '../assets/slide2.jpg';
 import slide3 from '../assets/slide3.jpg';
@@ -11,10 +11,12 @@ import slide5 from '../assets/logo.jpg';
 import slide6 from '../assets/heroimg.jpg';
 
 // import required modules
-import { FreeMode, Pagination } from 'swiper/modules';
+import { FreeMode} from 'swiper/modules';
 const { Title, Paragraph } = Typography;
+
 export default function Scroller({Items}) {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    setIsMobile(window.innerWidth < 768);
     const [visible, setVisible] = useState(false);
     const [currentItem, setCurrentItem] = useState({});
     const slideItems = Items || [

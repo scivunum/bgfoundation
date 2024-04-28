@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Button, NavLink, IconButton } from './button';
 import { Link } from 'react-router-dom';
-import { HeartFilled, CloseOutlined, MenuOutlined,UserOutlined } from '@ant-design/icons';
+import { CloseOutlined, MenuOutlined,UserOutlined } from '@ant-design/icons';
 import { Drawer,Avatar,Dropdown, Menu } from 'antd';
 import Logo from '../assets/logo.jpg';
 import { colors } from './style';

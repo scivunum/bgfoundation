@@ -3,15 +3,17 @@ import { Layout, Typography, Button, Row, Col, Card } from "antd";
 import Heroimg from '../assets/heroimg.jpg';
 import Scroller from '../components/Scroller';
 import { fontsizes } from "../components/style";
-const { Header, Content, Footer } = Layout;
+const {Content} = Layout;
 const { Title, Paragraph } = Typography;
 
 function LandingPage({companyname}) {
     const [heroimg, setHeroImg] = useState(
         `url(${Heroimg})`
     );
+    setHeroImg(
+        `url(${Heroimg})`
+    );
     const [index, setIndex] = useState(0);
-    const [showText, setShowText] = useState(true);
     const herostyle = {
         backgroundImage: heroimg, // Use imported image directly
         backgroundSize: 'cover',
@@ -30,14 +32,19 @@ function LandingPage({companyname}) {
         "Experience the Beauty of Fine Art",
         "Find Your Next Masterpiece Here"
     ]);
+    setTexts([
+        "Discover, Bid, and Collect Unique Art Pieces",
+        "Explore Art from Different Cultures",
+        "Uncover Hidden Gems in the Art World",
+        "Experience the Beauty of Fine Art",
+        "Find Your Next Masterpiece Here"
+    ]);
     
     // Function to update text index after a certain time interval
     useEffect(() => {
         const interval = setInterval(() => {
-            setShowText(false); // Start fading out text
             setTimeout(() => {
                 setIndex((prevIndex) => (prevIndex + 1) % texts.length); // Cycle through texts array
-                setShowText(true); // Start fading in new text
             }, 500); // Wait for text to fade out before changing
         }, 5000); // Change text every 5 seconds (adjust interval as needed)
 
