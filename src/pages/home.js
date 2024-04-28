@@ -57,8 +57,8 @@ function LandingPage({companyname}) {
   return (
     <div>
         <div style={herostyle}>
-            <div className="text-start">
-                <Title level={1} strong style={{ margin: 0, color: "white",fontSize:fontsizes.xxxlarge }}>
+            <div className="text-start m-4 text-center">
+                <Title level={1} strong style={{ margin: 4, color: "white",fontSize:fontsizes.xxlarge }}>
                     Welcome to {companyname || ' Art Auction'}
                 </Title>
                 <Paragraph style={{ color: "white",fontSize:fontsizes.medium,transition: "1.5s ease-in-out"  }}>

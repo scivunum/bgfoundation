@@ -12,6 +12,8 @@ import slide6 from '../assets/heroimg.jpg';
 
 // import required modules
 import { FreeMode} from 'swiper/modules';
+import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+
 const { Title, Paragraph } = Typography;
 
 export default function Scroller({Items}) {
@@ -52,8 +54,14 @@ export default function Scroller({Items}) {
         <Swiper
             slidesPerView={isMobile ? 3 : 5}
             spaceBetween={10}
+            autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+                speed: 1500,
+            }}
             freeMode={true}
-            modules={[FreeMode]}
+            navigation={true}
+            modules={[Autoplay, Pagination, Navigation,FreeMode]}
             className="bidding-artworks"
             style={{
             width: '100%',
