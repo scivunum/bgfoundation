@@ -5,7 +5,6 @@ import { colors} from './style';
 
 const Button = ({ to, props, classname, style, text, onClick, icon }) => {
   const [isHovered, setIsHovered] = useState(false);
-  console.log(classname);
 
   // Handle mouse enter event
   const handleMouseEnter = () => {

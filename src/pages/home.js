@@ -1,5 +1,7 @@
 import React,{useState, useEffect} from "react";
-import { Layout, Typography, Button, Row, Col, Card } from "antd";
+import { Layout, Typography,Row, Col, Card } from "antd";
+import { Button} from "../components/button";
+import { Container} from 'react-bootstrap';
 import Heroimg from '../assets/heroimg.jpg';
 import Scroller from '../components/Scroller';
 import { fontsizes } from "../components/style";
@@ -10,8 +12,71 @@ function LandingPage({companyname}) {
     const [heroimg, setHeroImg] = useState(
         `url(${Heroimg})`
     );
-    
     const [index, setIndex] = useState(0);
+    const [imgheight, SetImgHeight] = useState('40vh');
+    const setHeights = () => {
+        const windowWidth = window.outerWidth;
+        let imgHeight;
+        if (windowWidth <= 240) {
+          imgHeight = '215vh';
+        } else if (windowWidth <= 330) {
+          imgHeight = '93vh';
+        }else if (windowWidth <= 360) {
+          imgHeight = '72vh';
+        } else if (windowWidth <= 375) {
+          
+          if (window.outerHeight <= 670) {
+            imgHeight = '74vh';
+          }else if(window.outerHeight <= 813) {
+            imgHeight = '60vh';
+          }
+        } else if (windowWidth <= 390) {
+          imgHeight = '60vh';
+        } else if (windowWidth <= 416) {
+          imgHeight = '56vh';
+          if (window.outerHeight <= 800) {
+            imgHeight = '64vh';
+          }
+        }else if (windowWidth <= 430) {
+          imgHeight = '53vh';
+        } else if (windowWidth <= 459) {
+          imgHeight = '66vh';
+        } else if (windowWidth <= 574) {
+          imgHeight = '67vh';
+          
+        } else if (windowWidth <= 720) {
+          
+          imgHeight = '60vh';
+        }else if (windowWidth <= 768) {
+          imgHeight = '38vh';
+        } else if (windowWidth <= 820) {
+          imgHeight = '30vh';
+        }else if (windowWidth <= 912) {
+          imgHeight = '30vh';
+        } else if (windowWidth <= 1024) {
+          if (window.outerHeight <= 1200) {
+            
+            imgHeight = '62vh';
+          }else{
+            imgHeight = '28vh';
+          }
+        } else if (windowWidth <= 1400) {
+          
+          if (window.outerHeight <= 720) {
+            imgHeight = '60vh';
+          }else if (window.outerHeight <= 820) {
+            imgHeight = '50vh';
+          }else{
+            imgHeight = '34vh';
+          }
+        }else {
+          imgHeight = '40vh';
+        }
+        
+      
+        SetImgHeight(imgHeight);
+      };
+      
     const herostyle = {
         backgroundImage: heroimg, // Use imported image directly
         backgroundSize: 'cover',
@@ -34,6 +99,9 @@ function LandingPage({companyname}) {
     
     // Function to update text index after a certain time interval
     useEffect(() => {
+        setHeights();
+        window.addEventListener('resize', setHeights);
+        window.addEventListener('load', setHeights);
         setHeroImg(
             `url(${Heroimg})`
         );
@@ -69,6 +137,36 @@ function LandingPage({companyname}) {
         
         <Content style={{ padding: "6px" }}>
             <Scroller  />
+            
+            <div className='m-0 p-0 mb-2 text-center' style={{height:'340px', width:'100%'}}>
+                <div style={{
+                        position: 'relative',
+                        height: '340px',
+                        
+                    }}>
+                        <div style={{
+                            backgroundImage: heroimg,
+                            backgroundSize: 'cover',
+                            height: imgheight,
+                            zIndex: '-1',
+                            filter: 'brightness(30%)',
+                            width: '100%',
+                        }}>
+
+                        </div>
+
+                    <Container className="py-5 d-flex flex-column justify-content-center align-items-center text-white"
+                    style={{ zIndex: '1', position: 'absolute', top: '160px', left: '50%', transform: 'translate(-50%, -50%)' }}>
+                            <h1 className="text-center fw-bold mb-2 mt-3">Discover Unique Art Treasures</h1>
+                            <p className="text-center fw-bold">Bid and Auction Exquisite Artwork from Artists</p>
+                            <div className="d-flex justify-content-center  mb-1">
+                                    <Button to="/contribute" text="Bid" classname={'text-center'}  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '60px'}}/>
+                                        <span className="mx-3"></span>
+                                    <Button to="/contribute" text="Bid" classname={'text-center'}  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '60px'}}/>
+                                </div>
+                        </Container>
+                </div>
+            </div>  
             <Row gutter={[16, 16]} align="middle">
             <Col xs={24} sm={12}>
                 <img

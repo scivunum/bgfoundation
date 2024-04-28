@@ -55,7 +55,7 @@ export default function Scroller({Items}) {
             slidesPerView={isMobile ? 3 : 5}
             spaceBetween={10}
             autoplay={{
-                delay: 3000,
+                delay: 2000,
                 disableOnInteraction: false,
                 speed: 1500,
             }}
