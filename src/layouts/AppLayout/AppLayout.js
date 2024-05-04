@@ -38,7 +38,7 @@ const AppLayout = ({ children, handleOpen, handleClose, visible, message, handle
           icon={<MessageOutlined style={{ color: colors.primary }}/>}
           size="large"
           style={{
-            right: 94,
+            right: 14,
             backgroundColor: colors.primarybackground
           }}
           onClick={handleOpen}
