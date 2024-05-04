@@ -80,6 +80,12 @@
     color: rgb(94, 106, 47) !important; 
     border-color: rgb(94, 106, 47) !important; 
   }
+  .ant-pagination-item-active {
+    border-color: rgb(94, 106, 47) !important;
+}
+.ant-pagination-item-active a {
+    color: black !important; /* Change text color of active pagination item to black */
+}
   
   /* Loading spinner */
   .spinner {
