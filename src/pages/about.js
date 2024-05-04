@@ -109,7 +109,7 @@ const AboutPage = ({companyname,IsloggedIn}) => {
     By participating in the Bill and Melinda Gates Foundation Auction, you acknowledge that you have read, understood, and agreed to these Terms and Conditions. Thank you for supporting our charitable efforts.
     `
   }
-  setCurrentFaqImg(about.faqs[0].img);
+  //setCurrentFaqImg(about.faqs[0].img);
   
   // Scroll to the target div when the hash changes
   useEffect(() => {
