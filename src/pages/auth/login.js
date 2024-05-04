@@ -3,7 +3,7 @@ import { Form, Input, Row, Col, Alert } from 'antd';
 import { Button} from "../../components/button";
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import { colors } from '../../components/style';
+//import { colors } from '../../components/style';
 
 const LoginPage = () => {
     const [error, setError] = useState('');

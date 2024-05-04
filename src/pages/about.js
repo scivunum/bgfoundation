@@ -13,7 +13,7 @@ const AboutPage = ({companyname,IsloggedIn}) => {
   const [currentFaqImg, setCurrentFaqImg] = useState('');
   // Create a ref for the target div
   const termsConditionsRef = useRef(null);
-
+  
   // Use location to get the hash from the URL
   const location = useLocation();
   const about = {
@@ -68,17 +68,56 @@ const AboutPage = ({companyname,IsloggedIn}) => {
         img: bidder
       }
     ],
-    termsandconditions: `By registering as a seller or buyer on ${companyname}, you agree to the following terms and conditions.`
-  }
-  
+    termsandconditions: `Terms and Conditions for Bill and Melinda Gates Foundation Auction.    \n.
+    Introduction \n
+    Welcome to the Bill and Melinda Gates Foundation Auction. By participating in this auction, you agree to comply with these Terms and Conditions. These Terms and Conditions govern your use of the Bill and Melinda Gates Foundation Auction website and any purchases or bids made through the website. The auction is being conducted by the Bill and Melinda Gates Foundation and all proceeds will be used towards charitable causes.\n
+    
+    Intellectual Property Rights \n
+    All content on the Bill and Melinda Gates Foundation Auction website, including but not limited to logos, trademarks, designs, images, and text, are the property of the Bill and Melinda Gates Foundation and are protected by intellectual property laws. You are not allowed to use, copy, or reproduce any of the content without the prior written consent of the Bill and Melinda Gates Foundation. \n
+    Restrictions
+    By participating in the auction, you agree to the following restrictions:
 
+    - You must be 18 years or older to bid or make a purchase.
+    - You must provide accurate and complete information when registering for the auction.
+    - You are prohibited from using the auction website for any illegal or unauthorized purposes.
+    - You are not allowed to interfere with or disrupt the functioning of the auction website.
+    - You must not engage in any behavior that may harm or damage the reputation of the Bill and Melinda Gates Foundation.
+
+    User Consent
+    By participating in the Bill and Melinda Gates Foundation Auction, you give your consent for the collection and use of your personal information in accordance with our Privacy Policy. Your information will only be used for the purpose of the auction and will not be shared with any third parties without your consent.
+
+    No Warranties
+    The Bill and Melinda Gates Foundation Auction website is provided on an "as is" and "as available" basis. We do not make any warranties, express or implied, regarding the accuracy, reliability, or accessibility of the website. We reserve the right to modify or discontinue the website at any time without notice.
+    Limitation of Liability
+    The Bill and Melinda Gates Foundation and its directors, officers, employees, and agents will not be liable for any loss or damages, whether direct, indirect, incidental, or consequential, arising from your participation in the auction or the use of the auction website.
+
+    Indemnification
+    By participating in the auction, you agree to indemnify and hold the Bill and Melinda Gates Foundation harmless from any claims, damages, or losses arising from your actions or use of the auction website.
+
+    Severability
+    If any provision of these Terms and Conditions is found to be invalid or unenforceable, it will not affect the validity or enforceability of the remaining provisions.
+
+    Variation of Terms
+    The Bill and Melinda Gates Foundation reserves the right to amend or modify these Terms and Conditions at any time without notice. Your continued use of the auction website after any changes indicates your acceptance of the modified Terms and Conditions.
+
+    Entire Agreement
+    These Terms and Conditions constitute the entire agreement between you and the Bill and Melinda Gates Foundation regarding the auction and supersede any prior agreements or understandings, whether written or verbal.
+    Governing Law and Jurisdiction.
+
+    The laws of the state of Washington will govern these Terms and Conditions, and any disputes arising from or related to these Terms and Conditions will be subject to the exclusive jurisdiction of the courts located in King County, Washington.
+
+    By participating in the Bill and Melinda Gates Foundation Auction, you acknowledge that you have read, understood, and agreed to these Terms and Conditions. Thank you for supporting our charitable efforts.
+    `
+  }
+  setCurrentFaqImg(about.faqs[0].img);
+  
   // Scroll to the target div when the hash changes
   useEffect(() => {
     const hash = location.hash.substring(1); // Remove the "#" from the hash
     if (hash === 'termsandconditions' && termsConditionsRef.current) {
       termsConditionsRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-    setCurrentFaqImg(about.faqs[0].img);
+    
   }, [location.hash]);
   
   
@@ -120,12 +159,7 @@ const AboutPage = ({companyname,IsloggedIn}) => {
       </Row>
       <Divider />
       <Title level={3} ref={termsConditionsRef}>Terms and Conditions</Title>
-      <Row gutter={[16, 16]}>
-        <Col span={6}>
-          
-        </Col>
-        {/* Add more images for the gallery */}
-      </Row>
+      <p className='text-dark'>{about.termsandconditions}</p>
     </div>
   );
 };

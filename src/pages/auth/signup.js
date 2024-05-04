@@ -3,7 +3,7 @@ import { Form, Input, Row, Col, Alert,Checkbox } from 'antd';
 import { Button} from "../../components/button";
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import { colors } from '../../components/style';
+//import { colors } from '../../components/style';
 
 const SignupPage = () => {
     const [error, setError] = useState('');
