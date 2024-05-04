@@ -22,9 +22,9 @@ const Footer = ({Companyname}) => {
                     <Col className="col-6 col-md-2 mb-3">
                         <h4 className='text-dark'>Contact Info</h4>
                         <Nav className='flex-column'>
-                            <NavLink to="/about" text="Home" className='text-dark' style={{margin: '0px', padding:'0px'}} />
-                            <NavLink to="/about" text="Auction" className='text-dark m-0' />
-                            <NavLink to="/about" text="membership" className='text-dark m-0'/>
+                            <NavLink to="/" text="Home" className='text-dark' style={{margin: '0px', padding:'0px'}} />
+                            <NavLink to="/auction" text="Auction" className='text-dark m-0' />
+                            <NavLink to="/about" text="Membership" className='text-dark m-0'/>
                             <NavLink to="/about" text="About" className='text-dark m-0'/>
                         </Nav>
                     </Col>
@@ -32,10 +32,9 @@ const Footer = ({Companyname}) => {
                     <div class="col-6 col-md-2 mb-3">
                         <h4 className='text-dark'>Our Support </h4>
                         <Nav className='flex-column p-0'>
-                            <NavLink to="/about" text="Policies" className='text-dark m-0'/>
-                            <NavLink to="/about" text="Volunteer" className='text-dark  m-0'/>
-                            <NavLink to="/about" text="Contact us" className='text-dark  m-0'/>
-                            <NavLink to="/about" text="Partnership" className='text-dark  m-0'/>
+                            <NavLink to="/policies" text="Policies" className='text-dark m-0'/>
+                            <NavLink to="/contact" text="Contact us" className='text-dark  m-0'/>
+                            <NavLink to="/partnership" text="Partnership" className='text-dark  m-0'/>
                         </Nav>
                     </div>
 

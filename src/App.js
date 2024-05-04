@@ -7,7 +7,7 @@ import { loggedInUserRoutes } from "./routes/loggedInUserRoutes";
 
 function App() {
   const { currentUser, isPublicUser, userDetailLoading } = useUserContext();
-
+  
   if (userDetailLoading) {
     return (
       <Routes>
