@@ -1,8 +1,9 @@
 import React,{useState, useEffect} from "react";
-import { Layout, Typography,Row, Col, Card } from "antd";
+import { Layout, Typography,Row, Col, Card,Pagination, Space  } from "antd";
 import { Button} from "../components/button";
 import { Container} from 'react-bootstrap';
 import Heroimg from '../assets/heroimg.jpg';
+import painting from '../assets/painting.jpg';
 import Scroller from '../components/Scroller';
 import { fontsizes } from "../components/style";
 const {Content} = Layout;
@@ -95,7 +96,25 @@ function LandingPage({companyname}) {
         "Experience the Beauty of Fine Art",
         "Find Your Next Masterpiece Here"
     ]);
-    
+    const [currentPage, setCurrentPage] = useState(1);
+    const artworksPerPage = 8; // Number of artworks to display per page
+    const totalArtworks = 10; // Total number of artworks (for example)
+
+    // Calculate the range of artworks to display based on the current page
+    const startIndex = (currentPage - 1) * artworksPerPage;
+    const endIndex = Math.min(startIndex + artworksPerPage, totalArtworks);
+
+    // Simulated data for artworks (replace with your actual data)
+    const artworks = Array.from({ length: totalArtworks }, (_, index) => ({
+        title: `Artwork Title ${index + 1}`,
+        artist: `Artist Name ${index + 1}`,
+        currentBid: `$XXX`, // Replace with actual bid data
+        imageUrl: `https://via.placeholder.com/300?text=Artwork${index + 1}`
+    }));
+
+    const handleChangePage = (page, pageSize) => {
+        setCurrentPage(page);
+    };
     
     // Function to update text index after a certain time interval
     useEffect(() => {
@@ -136,7 +155,7 @@ function LandingPage({companyname}) {
         </div>
         
         <Content style={{ padding: "6px" }}>
-            <Scroller  />
+            <Scroller Firsttitle={'Featured Artworks on Bid'} Secondtitle={"Least Bidding Art Work At"} Thirdtitle={'$15,500'}  />
             
             <div className='m-0 p-0 mb-2 text-center' style={{height:'340px', width:'100%'}}>
                 <div style={{
@@ -156,23 +175,23 @@ function LandingPage({companyname}) {
                         </div>
 
                     <Container className="py-5 d-flex flex-column justify-content-center align-items-center text-white"
-                    style={{ zIndex: '1', position: 'absolute', top: '160px', left: '50%', transform: 'translate(-50%, -50%)' }}>
+                            style={{ zIndex: '1', position: 'absolute', top: '160px', left: '50%', transform: 'translate(-50%, -50%)' }}>
                             <h1 className="text-center fw-bold mb-2 mt-3">Discover Unique Art Treasures</h1>
                             <p className="text-center fw-bold">Bid and Auction Exquisite Artwork from Artists</p>
                             <div className="d-flex justify-content-center  mb-1">
                                     <Button to="/contribute" text="Bid" classname={'text-center'}  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '60px'}}/>
                                         <span className="mx-3"></span>
                                     <Button to="/contribute" text="Bid" classname={'text-center'}  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '60px'}}/>
-                                </div>
-                        </Container>
+                            </div>
+                    </Container>
                 </div>
             </div>  
-            <Row gutter={[16, 16]} align="middle">
+            <Row gutter={[16, 16]} align="middle" style={{marginTop:'60px'}}>
             <Col xs={24} sm={12}>
                 <img
-                src="https://via.placeholder.com/800x400"
+                src={painting}
                 alt="Art Auction"
-                style={{ width: "100%", height: "auto" }}
+                style={{ width: "auto", height: "400px",boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)' }}
                 />
             </Col>
             <Col xs={24} sm={12}>
@@ -182,40 +201,35 @@ function LandingPage({companyname}) {
                     Find a diverse collection of art pieces from renowned and
                     emerging artists.
                 </Paragraph>
-                <Button type="primary" size="large">
-                    View Artworks
-                </Button>
+                <div className="d-flex justify-content-center  mb-1">
+                    <Button to="/contribute" text="Bid" classname={'text-center'}  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '60px'}}/>
+                </div>
                 </div>
             </Col>
             </Row>
-            <div style={{ marginTop: "50px" }}>
-            <Title level={2}>Featured Artworks</Title>
-            <Row gutter={[16, 16]}>
-                {/* Featured artworks will be dynamically rendered here */}
-                <Col xs={24} sm={12} lg={8}>
-                <Card
-                    cover={
-                    <img
-                        alt="Artwork"
-                        src="https://via.placeholder.com/300"
-                        style={{ width: "100%" }}
-                    />
-                    }
-                    actions={[
-                        <Button type="primary">Place Bid</Button>
-                    ]}
-                >
-                    <Card.Meta
-                    title="Artwork Title"
-                    description="Artist Name"
-                    />
-                    <Paragraph style={{ marginTop: "10px" }}>
-                    Current Bid: $XXX
-                    </Paragraph>
-                </Card>
-                </Col>
-                {/* Repeat this Col for each featured artwork */}
-            </Row>
+            <div style={{ marginTop: "50px", backgroundColor: "white", width: "100%", padding: "10px" }}>
+            <Title level={2}>Top 10 Featured Artworks</Title>
+              <Row gutter={[16, 16]}>
+                  {artworks.slice(startIndex, endIndex).map((artwork, index) => (
+                      <Col key={index} xs={12} sm={6} lg={4} xl={3} style={{ marginBottom: "10px" }}>
+                          <Card
+                              cover={<img alt="Artwork" src={artwork.imageUrl} style={{ width: "100%" }} />}
+                          >
+                              <Card.Meta title={artwork.title} description={artwork.artist} />
+                              <Paragraph style={{ marginTop: "10px" }}>Current Bid: {artwork.currentBid}</Paragraph>
+                              <Space><Button to="/contribute" text="Place Bid" classname='text-center'  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '100%'}}/></Space>
+                          </Card>
+                      </Col>
+                  ))}
+              </Row>
+              <Pagination
+                  current={currentPage}
+                  onChange={handleChangePage}
+                  pageSize={artworksPerPage}
+                  total={totalArtworks}
+                  showSizeChanger={false}
+                  style={{ marginTop: "16px", textAlign: "center" }}
+              />
             </div>
         </Content>
     </div>

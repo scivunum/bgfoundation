@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Layout } from "antd";
 import Header from '../../components/header';
+import Footer from '../../components/footer';
 import { colors } from '../../components/style';
-const { Footer, Content } = Layout;
+const {Content } = Layout;
 const logo = 'https://cdn.durable.co/blocks/1cgSWideq4sUHRAzrib9feRIIn3eEPdrb9UZwYFoNKcRu1AL3KgsrmP6V0KfqeZz.jpg';
 
 const contentStyle = {
@@ -30,7 +31,7 @@ const AppLayout = ({ children }) => (
         <Header logo={logo} menuItems={[{url:"/",name:'Home'},{url:"/",name:"Artworks"} ,{url:"/",name:"About Us"},{url:"/",name:"Contact"} ]} isloggedIn={false} />
         
         <Content style={contentStyle}>{children}</Content>
-        <Footer style={footerStyle}>Footer</Footer>
+        <Footer style={footerStyle} />
     </Layout>
 );
 AppLayout.propTypes = {

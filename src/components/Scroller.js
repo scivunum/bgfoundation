@@ -16,7 +16,7 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 
 const { Title, Paragraph } = Typography;
 
-export default function Scroller({Items}) {
+export default function Scroller({Firsttitle, Secondtitle, Thirdtitle, Items}) {
     const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
     
     const [visible, setVisible] = useState(false);
@@ -46,10 +46,10 @@ export default function Scroller({Items}) {
     return (
         <div>
             <Title level={3} strong style={{ margin:10,marginTop:18, alignSelf:'flex-start'}}>
-                Featured Artworks on Bid
+                {Firsttitle}
             </Title>
             <Paragraph style={{fontSize:fontsizes.small }}>
-                Least Bidding Art Work At <span className='fw-bold'>$15,500</span>..
+                {Secondtitle} <span className='fw-bold'>{Thirdtitle}</span>..
             </Paragraph>
         <Swiper
             slidesPerView={isMobile ? 3 : 5}

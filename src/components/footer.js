@@ -1,12 +1,13 @@
 import React from 'react';
 import {Nav,Container,Row , Col} from 'react-bootstrap';
+import { colors} from './style';
 import {Button, NavLink} from './button';
 import {MailOutlined} from '@ant-design/icons'; // Import HeartOutlined icon from Ant Design
 import {TwitterOutlined, InstagramOutlined, FacebookOutlined, WhatsAppOutlined, LinkedinOutlined } from '@ant-design/icons'; // Import social icons from Ant Design
 
 const Footer = ({Companyname}) => {
     const style ={
-        backgroundColor: '#d7d7e9',
+        backgroundColor: colors.primarybackground,
         color: 'white',
         padding: '10px',
         width: '100%',
@@ -53,8 +54,8 @@ const Footer = ({Companyname}) => {
                         <p className='text-dark'> Monthly digest of what's new and exciting from us.</p>
                         <div className="d-flex flex-column w-100 gap-2">
                             <label for="newsletter1" class="visually-hidden text-dark">Email address</label>
-                            <input id="newsletter1" type="text" className="form-control" style={{borderColor:'#d7d7e9'}} placeholder="Email address" />
-                            <Button to="/subscribe" text="Subscribe" className='text-dark border ' style={{border:'1px dotted #34356b', width:'155px', alignSelf:'center'}} icon={<MailOutlined style={{ color: '#ec3237' }} />} />
+                            <input id="newsletter1" type="text" className="form-control" style={{borderColor:`${colors.primarylight}`}} placeholder="Email address" />
+                            <Button to="/subscribe" text="Subscribe" className='text-dark border ' style={{border:`1px dotted ${colors.primary}`, width:'155px', alignSelf:'center'}} icon={<MailOutlined style={{ color: '#ec3237' }} />} />
                             <p className="d-flex flex-row m-auto mt-4" style={{alignItems:'center', margin:'20px' }}>
                                 <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
                                     <TwitterOutlined style={{ cursor:'pointer', fontSize: '24px', marginRight: '10px', color:'#1DA1F2' }} />

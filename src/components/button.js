@@ -18,7 +18,7 @@ const Button = ({ to, props, classname, style, text, onClick, icon }) => {
 
   // Define the base style for the button
   const baseStyle = {
-    backgroundColor: colors.primarylight,
+    backgroundColor: colors.primary,
     fontWeight: 500,
     borderRadius: '4px',
     display: 'flex',
@@ -26,12 +26,13 @@ const Button = ({ to, props, classname, style, text, onClick, icon }) => {
     justifyContent: 'space-between',
     padding: '8px 16px', // Adjust padding as needed
     textDecoration: 'none', // Remove text decoration for Links
+    color: 'white',
   };
 
   // Define the hover style for the button
   const hoverStyle = {
-    backgroundColor: colors.primary,
-    color: 'white',
+    backgroundColor: colors.primarylight,
+    color: 'black',
   };
 
   // Combine base and hover styles based on hover state
@@ -46,7 +47,7 @@ const Button = ({ to, props, classname, style, text, onClick, icon }) => {
       {to ? (
         <Link
           to={{ pathname: to, state: { item: { customProp: props } } }}
-          className='btn'
+          className={`btn ${classname}`}
           style={buttonStyle}
           onClick={onClick}
           onMouseEnter={handleMouseEnter}
@@ -57,7 +58,7 @@ const Button = ({ to, props, classname, style, text, onClick, icon }) => {
         </Link>
       ) : (
         <BtnComponent
-          className='btn'
+          className={`btn ${classname}`}
           style={{ border: '0px', color:'black',...buttonStyle}} // Include border style inline
           onClick={onClick}
           onMouseEnter={handleMouseEnter}
