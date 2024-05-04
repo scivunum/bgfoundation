@@ -58,7 +58,6 @@ const Header = ({ Companyname,isloggedIn, logo, menuItems }) => {
                         </Navbar.Brand>
                         <div className="d-flex justify-content-between align-items-center m-1" style={{marginLeft: 'auto'}}>
                             <Dropdown overlay={profileMenu} placement="bottomLeft" trigger={['click']}>
-                                
                                 <Avatar size={30} icon={<UserOutlined />} className="me-3" style={{ fontSize: '20px', cursor:'pointer' }} />
                             </Dropdown>
                             {isMenuOpen ? (

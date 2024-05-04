@@ -9,7 +9,7 @@ import { fontsizes } from "../components/style";
 const {Content} = Layout;
 const { Title, Paragraph } = Typography;
 
-function LandingPage({companyname}) {
+function LandingPage({companyname,isloggedIn}) {
     const [heroimg, setHeroImg] = useState(
         `url(${Heroimg})`
     );
@@ -175,14 +175,14 @@ function LandingPage({companyname}) {
                         </div>
 
                     <Container className="py-5 d-flex flex-column justify-content-center align-items-center text-white"
-                            style={{ zIndex: '1', position: 'absolute', top: '160px', left: '50%', transform: 'translate(-50%, -50%)' }}>
-                            <h1 className="text-center fw-bold mb-2 mt-3">Discover Unique Art Treasures</h1>
-                            <p className="text-center fw-bold">Bid and Auction Exquisite Artwork from Artists</p>
-                            <div className="d-flex justify-content-center  mb-1">
-                                    <Button to="/auction" text="Bid" classname={'text-center'}  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '60px'}}/>
-                                        <span className="mx-3"></span>
-                                    <Button to="/contact" text="Contact Us" classname={'text-center'}  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '121px'}}/>
-                            </div>
+                        style={{ zIndex: '1', position: 'absolute', top: '160px', left: '50%', transform: 'translate(-50%, -50%)' }}>
+                        <h1 className="text-center fw-bold mb-2 mt-3">Discover Unique Art Treasures</h1>
+                        <p className="text-center fw-bold">Bid and Auction Exquisite Artwork from Artists</p>
+                        <div className="d-flex justify-content-center  mb-1">
+                            <Button to="/auction" text="Bid" classname={'text-center'}  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '60px'}}/>
+                                <span className="mx-3"></span>
+                            <Button to="/contact" text="Contact Us" classname={'text-center'}  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '121px'}}/>
+                        </div>
                     </Container>
                 </div>
             </div>  
@@ -217,7 +217,13 @@ function LandingPage({companyname}) {
                           >
                               <Card.Meta title={artwork.title} description={artwork.artist} />
                               <Paragraph style={{ marginTop: "10px" }}>Current Bid: {artwork.currentBid}</Paragraph>
-                              <Space><Button to="/contribute" text="Place Bid" classname='text-center'  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '100%'}}/></Space>
+                              <Space>
+                                  {isloggedIn ===false ? 
+                                  <Button to="/login" text="Place Bid" classname='text-center'  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '100%'}}/>
+                                  :
+                                  <Button to="/bid" text="Place Bid" classname='text-center'  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '100%'}}/>
+                                  }
+                              </Space>
                           </Card>
                       </Col>
                   ))}

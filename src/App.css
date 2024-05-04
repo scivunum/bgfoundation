@@ -1,32 +1,37 @@
-.form-control {
+.form-control,
+.ant-input-outlined,
+.ant-collapse {
     border: 1.5px solid transparent !important;
     background-color: whitesmoke !important;
     border-radius: 0%;
   }
-  .form-control:hover,
-  .form-control:focus,
-  .form-control:active {
+.form-control:hover,
+.form-control:focus,
+.form-control:active,
+.ant-input-outlined:hover,
+.ant-input-outlined:focus,
+.ant-input-outlined:active {
     box-shadow: none !important;
     background-color: whitesmoke !important;
     border-color: rgb(94, 106, 47) !important;
-  }
-  .form-check-input,
-  .form-check-input:focus,
-  .form-check-input:active {
+}
+.form-check-input,
+.form-check-input:focus,
+.form-check-input:active {
     cursor: pointer;
     color: white  !important;
     background-color: white !important;
     border:2px solid rgb(196, 207, 152);
     box-shadow: none !important;
-  }
+}
   
   
-  .form-check-input:checked {
-    box-shadow: none !important;
-    color: white  !important;
-    background-color: rgb(94, 106, 47) !important;
-    border-color: rgb(94, 106, 47) !important;
-  }
+.form-check-input:checked {
+box-shadow: none !important;
+color: white  !important;
+background-color: rgb(94, 106, 47) !important;
+border-color: rgb(94, 106, 47) !important;
+}
 
 
   .ant-btn {

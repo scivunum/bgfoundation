@@ -4,6 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import React from "react";
 import { publicUserRoutes } from "./routes/publicUserRoutes";
 import { loggedInUserRoutes } from "./routes/loggedInUserRoutes";
+import './App.css';
 
 function App() {
   const { currentUser, isPublicUser, userDetailLoading } = useUserContext();

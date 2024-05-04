@@ -29,9 +29,9 @@ const layoutStyle = {
   maxWidth: '100%',
 };
 
-const AppLayout = ({ children, handleOpen, handleClose, visible, message, handleChange, handleSend }) => (
+const AppLayout = ({ children, handleOpen, handleClose, visible, message, handleChange, handleSend,isloggedIn }) => (
     <Layout style={layoutStyle}>
-        <Header logo={logo} menuItems={[{url:"/",name:'Home'},{url:"/aution",name:"Artworks"} ,{url:"/about",name:"About Us"},{url:"/contact",name:"Contact"} ]} isloggedIn={false} />
+        <Header logo={logo} menuItems={[{url:"/",name:'Home'},{url:"/aution",name:"Artworks"} ,{url:"/about",name:"About Us"},{url:"/blog",name:"Blog"},{url:"/contact",name:"Contact"} ]} isloggedIn={isloggedIn} />
         
         <Content style={contentStyle}>{children}</Content>
         <FloatButton
