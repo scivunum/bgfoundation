@@ -1,25 +1,31 @@
 {
   "files": {
-    "main.css": "/bgfoundation/static/css/main.f214a45f.css",
-    "main.js": "/bgfoundation/static/js/main.dda7e302.js",
+    "main.css": "/bgfoundation/static/css/main.6fd356a4.css",
+    "main.js": "/bgfoundation/static/js/main.b9a9da3f.js",
     "static/js/453.da79d90c.chunk.js": "/bgfoundation/static/js/453.da79d90c.chunk.js",
     "static/media/slide1.jpg": "/bgfoundation/static/media/slide1.f731a09e5b164142dd72.jpg",
     "static/media/slide2.jpg": "/bgfoundation/static/media/slide2.e6c5db9b9b19b44c24ab.jpg",
     "static/media/painting.jpg": "/bgfoundation/static/media/painting.47e1b998c91fe0ba7fb6.jpg",
     "static/media/heroimg.jpg": "/bgfoundation/static/media/heroimg.6f80a33aff79fcea64f5.jpg",
     "static/media/slide3.jpg": "/bgfoundation/static/media/slide3.579307a733ba34b6c203.jpg",
+    "static/media/blog1.jpeg": "/bgfoundation/static/media/blog1.bd8760e83e455212d1fd.jpeg",
+    "static/media/blog2.jpeg": "/bgfoundation/static/media/blog2.1db0fda0dbfd1cd6f35e.jpeg",
+    "static/media/blog5.jpeg": "/bgfoundation/static/media/blog5.224ea1031966371e8cac.jpeg",
+    "static/media/blog4.jpeg": "/bgfoundation/static/media/blog4.e6b65e4ee31b9bfd6f58.jpeg",
     "static/media/slide4.avif": "/bgfoundation/static/media/slide4.8182b5eb538dece21869.avif",
+    "static/media/blog3.jpeg": "/bgfoundation/static/media/blog3.f120ff9c952c76c4b71c.jpeg",
+    "static/media/blog6.jpeg": "/bgfoundation/static/media/blog6.f8ca686eea8f2b229f6c.jpeg",
     "static/media/logo.jpg": "/bgfoundation/static/media/logo.bd479c8171634325bdf4.jpg",
     "static/media/auctioning.jpg": "/bgfoundation/static/media/auctioning.a667a0c389fd871ad4f8.jpg",
     "static/media/auctioningmace.jpg": "/bgfoundation/static/media/auctioningmace.9beccd115057234e2deb.jpg",
     "static/media/bidding.jpg": "/bgfoundation/static/media/bidding.c3fc1a7f141684240ffc.jpg",
     "index.html": "/bgfoundation/index.html",
-    "main.f214a45f.css.map": "/bgfoundation/static/css/main.f214a45f.css.map",
-    "main.dda7e302.js.map": "/bgfoundation/static/js/main.dda7e302.js.map",
+    "main.6fd356a4.css.map": "/bgfoundation/static/css/main.6fd356a4.css.map",
+    "main.b9a9da3f.js.map": "/bgfoundation/static/js/main.b9a9da3f.js.map",
     "453.da79d90c.chunk.js.map": "/bgfoundation/static/js/453.da79d90c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f214a45f.css",
-    "static/js/main.dda7e302.js"
+    "static/css/main.6fd356a4.css",
+    "static/js/main.b9a9da3f.js"
   ]
 }
