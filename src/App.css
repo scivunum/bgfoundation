@@ -1,6 +1,8 @@
 .form-control,
 .ant-input-outlined,
-.ant-collapse {
+.ant-collapse,
+.ant-picker,
+.ant-input-group-addon {
     border: 1.5px solid transparent !important;
     background-color: whitesmoke !important;
     border-radius: 0%;
@@ -10,27 +12,34 @@
 .form-control:active,
 .ant-input-outlined:hover,
 .ant-input-outlined:focus,
-.ant-input-outlined:active {
+.ant-input-outlined:active,
+.ant-input:hover,
+  .ant-input:focus,
+  .ant-input:active  {
     box-shadow: none !important;
     background-color: whitesmoke !important;
     border-color: rgb(94, 106, 47) !important;
 }
+
 .form-check-input,
 .form-check-input:focus,
 .form-check-input:active {
     cursor: pointer;
     color: white  !important;
     background-color: white !important;
-    border:2px solid rgb(196, 207, 152);
+    border:1.5px solid rgb(196, 207, 152);
     box-shadow: none !important;
+    border-radius: 0%;
 }
-  
+
   
 .form-check-input:checked {
-box-shadow: none !important;
-color: white  !important;
-background-color: rgb(94, 106, 47) !important;
-border-color: rgb(94, 106, 47) !important;
+    box-shadow: none !important;
+    color: white  !important;
+    background-color: rgb(94, 106, 47) !important;
+    border-color: rgb(94, 106, 47) !important;
+    border-radius: 0%;
+    border-width: 1.5px;
 }
 
 
@@ -38,6 +47,8 @@ border-color: rgb(94, 106, 47) !important;
     color:black;
     border-color: rgb(94, 106, 47);
     background-color: rgb(94, 106, 47);
+    border-radius: 0%;
+    border-width: 1.5px;
     cursor: pointer;
   }
   
@@ -55,23 +66,19 @@ border-color: rgb(94, 106, 47) !important;
     color: black !important; /* Change icon color to black on hover, focus, and active */
   }
   
-  /* Styles for the input border on hover */
-  .ant-input-outlined,
-  .ant-input:hover,
-  .ant-input:focus,
-  .ant-input:active {
-    box-shadow: none !important;
-    border-color: rgb(94, 106, 47) !important;
-  }
-  
+
   .ant-pagination-item:hover,
   .ant-pagination-next:hover,
   .ant-pagination-previous:hover {
     background-color: rgb(94, 106, 47) !important;
     color: white !important;
+    border-radius: 0%;
+    border-width: 1.5px;
   }
   .ant-pagination-item-active {
     border-color: rgb(94, 106, 47) !important;
+    border-radius: 0%;
+    border-width: 1.5px;
   }
   
   .ant-pagination-item-ellipsis {
@@ -84,14 +91,21 @@ border-color: rgb(94, 106, 47) !important;
   .ant-timeline-item-head-blue{
     color: rgb(94, 106, 47) !important; 
     border-color: rgb(94, 106, 47) !important; 
+    border-radius: 0%;
+    border-width: 1.5px;
   }
   .ant-pagination-item-active {
     border-color: rgb(94, 106, 47) !important;
+    border-radius: 0%;
+    border-width: 1.5px;
 }
 .ant-pagination-item-active a {
     color: black !important; /* Change text color of active pagination item to black */
 }
-  
+.ant-modal-content{
+    border-radius: 0% !important;
+    border-width: 1.5px !important; 
+} 
   /* Loading spinner */
   .spinner {
     border: 4px solid #f3f3f3; /* Light grey */
@@ -109,4 +123,9 @@ border-color: rgb(94, 106, 47) !important;
     100% { transform: rotate(360deg); }
   }
   
-  
+  #components-slider-demo-mark h4 {
+    margin: 0 0 16px;
+  }
+  #components-slider-demo-mark .ant-slider-with-marks {
+    margin-bottom: 44px;
+  }

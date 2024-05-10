@@ -31,7 +31,7 @@ const layoutStyle = {
 
 const AppLayout = ({ children, handleOpen, handleClose, visible, message, handleChange, handleSend,isloggedIn }) => (
     <Layout style={layoutStyle}>
-        <Header logo={logo} menuItems={[{url:"/",name:'Home'},{url:"/aution",name:"Artworks"} ,{url:"/about",name:"About Us"},{url:"/blog",name:"Blog"},{url:"/contact",name:"Contact"} ]} isloggedIn={isloggedIn} />
+        <Header logo={logo} menuItems={[{url:"/",name:'Home'},{url:"/artworks",name:"Artworks"},{url:"/events",name:"Event"} ,{url:"/about",name:"About Us"},{url:"/blogs",name:"Blog"},{url:"/contact",name:"Contact"}, ]} isloggedIn={isloggedIn} />
         
         <Content style={contentStyle}>{children}</Content>
         <FloatButton

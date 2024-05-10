@@ -1,11 +1,17 @@
+import React, { useState } from 'react';
 import AppLayout from "../layouts/AppLayout/AppLayout";
 import LandingPage from "../pages/home";
 import AboutPage from "../pages/about";
-//import ContactPage from "../pages/contact";
 import LoginPage from "../pages/auth/login";
 import SignupPage from "../pages/auth/signup";
 import NotFoundPage from "../pages/404notfound";
-import React, { useState } from 'react';
+
+import ContactUsPage from "../pages/contact";
+import BlogPage from "../pages/blog";
+import BlogPostPage from "../pages/blogpost";
+import ArtworksPage from "../pages/artworks";
+import ArtworkDetailPage from "../pages/artpage";
+import EventPage from "../pages/event";
 
 const Main = () => {
     const [visible, setVisible] = useState(false);
@@ -138,6 +144,58 @@ export const publicUserRoutes = [
         route: '/signup',
         component: Signup
     },
+    {
+        route:'/contact',
+        component:() => {
+            return <AppLayout>
+                <ContactUsPage isloggedIn={false}/>
+            </AppLayout>
+        }
+    },
+    {
+        route:'/blogs',
+        component:() => {
+            return <AppLayout>
+                <BlogPage isloggedIn={false}/>
+            </AppLayout>
+        }
+    },
+    {
+        route:'/blogs/:id',
+        component:() => {
+            return <AppLayout>
+                <BlogPostPage isloggedIn={false}/>
+            </AppLayout>
+        }
+    },
+    {
+        route:'/artworks',
+        component:() => {
+            return <AppLayout>
+                <ArtworksPage isloggedIn={false}/>
+            </AppLayout>
+        }
+    },
+    {
+        route:'/artworks/:id',
+        component:() => {
+            return <AppLayout>
+                <ArtworkDetailPage isloggedIn={false}/>
+            </AppLayout>
+        }
+    },{
+        route:'/events',
+        component:() => {
+            return <AppLayout>
+                <EventPage isloggedIn={false}/>
+            </AppLayout>
+        }
+    },
+    {
+        route:'/events/:id',
+        component:NotFoundPage
+    },
+
     {
         route: '*',
         component: NotFoundPage
