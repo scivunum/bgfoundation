@@ -1,6 +1,8 @@
 import React,{useState, useEffect, useRef} from 'react';
 import { useLocation } from 'react-router-dom';
-import { Typography, Divider, Collapse, Row, Col, Image } from 'antd';
+import { Typography, Divider, Collapse, Row, Col, Image, Form, Input, Button, message } from 'antd';
+import { MailOutlined, UserOutlined, MessageOutlined } from '@ant-design/icons';
+import { colors } from '../components/style';
 import biddingimg from '../assets/bidding.jpg';
 import auctionimg from '../assets/auctioningmace.jpg';
 import auctioneer from '../assets/auctioning.jpg';
@@ -10,7 +12,7 @@ const { Title, Paragraph } = Typography;
 const { Panel } = Collapse;
 
 const AboutPage = ({companyname,IsloggedIn}) => {
-  const [currentFaqImg, setCurrentFaqImg] = useState('');
+  const [currentFaqImg, setCurrentFaqImg] = useState(biddingimg);
   // Create a ref for the target div
   const termsConditionsRef = useRef(null);
   
@@ -68,12 +70,12 @@ const AboutPage = ({companyname,IsloggedIn}) => {
         img: bidder
       }
     ],
-    termsandconditions: `Terms and Conditions for Bill and Melinda Gates Foundation Auction.    \n.
-    Introduction \n
-    Welcome to the Bill and Melinda Gates Foundation Auction. By participating in this auction, you agree to comply with these Terms and Conditions. These Terms and Conditions govern your use of the Bill and Melinda Gates Foundation Auction website and any purchases or bids made through the website. The auction is being conducted by the Bill and Melinda Gates Foundation and all proceeds will be used towards charitable causes.\n
+    termsandconditions: `Terms and Conditions for Bill and Melinda Gates Foundation Auction.
+    Introduction
+    Welcome to the Bill and Melinda Gates Foundation Auction. By participating in this auction, you agree to comply with these Terms and Conditions. These Terms and Conditions govern your use of the Bill and Melinda Gates Foundation Auction website and any purchases or bids made through the website. The auction is being conducted by the Bill and Melinda Gates Foundation and all proceeds will be used towards charitable causes.
     
-    Intellectual Property Rights \n
-    All content on the Bill and Melinda Gates Foundation Auction website, including but not limited to logos, trademarks, designs, images, and text, are the property of the Bill and Melinda Gates Foundation and are protected by intellectual property laws. You are not allowed to use, copy, or reproduce any of the content without the prior written consent of the Bill and Melinda Gates Foundation. \n
+    Intellectual Property Rights 
+    All content on the Bill and Melinda Gates Foundation Auction website, including but not limited to logos, trademarks, designs, images, and text, are the property of the Bill and Melinda Gates Foundation and are protected by intellectual property laws. You are not allowed to use, copy, or reproduce any of the content without the prior written consent of the Bill and Melinda Gates Foundation. 
     Restrictions
     By participating in the auction, you agree to the following restrictions:
 
@@ -111,7 +113,19 @@ const AboutPage = ({companyname,IsloggedIn}) => {
   }
   //setCurrentFaqImg(about.faqs[0].img);
   
-  // Scroll to the target div when the hash changes
+  const onFinish = (values) => {
+      console.log('Received values:', values);
+      // Here you can implement your logic to handle the form submission
+      // For example, send the form data to your backend server
+      // Display a success message to the user
+      message.success('Your message has been sent successfully!');
+  };
+
+  const onFinishFailed = (errorInfo) => {
+      console.log('Failed:', errorInfo);
+      // Display an error message to the user if form validation fails
+      message.error('Please check the form fields and try again.');
+  };
   useEffect(() => {
     const hash = location.hash.substring(1); // Remove the "#" from the hash
     if (hash === 'termsandconditions' && termsConditionsRef.current) {
@@ -150,16 +164,46 @@ const AboutPage = ({companyname,IsloggedIn}) => {
       </Row>
 
       <Divider />
-      <Title level={3}>Gallery</Title>
-      <Row gutter={[16, 16]}>
-        <Col span={6}>
-          <Image src="https://via.placeholder.com/150" />
-        </Col>
-        {/* Add more images for the gallery */}
-      </Row>
+      
+      
+        <Row justify="center"  style={{backgroundColor:colors.primarybackground}}>
+            <Col span={18} className="d-flex flex-column justify-content-center align-self-center">
+                <Title level={3} className='mt-4'>Contact Us</Title>
+                <Form
+                    name="contact-form"
+                    className="d-flex flex-column justify-content-center align-self-center"
+                    initialValues={{ remember: true }}
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
+                    style={{width:'300px'}}
+                >
+                    <Form.Item
+                        name="name"
+                        rules={[{ required: true, message: 'Please enter your name!' }]}
+                    >
+                        <Input prefix={<UserOutlined />} placeholder="Your Name" />
+                    </Form.Item>
+                    <Form.Item
+                        name="email"
+                        rules={[{ required: true, message: 'Please enter your email!' }]}
+                    >
+                        <Input prefix={<MailOutlined />} type="email" placeholder="Your Email" />
+                    </Form.Item>
+                    <Form.Item
+                        name="message"
+                        rules={[{ required: true, message: 'Please enter your message!' }]}
+                    >
+                        <Input.TextArea prefix={<MessageOutlined />} rows={4} placeholder="Your Message" />
+                    </Form.Item>
+                    <Form.Item>
+                        <Button type="primary" htmlType="submit">
+                            Submit
+                        </Button>
+                    </Form.Item>
+                </Form>
+            </Col>
+        </Row>
       <Divider />
-      <Title level={3} ref={termsConditionsRef}>Terms and Conditions</Title>
-      <p className='text-dark'>{about.termsandconditions}</p>
     </div>
   );
 };

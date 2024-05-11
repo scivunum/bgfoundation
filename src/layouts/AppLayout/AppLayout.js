@@ -1,12 +1,12 @@
-import React from 'react';
+import React,{useState} from 'react';
 import PropTypes from 'prop-types';
 import {MessageOutlined } from '@ant-design/icons';
 import { Button} from "../../components/button";
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 import { colors } from '../../components/style';
-import { Modal, Input, Layout,FloatButton  } from 'antd';
-const {Content } = Layout;
+import { Modal, Layout, List, Input, FloatButton  } from 'antd';
+const { Content } = Layout;
 const logo = 'https://cdn.durable.co/blocks/1cgSWideq4sUHRAzrib9feRIIn3eEPdrb9UZwYFoNKcRu1AL3KgsrmP6V0KfqeZz.jpg';
 
 const contentStyle = {
@@ -20,7 +20,7 @@ const contentStyle = {
 const footerStyle = {
   textAlign: 'center',
   color: '#fff',
-  backgroundColor: '#4096ff',
+  backgroundColor: colors.primarybackground,
 };
 const layoutStyle = {
   borderRadius: 8,
@@ -28,10 +28,50 @@ const layoutStyle = {
   width: '100%',
   maxWidth: '100%',
 };
+const ChatPage = () => {
+  const [messages, setMessages] = useState([]);
+  const [inputValue, setInputValue] = useState('');
 
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleSendMessage = () => {
+    if (inputValue.trim() !== '') {
+      setMessages([...messages, inputValue.trim()]);
+      setInputValue('');
+    }
+  };
+
+  return (
+    <Layout>
+      <Layout.Header><span className='text-white'>How can we Help?</span></Layout.Header>
+      <Content style={{ padding: '20px' }}>
+        <div style={{ marginBottom: '20px' }}>
+          <List
+            size="small"
+            bordered
+            dataSource={messages}
+            renderItem={(message, index) => <List.Item>{message}</List.Item>}
+          />
+        </div>
+        <div style={{ display: 'flex' }}>
+          <Input
+            value={inputValue}
+            onChange={handleInputChange}
+            onPressEnter={handleSendMessage}
+            placeholder="Type your message..."
+            style={{ marginRight: '10px' }}
+          />
+          <Button text={'Send'} onClick={handleSendMessage} />
+        </div>
+      </Content>
+    </Layout>
+  );
+};
 const AppLayout = ({ children, handleOpen, handleClose, visible, message, handleChange, handleSend,isloggedIn }) => (
     <Layout style={layoutStyle}>
-        <Header logo={logo} menuItems={[{url:"/",name:'Home'},{url:"/artworks",name:"Artworks"},{url:"/events",name:"Event"} ,{url:"/about",name:"About Us"},{url:"/blogs",name:"Blog"},{url:"/contact",name:"Contact"}, ]} isloggedIn={isloggedIn} />
+        <Header logo={logo} menuItems={[{url:"/",name:'Home'},{url:"/about",name:"About Us"},{url:"/artworks",name:"Artworks"},{url:"/events",name:"Event"} ,{url:"/blogs",name:"Blog"} ]} isloggedIn={isloggedIn} />
         
         <Content style={contentStyle}>{children}</Content>
         <FloatButton
@@ -42,6 +82,7 @@ const AppLayout = ({ children, handleOpen, handleClose, visible, message, handle
             backgroundColor: colors.primarybackground
           }}
           onClick={handleOpen}
+          
         />
         <Footer style={footerStyle} />
           <Modal
@@ -49,13 +90,9 @@ const AppLayout = ({ children, handleOpen, handleClose, visible, message, handle
           visible={visible}
           onCancel={handleClose}
           footer={null}
+          style={{zIndex:99999}}
         >
-          {/* Your chat content goes here */}
-          <div style={{ marginBottom: 16 }}>
-                <Input value={message} onChange={handleChange} placeholder="Type your message" />
-            </div>
-            <Button to="/chat" text="Send" classname={'text-center'} onClick={handleSend}  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '100px'}}/>
-                
+          <ChatPage />
         </Modal>
     </Layout>
 );

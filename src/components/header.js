@@ -20,16 +20,13 @@ const Header = ({ Companyname,isloggedIn, logo, menuItems }) => {
     const onClose = () => {
         setIsMenuOpen(false);
     };
-    const useremail="oscarchiagoziem@gmail.com"
+    const userid="54656768234bf"
     const profileMenu=(
         <Menu>
             {/* Your mail dropdown menu items */}
-            <Menu.Item key="1"><Link to={`/profile/${useremail}`} style={{textDecoration:'none'}}>View Profile</Link></Menu.Item>
-            <Menu.Item key="2">email</Menu.Item>
-            <Menu.Item key="3">usertype:{isAdmin?<>Admin</>:<></>}</Menu.Item>
-            <Menu.Item key="4"><Link to='/admin/dashboard' style={{textDecoration:'none'}}>View Dashboard</Link></Menu.Item>
-            <Menu.Item key="5">Activity Log</Menu.Item>
-            <Menu.Item key="6">Sign Out</Menu.Item>
+            {isloggedIn?<Menu.Item key="1"><Link to={`/profile/${userid}`} style={{textDecoration:'none'}}>View Profile</Link></Menu.Item>:<Menu.Item key="1"><Link to={`/login`} style={{textDecoration:'none'}}>Login</Link></Menu.Item>}
+            {isAdmin && isloggedIn?<Menu.Item key="2"><Link to='/admin/dashboard' style={{textDecoration:'none'}}>View Dashboard</Link></Menu.Item>:<></>}
+            {isloggedIn?<Menu.Item key="3"><Link to={`/logout`} style={{textDecoration:'none'}}>Sign Out</Link></Menu.Item>:<></>}
             {/* Add more menu items as needed */}
         </Menu>
     );

@@ -6,6 +6,13 @@ import Heroimg from '../assets/heroimg.jpg';
 import painting from '../assets/painting.jpg';
 import Scroller from '../components/Scroller';
 import { fontsizes } from "../components/style";
+import blog1 from '../assets/blog1.jpeg';
+import blog2 from '../assets/blog2.jpeg';
+import blog3 from '../assets/blog3.jpeg';
+import blog4 from '../assets/blog4.jpeg';
+import blog5 from '../assets/blog5.jpeg';
+import blog6 from '../assets/blog6.jpeg';
+
 const {Content} = Layout;
 const { Title, Paragraph } = Typography;
 
@@ -109,7 +116,7 @@ function LandingPage({companyname,isloggedIn}) {
         title: `Artwork Title ${index + 1}`,
         artist: `Artist Name ${index + 1}`,
         currentBid: `$XXX`, // Replace with actual bid data
-        imageUrl: `https://via.placeholder.com/300?text=Artwork${index + 1}`
+        imageUrl: blog1 || blog2 || blog3 || blog4 || blog5 || blog6 || `https://via.placeholder.com/300?text=Artwork${index + 1}` // Replace with actual image data
     }));
 
     const handleChangePage = (page, pageSize) => {

@@ -23,15 +23,12 @@ const Timeline = ({ data, startindex, endindex}) => {
         setModalVisible(false);
     };
 
-
-
     return (
         <div style={{ overflowX: 'auto'}}>
             <AntTimeline mode="left">
                 {slicedData.map((event, index) => (
                     <AntTimeline.Item key={index}>
-                        <div style={{ marginBottom: '2px', marginTop:'20px' }}>
-                                
+                        <div style={{ marginBottom: '2px', marginTop:'20px' }}>    
                             <div><h3>{event.title}</h3>
                                 {event.date}
                                 <span>  </span>
@@ -45,37 +42,34 @@ const Timeline = ({ data, startindex, endindex}) => {
                                                             :<span className='text-info'>
                                                                 {event.status}
                                                             </span>}
-                                </div>
+                            </div>
                             <p>{event.description}</p>
                             Currently Auctioned works
                             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                                 {event.media.map((media, mediaIndex) => (
                                     <>
-                                    <div key={mediaIndex} style={{ cursor: 'pointer', marginRight: '2px', marginBottom: '2px' }}>
-                                        {media.type === 'image' && (
-                                            <Image src={media.src} alt={media.alt} width={screens.xs ? 100 : 180} height={screens.xs ? 100:180}/>
-                                        )}
-                                    </div>
-                                    <Modal
-                                        visible={modalVisible}
-                                        onCancel={handleCloseModal}
-                                        footer={null}
-                                        closable={false}
-                                        centered
-                                        width={800} // Adjust modal width as needed
-                                        destroyOnClose
-                                    >
-                                        {/* Render image or video based on selectedMedia */}
-                                        {selectedMedia && selectedMedia.type === 'image' && (
-                                            <img src={selectedMedia.src} alt={selectedMedia.alt} style={{ width: '100%', height: '70vh' }} />
-                                        )}
-                                    </Modal>
+                                        <div key={mediaIndex} style={{ cursor: 'pointer', marginRight: '2px', marginBottom: '2px' }}>
+                                            {media.type === 'image' && (
+                                                <Image src={media.src} alt={media.alt} width={screens.xs ? 100 : 180} height={screens.xs ? 100:180}/>
+                                            )}
+                                        </div>
+                                        <Modal
+                                            visible={modalVisible}
+                                            onCancel={handleCloseModal}
+                                            footer={null}
+                                            closable={false}
+                                            centered
+                                            width={800} // Adjust modal width as needed
+                                            destroyOnClose
+                                        >
+                                            {/* Render image or video based on selectedMedia */}
+                                            {selectedMedia && selectedMedia.type === 'image' && (
+                                                <img src={selectedMedia.src} alt={selectedMedia.alt} style={{ width: '100%', height: '70vh' }} />
+                                            )}
+                                        </Modal>
                                     </>
-                                    
                                 ))}
-
                             </div>
-                            
                         </div>
                         <Link to={`/events/${event.id}`} className='ant-btn p-2 float-start fw-bold text-decoration-none'> View Event</Link>
                     </AntTimeline.Item>

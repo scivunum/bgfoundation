@@ -129,3 +129,33 @@
   #components-slider-demo-mark .ant-slider-with-marks {
     margin-bottom: 44px;
   }
+.ant-layout-sider-dark,
+.ant-menu-dark{
+    border-color: rgb(94, 106, 47) !important;
+    border-radius: 0%;
+    border-width: 1.5px;
+    background-color: rgb(94, 106, 47) !important;
+}
+.ant-menu-item{
+  border-radius: 0% !important;
+  border-width: 1.5px !important;
+  color: white !important;
+  font-weight:400;
+  font-size: 14px;
+  padding: 3px;
+}
+.ant-menu-item .ant-menu-item-icon{
+  font-weight:400 !important;
+  font-size: 18px !important;
+}
+.ant-menu-item-selected{
+  color: black !important;
+  background-color: rgb(212, 210, 177) !important;
+  border-radius: 0%;
+  border-width: 1.5px;
+}
+.ant-menu-item-selected .ant-menu-item-icon {
+  color: black !important;
+  font-weight:400 !important;
+  font-size: 24px !important;
+}

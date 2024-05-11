@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 export const UserContext = createContext({});
 
 export default function UserContextProvider({ children }) {
-    const [ currentUser, setCurrentUser ] = useState(null);
-    const [ isPublicUser, setIsPublicUser ] = useState(true);
+    const [ currentUser, setCurrentUser ] = useState({username:'oscaroguledo',password:'<PASSWORD>'});
+    const [ isPublicUser, setIsPublicUser ] = useState(false);
     const [ userDetailLoading, setUserDetailLoading ] = useState(false);
 
     return <>
