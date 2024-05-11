@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Row, Col, Alert } from 'antd';
+import { Form, Input, Row, Col, Alert, message  } from 'antd';
 import { Button} from "../../components/button";
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -10,7 +10,17 @@ const LoginPage = () => {
 
     const onFinish = (values) => {
         console.log('Received values:', values);
-        setError('Invalid email or password. Please try again.');
+        // Here you can implement your logic to handle the form submission
+        // For example, send the form data to your backend server
+        // Display a success message to the user
+        message.success('Successfully Logged In!');
+    };
+
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+        // Display an error message to the user if form validation fails
+        message.error('Invalid email or password. Please check the form fields and try again.');
+        setError('Invalid email or password. Please check the form fields and try again.');
     };
 
     return (
@@ -23,6 +33,7 @@ const LoginPage = () => {
                     className="d-flex flex-column justify-content-center align-self-center"
                     initialValues={{ remember: true }}
                     onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
                     style={{width:'300px'}}
                     
                 >

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Input, Row, Col, Alert,Checkbox } from 'antd';
+import { Form, Input, Row, Col, Alert,Checkbox, message } from 'antd';
 import { Button} from "../../components/button";
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
@@ -8,10 +8,21 @@ import { Link } from 'react-router-dom';
 const SignupPage = () => {
     const [error, setError] = useState('');
 
+    
     const onFinish = (values) => {
         console.log('Received values:', values);
-        setError('Invalid email or password. Please try again.');
+        // Here you can implement your logic to handle the form submission
+        // For example, send the form data to your backend server
+        // Display a success message to the user
+        message.success('Successfully Signed Up!');
     };
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+        // Display an error message to the user if form validation fails
+        message.error('Please check the form fields and try again.');
+        setError('Please check the form fields and try again.');
+    };
+
     const [checked, setChecked] = useState(false);
     const toggleChecked = () => {
         setChecked(!checked);
@@ -27,7 +38,8 @@ const SignupPage = () => {
                     className="d-flex flex-column justify-content-center align-self-center"
                     initialValues={{ remember: true }}
                     onFinish={onFinish}
-                    
+                    onFinishFailed={onFinishFailed}
+                    style={{width:'300px'}}
                 >
                     <Form.Item
                         name="email"

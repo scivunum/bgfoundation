@@ -1,7 +1,8 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {Nav,Container,Row , Col} from 'react-bootstrap';
 import { colors} from './style';
 import {Button, NavLink} from './button';
+import { Form, Input, Alert, message  } from 'antd';
 import {MailOutlined,TwitterOutlined, InstagramOutlined, FacebookOutlined, WhatsAppOutlined, LinkedinOutlined } from '@ant-design/icons'; // Import social icons from Ant Design
 
 const Footer = ({Companyname}) => {
@@ -14,6 +15,22 @@ const Footer = ({Companyname}) => {
         justifyContent:'space-between',
         alignItems: 'center'
     }
+    const [error, setError] = useState('');
+
+    const onFinish = (values) => {
+        console.log('Received values:', values);
+        // Here you can implement your logic to handle the form submission
+        // For example, send the form data to your backend server
+        // Display a success message to the user
+        message.success('Successfully Logged In!');
+    };
+
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+        // Display an error message to the user if form validation fails
+        message.error('Invalid email or password. Please check the form fields and try again.');
+        setError('Invalid email or password. Please check the form fields and try again.');
+    };
     return(
         <Container fluid  style={style}>
             <footer className="py-5">
@@ -42,10 +59,31 @@ const Footer = ({Companyname}) => {
                         <h5 className='text-dark'>Subscribe to our newsletter</h5>
                         <p className='text-dark'> Monthly digest of what's new and exciting from us.</p>
                         <div className="d-flex flex-column w-100 gap-2">
-                            <label htmlFor="newsletter1" className="visually-hidden text-dark">Email address</label>
-                            <input id="newsletter1" type="text" className="form-control" style={{borderColor:`${colors.primarylight}`}} placeholder="Email address" />
-                            <Button to="/subscribe" text="Subscribe" className='text-dark border ' style={{border:`1px dotted ${colors.primary}`, width:'155px', alignSelf:'center'}} icon={<MailOutlined style={{ color: '#ec3237' }} />} />
-                            <p className="d-flex flex-row m-auto mt-4" style={{alignItems:'center', margin:'20px' }}>
+                        {error && <Alert message={error} type="error" showIcon style={{ marginBottom: '4px' }} />}
+                        <Form
+                            name="normal_login"
+                            className="d-flex flex-column justify-content-center align-self-center"
+                            initialValues={{ remember: true }}
+                            onFinish={onFinish}
+                            onFinishFailed={onFinishFailed}
+                            style={{width:'300px'}}
+                            
+                        >
+                            <Form.Item
+                                name="email"
+
+                                rules={[{ required: true, message: 'Please input your email!' }]}
+                            >
+                                <label htmlFor="newsletter1" className="visually-hidden text-dark">Email address</label>
+                                <Input id="newsletter1" type="text" className="form-control" style={{borderColor:`${colors.primarylight}`}} placeholder="Email address" />
+                                
+                            </Form.Item>
+                            <Form.Item className='d-flex flex-column justify-content-center align-items-center' style={{width:'300px'}}>
+                                <Button htmlType="submit" text="Subscribe" className='text-dark border justify-content-center' style={{border:`1px dotted ${colors.primary}`, width:'155px', alignSelf:'center'}} icon={<MailOutlined style={{ color: '#ec3237' }} />} />
+                            </Form.Item>
+                        </Form>
+                            
+                             <p className="d-flex flex-row m-auto mt-4" style={{alignItems:'center', margin:'20px' }}>
                                 <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
                                     <TwitterOutlined style={{ cursor:'pointer', fontSize: '24px', marginRight: '10px', color:'#1DA1F2' }} />
                                 </a>
