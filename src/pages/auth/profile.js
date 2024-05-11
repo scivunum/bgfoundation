@@ -1012,7 +1012,7 @@ const ProfilePage = () => {
     
   return (
     <Layout style={{ minHeight: '100vh', marginTop: '70px' }}>
-      <Sider collapsible>
+      <Sider collapsible collapsed={true} style={{ minHeight: '100vh', overflow: 'auto' }}>
         <div className="logo" />
         <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
             <Menu.Item key="1" icon={<UserOutlined />} onClick={() => handlescreen(0)}>
