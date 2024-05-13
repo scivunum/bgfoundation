@@ -14,6 +14,7 @@ import ArtworkDetailPage from "../pages/artpage";
 import ProfilePage from '../pages/auth/profile';
 import AdminPage from '../pages/admin/main';
 import AdminDashboard from '../pages/admin/dashboard';
+import AdminAboutPage from '../pages/admin/about';
 
 const Main = () => {
     const [visible, setVisible] = useState(false);
@@ -244,6 +245,14 @@ export const loggedInUserRoutes = [
         component:() => {
             return <AppLayout isloggedIn={true}>
                 <AdminDashboard isloggedIn={true}/>
+            </AppLayout>
+        }
+    },
+    {
+        route:'/admin/about',
+        component:() => {
+            return <AppLayout isloggedIn={true}>
+                <AdminAboutPage isloggedIn={true}/>
             </AppLayout>
         }
     },

@@ -1,18 +1,18 @@
 import React from 'react';
 import { Row, Col, Card,Breadcrumb} from 'antd';
-import { HomeOutlined, UserOutlined} from '@ant-design/icons';
+import { HomeOutlined, UserOutlined,DashboardOutlined,InfoCircleOutlined,CalendarOutlined, DollarOutlined, ProfileOutlined,FormatPainterOutlined } from '@ant-design/icons';
 import { colors } from '../../components/style';
 import { Link } from 'react-router-dom';
 
 const AdminPage = ({isloggedin}) => {
     const pages =[
-        {title:'Dashboard', url:'/admin/dashboard',icon:<UserOutlined/>},
-        {title:'About', url:'/admin/about',icon:<UserOutlined/>},
-        {title:'Artworks', url:'/admin/artworks',icon:<UserOutlined/>},
-        {title:'Blogs', url:'/admin/blogs',icon:<UserOutlined/>},
-        {title:'Events', url:'/admin/events',icon:<UserOutlined/>},
-        {title:'Payments', url:'/admin/payments',icon:<UserOutlined/>},
-        {title:'Profile', url:'/admin/profile',icon:<UserOutlined/>}
+        {title:'Dashboard', url:'/admin/dashboard',icon:<DashboardOutlined style={{color:colors.primary, fontSize:24}}/>,},
+        {title:'About', url:'/admin/about',icon:<InfoCircleOutlined style={{color:colors.primary, fontSize:24}}/>},
+        {title:'Artworks', url:'/admin/artworks',icon:<FormatPainterOutlined style={{color:colors.primary, fontSize:24}}/>},
+        {title:'Blogs', url:'/admin/blogs',icon:<ProfileOutlined style={{color:colors.primary, fontSize:24}}/>},
+        {title:'Events', url:'/admin/events',icon:<CalendarOutlined style={{color:colors.primary, fontSize:24}}/>},
+        {title:'Payments', url:'/admin/payments',icon:<DollarOutlined style={{color:colors.primary, fontSize:24}}/>},
+        {title:'Profile', url:'/admin/profile',icon:<UserOutlined style={{color:colors.primary, fontSize:24}}/>}
     ]
 
   return (
@@ -30,16 +30,12 @@ const AdminPage = ({isloggedin}) => {
                     <Link to={page.url} className='text-dark text-decoration-none'>
                         <Card
                             hoverable
-                            style={{ borderRadius: '1px'}}
-                            cover={page.icon}
+                            style={{ borderRadius: '1px', padding: '10px', cursor: 'pointer', backgroundColor: 'white' }}
                         >
                             <Card.Meta
-                                title={<div className='float-end'>{page.title}</div>}
+                                title={<div className='float-center fs-50'>{page.icon}<span className='mx-2'>{page.title}</span></div>}
                                 
-                                description={<div className='float-end'>
-                                    {page.title}</div>}
                             />
-                            <small className="float-start">Date: {page.title}</small>
                         </Card>
                     </Link>
                 </Col>

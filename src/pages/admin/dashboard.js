@@ -10,7 +10,7 @@ const AdminDashboard = () => {
     // Dummy data for recent payments
     const recentPaymentsData = [
         { id: 1, user: 'User 1', amount: '$100',reason: 'unknown', date: '2024-05-01' },
-        { id: 2, user: 'User 2', amount: '$50', reason: 'unknown',date: '2024-05-05' },
+        { id: 2, user: 'User 2', amount: '$50', reason: 'known',date: '2024-05-05' },
         // Add more recent payments data as needed
     ];
 
@@ -67,17 +67,17 @@ const AdminDashboard = () => {
                 <div className="site-layout-background" style={{ padding: 8, minHeight: 380 }}>
                     <Row gutter={8}>
                         <Col span={8} className='p-0'>
-                            <Card title="Total Users" hoverable className='m-1' bordered={false} extra={<UserOutlined />} style={{ textAlign: 'center', borderRadius: '2px' }}>
+                            <Card title="Users" hoverable className='m-1' bordered={false} extra={<UserOutlined />} style={{ textAlign: 'center', borderRadius: '2px' }}>
                                 1000
                             </Card>
                         </Col>
                         <Col span={8} className='p-0'>
-                            <Card title="Total Payments Made" hoverable className='m-1' bordered={false} extra={<DollarOutlined />} style={{ textAlign: 'center', borderRadius: '2px' }}>
+                            <Card title="Payments" hoverable className='m-1' bordered={false} extra={<DollarOutlined />} style={{ textAlign: 'center', borderRadius: '2px' }}>
                                 $5000
                             </Card>
                         </Col>
                         <Col span={8} className='p-0'>
-                            <Card title="Total Artworks" hoverable className='m-1' bordered={false} extra={<ProfileOutlined />} style={{ textAlign: 'center', borderRadius: '2px' }}>
+                            <Card title="Artworks" hoverable className='m-1' bordered={false} extra={<ProfileOutlined />} style={{ textAlign: 'center', borderRadius: '2px' }}>
                                 500
                             </Card>
                         </Col>
