@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/bgfoundation/static/css/main.338938bb.css",
-    "main.js": "/bgfoundation/static/js/main.52dc9661.js",
+    "main.js": "/bgfoundation/static/js/main.d62c7487.js",
     "static/js/453.da79d90c.chunk.js": "/bgfoundation/static/js/453.da79d90c.chunk.js",
     "static/media/slide1.jpg": "/bgfoundation/static/media/slide1.f731a09e5b164142dd72.jpg",
     "static/media/slide2.jpg": "/bgfoundation/static/media/slide2.e6c5db9b9b19b44c24ab.jpg",
@@ -21,11 +21,11 @@
     "static/media/bidding.jpg": "/bgfoundation/static/media/bidding.c3fc1a7f141684240ffc.jpg",
     "index.html": "/bgfoundation/index.html",
     "main.338938bb.css.map": "/bgfoundation/static/css/main.338938bb.css.map",
-    "main.52dc9661.js.map": "/bgfoundation/static/js/main.52dc9661.js.map",
+    "main.d62c7487.js.map": "/bgfoundation/static/js/main.d62c7487.js.map",
     "453.da79d90c.chunk.js.map": "/bgfoundation/static/js/453.da79d90c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.338938bb.css",
-    "static/js/main.52dc9661.js"
+    "static/js/main.d62c7487.js"
   ]
 }
