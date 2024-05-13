@@ -1,7 +1,7 @@
 import React,{useState} from 'react';
-import { Layout, Menu, Typography, Row, Col, Avatar,Input, Breadcrumb, Select, Form} from 'antd';
-import { HomeOutlined, UserOutlined , EditOutlined, SaveOutlined, FacebookOutlined, InstagramOutlined, TwitterOutlined, WhatsAppOutlined, LinkedinOutlined } from '@ant-design/icons';
-import { DollarCircleOutlined, HistoryOutlined, CloseCircleOutlined, LogoutOutlined } from '@ant-design/icons';
+import { Layout, Menu, Typography, Row, Col, Card, Table, Avatar,Input, Breadcrumb, Select, Form} from 'antd';
+import { HomeOutlined, UserOutlined, UserDeleteOutlined, EditOutlined, SaveOutlined, FacebookOutlined, InstagramOutlined, TwitterOutlined, WhatsAppOutlined, LinkedinOutlined } from '@ant-design/icons';
+import { DollarCircleOutlined, HistoryOutlined, CloseCircleOutlined, LogoutOutlined,LockOutlined, CheckOutlined} from '@ant-design/icons';
 import { useParams } from 'react-router-dom';
 import { Button} from '../../components/button';
 import { colors } from '../../components/style';
@@ -9,6 +9,163 @@ const { Header, Content, Sider } = Layout;
 const { Text, Title } = Typography;
 const { Option } = Select;
 
+const Activities = () => {
+    const { userdetails } = useParams();
+    console.log(userdetails + "==========");
+
+    // Dummy data for activities
+    const activitiesData = [
+        { title: "Artworks Uploaded", count: 10 },
+        { title: "Artworks Removed", count: 5 },
+        { title: "Artworks Viewed", count: 20 },
+        { title: "Artworks Liked", count: 15 },
+        { title: "Artworks Disliked", count: 3 },
+        { title: "Artworks Sold", count: 8 },
+        { title: "Artworks Bought", count: 12 },
+    ];
+
+    // Dummy data for payments
+    const paymentData = [
+        { id: 1, reason: "Artwork Purchase", amount: "$50", item: "Artwork1", date: "2024-05-01" },
+        { id: 2, reason: "Artwork Sale", amount: "$100", item: "Artwork2", date: "2024-05-05" },
+        // Add more dummy payment data as needed
+    ];
+
+    // Columns configuration for payments table
+    const paymentColumns = [
+        { title: 'ID', dataIndex: 'id', key: 'id' },
+        { title: 'Reason', dataIndex: 'reason', key: 'reason' },
+        { title: 'Amount', dataIndex: 'amount', key: 'amount' },
+        { title: 'Item', dataIndex: 'item', key: 'item' },
+        { title: 'Date', dataIndex: 'date', key: 'date' },
+    ];
+
+    return (
+        <div style={{ padding: 8, minHeight: 360 }}>
+            <div className='d-flex justify-content-between align-items-center p-2 mb-4' style={{ backgroundColor: colors.primarybackground }}>
+                <Breadcrumb
+                    items={[
+                        { href: '/', title: <HomeOutlined /> },
+                        { title: (<><HistoryOutlined/><span>Activities</span></>), },
+                    ]}
+                />
+            </div>
+            <Row justify="center" align="middle">
+                
+                {activitiesData.map((activity, index) => (
+                  <Col xs={24} sm={12} md={8} lg={6} xl={6} >
+                    <Card key={index} hoverable title={activity.title} extra={<EditOutlined />} style={{ margin: '4px' }}>
+                        <p>Total Count: {activity.count}</p>
+                    </Card>
+                  </Col>
+                ))}
+                
+            </Row>
+            {/* Table to show payment details */}
+            <Row justify="center" align="middle" style={{ marginTop: '30px' }}>
+                <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+                  <Title level={4} >Payments</Title>
+                    <Table
+                        dataSource={paymentData} // Provide data source for the table
+                        columns={paymentColumns} // Define columns for the table
+                        pagination={true} // Disable pagination if not needed
+                    />
+                </Col>
+            </Row>
+        </div>
+    );
+};
+
+const ChangePassword = () => {
+    const [editpwd,setEditPwd] = React.useState(false);
+    const [form] = Form.useForm();
+    const onFinish = (values) => {
+        console.log('Received values:', values);
+        // Logic to save billing details
+      };
+    const onEdit = () => {
+        // Implement edit functionality
+        setEditPwd(!editpwd);
+      }
+    return (
+      <div style={{ padding: 8, minHeight: 360 }}>
+          <div className='d-flex justify-content-between align-items-center p-2 mb-4' style={{backgroundColor: colors.primarybackground }}>
+              <Breadcrumb
+                  items={[
+                      {href: '/',title: <HomeOutlined />,},
+                      {title: (<><LockOutlined /><span>Reset Password</span></>),},
+                  ]}
+              />
+              <EditOutlined onClick={() =>setEditPwd(!editpwd)} style={{ fontSize: '20px', color: 'black', cursor: 'pointer' }} />
+          </div>
+          <Row justify="center" align="middle" style={{ marginTop: '30px' }}>
+              <Col xs={24} sm={12} md={12} lg={12} xl={12} style={{backgroundColor: colors.primarybackground, padding:'12px'}} >
+                  <Form
+                      form={form}
+                      layout="vertical"
+                      onFinish={onFinish}
+                  >
+                      <Form.Item label="New Password" name="newPassword">
+                        <Input disabled={!editpwd} />
+                      </Form.Item>
+                      <Form.Item label="Confirm New Password" name="confirmNewPassword">
+                        <Input.TextArea disabled={!editpwd} />
+                      </Form.Item>
+                  </Form>
+              </Col>
+          </Row>
+          <Row justify="center" align="middle" style={{ marginTop: '30px' }}>
+              {editpwd ?
+              <Col>
+                  <Button text="Save Changes" icon={<SaveOutlined style={{ color: '#25D366' }} />} onClick={onEdit} />
+              </Col>
+              :
+              <>
+              </>
+              }
+          </Row>
+      </div>
+    )
+  }
+
+const CloseAccount = () => {
+  return (
+    <div style={{ padding: 8, minHeight: 360 }}>
+        <div className='d-flex justify-content-between align-items-center p-2 mb-4' style={{backgroundColor: colors.primarybackground }}>
+            <Breadcrumb
+                items={[
+                    {href: '/',title: <HomeOutlined />,},
+                    {title: (<><UserDeleteOutlined /><span>Close Account</span></>),},]}
+                    />
+        </div>
+        <Row justify="center" align="middle" style={{ marginTop: '30px' }}>
+          <Col xs={24} sm={12} md={12} lg={12} xl={12} style={{backgroundColor: colors.primarybackground, padding:'12px'}} >
+            <p>Are you sure you want to close your account?</p>
+            <Button text="Yes" icon={<CheckOutlined style={{ color: '#25D366' }} />} />
+          </Col>
+        </Row>
+      </div>
+  )
+}
+const SignOut = () => {
+  return (
+    <div style={{ padding: 8, minHeight: 360 }}>
+        <div className='d-flex justify-content-between align-items-center p-2 mb-4' style={{backgroundColor: colors.primarybackground }}>
+            <Breadcrumb
+                items={[
+                    {href: '/',title: <HomeOutlined />,},
+                    {title: (<><LogoutOutlined /><span>SignOut</span></>),},]}
+                    />
+        </div>
+        <Row justify="center" align="middle" style={{ marginTop: '30px' }}>
+          <Col xs={24} sm={12} md={12} lg={12} xl={12} style={{backgroundColor: colors.primarybackground, padding:'12px'}} >
+            <p>Are you sure you want to log out of your Account?</p>
+            <Button text="Yes" icon={<CheckOutlined style={{ color: '#25D366' }} />} />
+          </Col>
+        </Row>
+      </div>
+  )
+}
 const ProfilePage = () => {
     const {userdetails} = useParams();
     console.log(userdetails+"==========");
@@ -991,6 +1148,7 @@ const ProfilePage = () => {
         {title:'Profile Dashboard'},
         {title:'Billing Details'},
         {title:'Activities'},
+        {title:'Change Password'},
         {title:'Terminate Account'},
         {title:'Sign Out'}
     ]
@@ -1024,10 +1182,13 @@ const ProfilePage = () => {
             <Menu.Item key="3" icon={<HistoryOutlined/>} onClick={() => handlescreen(2)}>
                 Activities
             </Menu.Item>
-            <Menu.Item key="4" icon={<CloseCircleOutlined/>} onClick={() => handlescreen(3)}>
-                Close Account
+            <Menu.Item key="4" icon={<LockOutlined />} onClick={() => handlescreen(3)}>
+                Change Password
             </Menu.Item>
-            <Menu.Item key="5" icon={<LogoutOutlined/>} onClick={() => handlescreen(4)}>
+            <Menu.Item key="5" icon={<CloseCircleOutlined/>} onClick={() => handlescreen(4)}>
+                Terminate Account
+            </Menu.Item>
+            <Menu.Item key="6" icon={<LogoutOutlined/>} onClick={() => handlescreen(5)}>
                 Sign Out
             </Menu.Item>
         </Menu>
@@ -1187,6 +1348,16 @@ const ProfilePage = () => {
                     </Row>
                 </div>
             }
+            {currentpage.title === 'Activities' && 
+                <Activities />
+            }
+            {currentpage.title === 'Change Password' && 
+                <ChangePassword />
+            }
+            {currentpage.title === 'Terminate Account' &&
+              <CloseAccount />
+            }
+            {currentpage.title === 'Sign Out'  && <SignOut/>}
         </Content>
     </Layout>
 

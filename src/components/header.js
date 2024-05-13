@@ -25,21 +25,17 @@ const Header = ({ Companyname,isloggedIn, logo, menuItems }) => {
         <Menu>
             {/* Your mail dropdown menu items */}
             {isloggedIn?<Menu.Item key="1"><Link to={`/profile/${userid}`} style={{textDecoration:'none'}}>View Profile</Link></Menu.Item>:<Menu.Item key="1"><Link to={`/login`} style={{textDecoration:'none'}}>Login</Link></Menu.Item>}
-            {isAdmin && isloggedIn?<Menu.Item key="2"><Link to='/admin/dashboard' style={{textDecoration:'none'}}>View Dashboard</Link></Menu.Item>:<></>}
+            {isAdmin && isloggedIn?<Menu.Item key="2"><Link to='/admin' style={{textDecoration:'none'}}>View Admin</Link></Menu.Item>:<></>}
             {isloggedIn?<Menu.Item key="3"><Link to={`/logout`} style={{textDecoration:'none'}}>Sign Out</Link></Menu.Item>:<></>}
             {/* Add more menu items as needed */}
         </Menu>
     );
-    
-    
 
     useEffect(() => {
         const handleResize = () => {
             setIsMobile(window.innerWidth < 768);
         };
-
         window.addEventListener('resize', handleResize);
-
         return () => {
             window.removeEventListener('resize', handleResize);
         };

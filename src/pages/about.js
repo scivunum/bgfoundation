@@ -167,7 +167,7 @@ const AboutPage = ({companyname,IsloggedIn}) => {
       
       
         <Row justify="center"  style={{backgroundColor:colors.primarybackground}}>
-            <Col span={18} className="d-flex flex-column justify-content-center align-self-center">
+            <Col xs={24} sm={24} md={12} lg={12} xl={12} className="d-flex flex-column justify-content-center align-self-center">
                 <Title level={3} className='mt-4'>Contact Us</Title>
                 <Form
                     name="contact-form"
@@ -175,7 +175,7 @@ const AboutPage = ({companyname,IsloggedIn}) => {
                     initialValues={{ remember: true }}
                     onFinish={onFinish}
                     onFinishFailed={onFinishFailed}
-                    style={{width:'300px'}}
+                    style={{width:'100%', padding:'10px'}}
                 >
                     <Form.Item
                         name="name"

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import AppLayout from "../layouts/AppLayout/AppLayout";
 import LandingPage from "../pages/home";
 import AboutPage from "../pages/about";
-//import ContactPage from "../pages/contact";
 import LoginPage from "../pages/auth/login";
 import LogoutPage from "../pages/auth/login";
 import SignupPage from "../pages/auth/signup";
@@ -13,6 +12,8 @@ import EventPage from "../pages/event";
 import ArtworksPage from "../pages/artworks";
 import ArtworkDetailPage from "../pages/artpage";
 import ProfilePage from '../pages/auth/profile';
+import AdminPage from '../pages/admin/main';
+import AdminDashboard from '../pages/admin/dashboard';
 
 const Main = () => {
     const [visible, setVisible] = useState(false);
@@ -177,6 +178,7 @@ export const loggedInUserRoutes = [
         route: '/signup',
         component: Signup
     },
+    
     {
         route:'/blogs',
         component:() => {
@@ -229,16 +231,64 @@ export const loggedInUserRoutes = [
             </AppLayout>
         }
     },
-    //main
-    //blog
-    //logout
-    //about
-    //profile
-    //contact
+    {
+        route:'/admin',
+        component:() => {
+            return <AppLayout isloggedIn={true}>
+                <AdminPage isloggedIn={true}/>
+            </AppLayout>
+        }
+    },
+    {
+        route:'/admin/dashboard',
+        component:() => {
+            return <AppLayout isloggedIn={true}>
+                <AdminDashboard isloggedIn={true}/>
+            </AppLayout>
+        }
+    },
+    // {
+    //     route:'/admin/users',
+    //     component:() => {
+    //         return <AppLayout isloggedIn={true}>
+    //             <AdminUsers isloggedIn={true}/>
+    //         </AppLayout>
+    //     }
+    // },
+    // {
+    //     route:'/admin/users/:id',
+    //     component:() => {
+    //         return <AppLayout isloggedIn={true}>
+    //             <AdminUserDetail isloggedIn={true}/>
+    //         </AppLayout>
+    //     }
+    // },
+    // {
+    //     route:'/admin/blogs',
+    //     component:() => {
+    //         return <AppLayout isloggedIn={true}>
+    //             <AdminBlogs isloggedIn={true}/>
+    //         </AppLayout>
+    //     }
+    // },
+    // {
+    //     route:'/admin/blogs/:id',
+    //     component:() => {
+    //         return <AppLayout isloggedIn={true}>
+    //             <AdminBlogDetail isloggedIn={true}/>
+    //         </AppLayout>
+    //     }
+    // },
+    // {
+    //     route:'/admin/artworks',
+    //     component:() => {
+    //         return <AppLayout isloggedIn={true}>
+    //             <AdminArtworks isloggedIn={true}/>
+    //         </AppLayout>
+    //     }
+    // },
+
     //auction
-    //artworks
-    //resetpassword---
-    //logout----
     //payment
     //payment/crypto
     //payment/card

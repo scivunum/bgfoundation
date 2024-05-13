@@ -6,7 +6,6 @@ import LoginPage from "../pages/auth/login";
 import SignupPage from "../pages/auth/signup";
 import NotFoundPage from "../pages/404notfound";
 
-import ContactUsPage from "../pages/contact";
 import BlogPage from "../pages/blog";
 import BlogPostPage from "../pages/blogpost";
 import ArtworksPage from "../pages/artworks";
@@ -144,14 +143,7 @@ export const publicUserRoutes = [
         route: '/signup',
         component: Signup
     },
-    {
-        route:'/contact',
-        component:() => {
-            return <AppLayout>
-                <ContactUsPage isloggedIn={false}/>
-            </AppLayout>
-        }
-    },
+    
     {
         route:'/blogs',
         component:() => {

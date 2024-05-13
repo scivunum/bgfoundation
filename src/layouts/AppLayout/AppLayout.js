@@ -73,8 +73,10 @@ const AppLayout = ({ children, handleOpen, handleClose, visible, message, handle
     <Layout style={layoutStyle}>
         <Header logo={logo} menuItems={[{url:"/",name:'Home'},{url:"/about",name:"About Us"},{url:"/artworks",name:"Artworks"},{url:"/events",name:"Event"} ,{url:"/blogs",name:"Blog"} ]} isloggedIn={isloggedIn} />
         
-        <Content style={contentStyle}>{children}</Content>
-        <FloatButton
+        <Content style={contentStyle}>
+          <div>
+          {children}
+          <FloatButton
           icon={<MessageOutlined style={{ color: colors.primary }}/>}
           size="large"
           style={{
@@ -84,6 +86,9 @@ const AppLayout = ({ children, handleOpen, handleClose, visible, message, handle
           onClick={handleOpen}
           
         />
+          </div>
+        </Content>
+        
         <Footer style={footerStyle} />
           <Modal
           title="Customer Service"
