@@ -9,15 +9,15 @@ const { Content } = Layout;
 const AdminDashboard = () => {
     // Dummy data for recent payments
     const recentPaymentsData = [
-        { id: 1, user: 'User 1', amount: '$100', date: '2024-05-01' },
-        { id: 2, user: 'User 2', amount: '$50', date: '2024-05-05' },
+        { id: 1, user: 'User 1', amount: '$100',reason: 'unknown', date: '2024-05-01' },
+        { id: 2, user: 'User 2', amount: '$50', reason: 'unknown',date: '2024-05-05' },
         // Add more recent payments data as needed
     ];
 
     // Dummy data for recent artworks
     const recentArtworksData = [
-        { id: 1, name: 'Artwork 1', price: '$200', date: '2024-05-01' },
-        { id: 2, name: 'Artwork 2', price: '$150', date: '2024-05-05' },
+        { id: 1, artist: 'Artwork 1', price: '$200', date: '2024-05-01' },
+        { id: 2, artist: 'Artwork 2', price: '$150', date: '2024-05-05' },
         // Add more recent artworks data as needed
     ];
 
@@ -33,13 +33,14 @@ const AdminDashboard = () => {
         { title: 'ID', dataIndex: 'id', key: 'id' },
         { title: 'User', dataIndex: 'user', key: 'user' },
         { title: 'Amount', dataIndex: 'amount', key: 'amount' },
+        { title: 'Reason', dataIndex: 'reason', key: 'reason' },
         { title: 'Date', dataIndex: 'date', key: 'date' },
     ];
 
     // Columns configuration for recent artworks table
     const recentArtworksColumns = [
         { title: 'ID', dataIndex: 'id', key: 'id' },
-        { title: 'Name', dataIndex: 'name', key: 'name' },
+        { title: 'Artists', dataIndex: 'artist', key: 'artist' },
         { title: 'Price', dataIndex: 'price', key: 'price' },
         { title: 'Date', dataIndex: 'date', key: 'date' },
     ];
