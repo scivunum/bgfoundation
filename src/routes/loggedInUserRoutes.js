@@ -6,8 +6,6 @@ import LoginPage from "../pages/auth/login";
 import LogoutPage from "../pages/auth/login";
 import SignupPage from "../pages/auth/signup";
 import NotFoundPage from "../pages/404notfound";
-import BlogPage from "../pages/blog";
-import BlogPostPage from "../pages/blogpost";
 import EventPage from "../pages/event";
 import ArtworksPage from "../pages/artworks";
 import ArtworkDetailPage from "../pages/artpage";
@@ -15,6 +13,18 @@ import ProfilePage from '../pages/auth/profile';
 import AdminPage from '../pages/admin/main';
 import AdminDashboard from '../pages/admin/dashboard';
 import AdminAboutPage from '../pages/admin/about';
+import AdminArtworks from '../pages/admin/artwork/artworks';
+import AddArtworkForm from '../pages/admin/artwork/addartwork';
+import ArtworkDetail from '../pages/admin/artwork/artworkdetail';
+import AdminEvents from '../pages/admin/events/events';
+import AddEventForm from '../pages/admin/events/addevent';
+import EventDetail from '../pages/admin/events/eventdetails';
+import AdminPayments from '../pages/admin/payments/payments';
+import AddPaymentForm from '../pages/admin/payments/addpayment';
+import PaymentDetail from '../pages/admin/payments/paymentdetails';
+import AdminUsers from '../pages/admin/users/users';
+import UserDetails from '../pages/admin/users/usersdetail';
+import AddUserForm from '../pages/admin/users/adduser';
 
 const Main = () => {
     const [visible, setVisible] = useState(false);
@@ -179,23 +189,6 @@ export const loggedInUserRoutes = [
         route: '/signup',
         component: Signup
     },
-    
-    {
-        route:'/blogs',
-        component:() => {
-            return <AppLayout isloggedIn={true}>
-                <BlogPage isloggedIn={true}/>
-            </AppLayout>
-        }
-    },
-    {
-        route:'/blogs/:id',
-        component:() => {
-            return <AppLayout isloggedIn={true}>
-                <BlogPostPage isloggedIn={true}/>
-            </AppLayout>
-        }
-    },
     {
         route:'/artworks',
         component:() => {
@@ -256,51 +249,121 @@ export const loggedInUserRoutes = [
             </AppLayout>
         }
     },
-    // {
-    //     route:'/admin/users',
-    //     component:() => {
-    //         return <AppLayout isloggedIn={true}>
-    //             <AdminUsers isloggedIn={true}/>
-    //         </AppLayout>
-    //     }
-    // },
-    // {
-    //     route:'/admin/users/:id',
-    //     component:() => {
-    //         return <AppLayout isloggedIn={true}>
-    //             <AdminUserDetail isloggedIn={true}/>
-    //         </AppLayout>
-    //     }
-    // },
-    // {
-    //     route:'/admin/blogs',
-    //     component:() => {
-    //         return <AppLayout isloggedIn={true}>
-    //             <AdminBlogs isloggedIn={true}/>
-    //         </AppLayout>
-    //     }
-    // },
-    // {
-    //     route:'/admin/blogs/:id',
-    //     component:() => {
-    //         return <AppLayout isloggedIn={true}>
-    //             <AdminBlogDetail isloggedIn={true}/>
-    //         </AppLayout>
-    //     }
-    // },
-    // {
-    //     route:'/admin/artworks',
-    //     component:() => {
-    //         return <AppLayout isloggedIn={true}>
-    //             <AdminArtworks isloggedIn={true}/>
-    //         </AppLayout>
-    //     }
-    // },
+    {
+        route:'/admin/users',
+        component:() => {
+            return <AppLayout isloggedIn={true}>
+                <AdminUsers isloggedIn={true}/>
+            </AppLayout>
+        }
+    },
+    {
+        route:'/admin/users/add',
+        component:() => {
+            return <AppLayout isloggedIn={true}>
+                <AddUserForm isloggedIn={true}/>
+            </AppLayout>
+        }
+    },
+    {
+        route:'/admin/users/:id',
+        component:() => {
+            return <AppLayout isloggedIn={true}>
+                <UserDetails isloggedIn={true}/>
+            </AppLayout>
+        }
+    },
+    {
+        route:'/profile/:id/payments/add',
+        component:() => {
+            return <AppLayout isloggedIn={true}>
+                <AddPaymentForm isloggedIn={true}/>
+            </AppLayout>
+        }
+    },
+    {
+        route:'/profile/:id/payments/:id',
+        component:() => {
+            return <AppLayout isloggedIn={true}>
+                <PaymentDetail isloggedIn={true}/>
+            </AppLayout>
+        }
+    },
+    
+    {
+        route:'/admin/artworks',
+        component:() => {
+            return <AppLayout isloggedIn={true}>
+                <AdminArtworks isloggedIn={true}/>
+            </AppLayout>
+        }
+    },
+    {
+        route:'/admin/artworks/add',
+        component:() => {
+            return <AppLayout isloggedIn={true}>
+                <AddArtworkForm isloggedIn={true}/>
+            </AppLayout>
+        }
+    },
+    {
+        route:'/admin/artworks/:id',
+        component:() => {
+            return <AppLayout isloggedIn={true}>
+                <ArtworkDetail isloggedIn={true}/>
+            </AppLayout>
+        }
+    },
+    {
+        route:'/admin/events',
+        component:() => {
+            return <AppLayout isloggedIn={true}>
+                <AdminEvents isloggedIn={true}/>
+            </AppLayout>
+        }
+    },
+    {
+        route:'/admin/events/add',
+        component:() => {
+            return <AppLayout isloggedIn={true}>
+                <AddEventForm isloggedIn={true}/>
+            </AppLayout>
+        }
+    },
+    {
+        route:'/admin/events/:id',
+        component:() => {
+            return <AppLayout isloggedIn={true}>
+                <EventDetail isloggedIn={true}/>
+            </AppLayout>
+        }
+    },
+    {
+        route:'/admin/payments',
+        component:() => {
+            return <AppLayout isloggedIn={true}>
+                <AdminPayments isloggedIn={true}/>
+            </AppLayout>
+        }
+    },
+    {
+        route:'/admin/payments/add',
+        component:() => {
+            return <AppLayout isloggedIn={true}>
+                <AddPaymentForm isloggedIn={true}/>
+            </AppLayout>
+        }
+    },
+    {
+        route:'/admin/payments/:id',
+        component:() => {
+            return <AppLayout isloggedIn={true}>
+                <PaymentDetail isloggedIn={true}/>
+            </AppLayout>
+        }
+    },
 
     //auction
-    //payment
-    //payment/crypto
-    //payment/card
     
     {
         route: '*',

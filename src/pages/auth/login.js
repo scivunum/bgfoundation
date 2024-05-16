@@ -1,13 +1,10 @@
-import React, { useState } from 'react';
-import { Form, Input, Row, Col, Alert, message  } from 'antd';
-import { Button} from "../../components/button";
+import React from 'react';
+import { Form, Input, Row, Col, message, Button  } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 //import { colors } from '../../components/style';
 
 const LoginPage = () => {
-    const [error, setError] = useState('');
-
     const onFinish = (values) => {
         console.log('Received values:', values);
         // Here you can implement your logic to handle the form submission
@@ -20,14 +17,12 @@ const LoginPage = () => {
         console.log('Failed:', errorInfo);
         // Display an error message to the user if form validation fails
         message.error('Invalid email or password. Please check the form fields and try again.');
-        setError('Invalid email or password. Please check the form fields and try again.');
     };
 
     return (
         <Row justify="center" style={{ marginTop: '100px' }}>
             <Col span={18} className="d-flex flex-column justify-content-center align-self-center">
                 <h2 style={{ textAlign: 'center', marginBottom: '24px', color:'black' }}>Login</h2>
-                {error && <Alert message={error} type="error" showIcon style={{ marginBottom: '4px' }} />}
                 <Form
                     name="normal_login"
                     className="d-flex flex-column justify-content-center align-self-center"
@@ -55,7 +50,7 @@ const LoginPage = () => {
                         />
                     </Form.Item>
                     <Form.Item className='d-flex flex-column justify-content-center align-items-center' style={{width:'300px'}}>
-                        <Button text="Log In" htmlType="submit" classname='justify-content-center'  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '98px'}}/>
+                        <Button type="primary" htmlType="submit">Log In</Button>
                     </Form.Item>
                 </Form>
                 <div style={{ textAlign: 'center', color:'black'  }}>

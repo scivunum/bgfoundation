@@ -46,22 +46,30 @@ const FilterComponent = ({ onSearch, name, price, date }) => {
             } else if (price >= 1e3) {
                 return `${(price / 1e3).toFixed(2)}k`;
             } else {
-                return price.toFixed(2);
+                return `${price}`;
             }
         } catch (error) {
-            return 0.00;
+            return '0.00';
         }
     };
 
     // Event handler for minimum price change
     const handleMinPriceChange = (e) => {
-        setMinPrice(e.target.value);
+        try{
+            setMinPrice(e.target.value);
+        }catch(error){
+            setMinPrice(minPrice);
+        }
         onSearch && onSearch({ itemName, dateRange, minPrice: e.target.value, maxPrice });
     };
 
     // Event handler for maximum price change
     const handleMaxPriceChange = (e) => {
-        setMaxPrice(e.target.value);
+        try{
+            setMaxPrice(e.target.value);
+        }catch(error){
+            setMaxPrice(minPrice);
+        }
         onSearch && onSearch({ itemName, dateRange, minPrice, maxPrice: e.target.value });
     };
 
@@ -107,6 +115,7 @@ const FilterComponent = ({ onSearch, name, price, date }) => {
                             onChange={handleMinPriceChange}
                             style={{ width: '100px' }}
                             onClick={() => handleEditPrice('min')}
+                            
                         />
                         <Input
                             prefix="$"

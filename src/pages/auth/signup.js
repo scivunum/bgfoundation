@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
-import { Form, Input, Row, Col, Alert,Checkbox, message } from 'antd';
-import { Button} from "../../components/button";
+import { Form, Input, Row, Col, Checkbox, message, Button } from 'antd';
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 //import { colors } from '../../components/style';
 
 const SignupPage = () => {
-    const [error, setError] = useState('');
-
     
     const onFinish = (values) => {
         console.log('Received values:', values);
@@ -20,7 +17,6 @@ const SignupPage = () => {
         console.log('Failed:', errorInfo);
         // Display an error message to the user if form validation fails
         message.error('Please check the form fields and try again.');
-        setError('Please check the form fields and try again.');
     };
 
     const [checked, setChecked] = useState(false);
@@ -32,7 +28,6 @@ const SignupPage = () => {
         <Row justify="center" style={{ marginTop: '100px' , marginBottom: '10px' }}>
             <Col span={18} className="d-flex flex-column justify-content-center align-self-center">
                 <h2 style={{ textAlign: 'center', marginBottom: '24px', color:'black' }}>Sign Up</h2>
-                {error && <Alert message={error} type="error" showIcon style={{ marginBottom: '4px' }} />}
                 <Form
                     name="normal_signup"
                     className="d-flex flex-column justify-content-center align-self-center"
@@ -80,7 +75,7 @@ const SignupPage = () => {
                             Do you agree to our <Link to="/about#termsandconditions" className='text-primary'>Terms and Conditions ? </Link>
                         </Checkbox>
                         <div className='d-flex flex-column justify-content-center align-items-center mt-3'>
-                            {checked ? <Button text="Sign Up" htmlType="submit" classname='justify-content-center'  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '98px'}}/>
+                            {checked ? <Button type="primary" htmlType="submit">Sign Up</Button>
                                 : 
                                 <></>}
                         </div>

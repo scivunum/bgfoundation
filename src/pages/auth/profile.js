@@ -1,11 +1,12 @@
 import React,{useState} from 'react';
 import { Layout, Menu, Typography, Row, Col, Card, Table, Avatar,Input, Breadcrumb, Select, Form} from 'antd';
-import { HomeOutlined, UserOutlined, UserDeleteOutlined, EditOutlined, SaveOutlined, FacebookOutlined, InstagramOutlined, TwitterOutlined, WhatsAppOutlined, LinkedinOutlined } from '@ant-design/icons';
+import { HomeOutlined, UserOutlined, UserDeleteOutlined, DeleteOutlined, EditOutlined, SaveOutlined, FacebookOutlined, InstagramOutlined, TwitterOutlined, WhatsAppOutlined, LinkedinOutlined } from '@ant-design/icons';
 import { DollarCircleOutlined, HistoryOutlined, CloseCircleOutlined, LogoutOutlined,LockOutlined, CheckOutlined} from '@ant-design/icons';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Button} from '../../components/button';
 import { colors } from '../../components/style';
 import { countryCodes } from '../../components/constants';
+import FilterComponent from '../../components/Filter';
 const { Header, Content, Sider } = Layout;
 const { Text, Title } = Typography;
 const { Option } = Select;
@@ -69,7 +70,14 @@ const Activities = () => {
                     <Table
                         dataSource={paymentData} // Provide data source for the table
                         columns={paymentColumns} // Define columns for the table
-                        pagination={true} // Disable pagination if not needed
+                        onRow={(record) => ({
+                            style: {
+                                cursor: 'pointer',
+                            },
+                        })}
+                        pagination={true}
+                        rowClassName="editable-row"
+                        scroll={{ x: 'max-content' }}
                     />
                 </Col>
             </Row>
@@ -167,9 +175,127 @@ const SignOut = () => {
       </div>
   )
 }
+const Payments = () => {
+    const navigate = useNavigate();
+    // Sample data for payments
+    const payments = [
+        { key: 1, payer: 'John Doe', reason: 'Ticket Purchase', event: 'Event 1', artwork: 'Artwork 1', amount: '$500000', date: '2022-01-01' },
+        { key: 2, payer: 'Jane Smith', reason: 'Merchandise Purchase', event: 'Event 2', artwork: 'Artwork 2', amount: '$5000', date: '2022-01-02' },
+    ];
+
+    const PaymentsColumns = [
+        {
+            title: 'Payer',
+            dataIndex: 'payer',
+            key: 'payer',
+        },
+        {
+            title: 'Reason',
+            dataIndex: 'reason',
+            key: 'reason',
+        },
+        {
+            title: 'Event',
+            dataIndex: 'event',
+            key: 'event',
+        },
+        {
+            title: 'Artwork',
+            dataIndex: 'artwork',
+            key: 'artwork',
+        },
+        {
+            title: 'Amount',
+            dataIndex: 'amount',
+            key: 'amount',
+        },
+        {
+            title: 'Date',
+            dataIndex: 'date',
+            key: 'date',
+        },
+        {
+            render: (text, record) => (
+                <div>
+                    <Button type="primary" icon={<DeleteOutlined />} ></Button>
+                </div>
+            ),
+        },
+    ];
+
+    // Function to filter payments based on criteria
+    const [filteredPayments, setFilteredPayments] = useState(payments);
+
+    const filterPayments = ({ itemName, dateRange, minPrice, maxPrice }) => {
+        let filtered = payments;
+    
+        // Filter by item name, author, price, and hashtags
+        if (itemName || minPrice || maxPrice) {
+            const lowerItemName = (itemName && !(itemName === '')) ? itemName.toLowerCase() : '';
+    
+            filtered = filtered.filter(payment => {
+                const lowerReason = payment.reason.toLowerCase();
+                const lowerPayer = payment.payer.toLowerCase();
+                const lowerEvent = payment.event.toLowerCase();
+                const priceInt = parseInt(payment.amount.replace(/[^0-9]/g, ''), 10);
+                const lowerArtwork = payment.artwork.toLowerCase();
+    
+                const matchesItemName = !itemName || lowerReason.includes(lowerItemName) || lowerPayer.includes(lowerItemName) || lowerEvent.includes(lowerItemName) || lowerArtwork.includes(lowerItemName);
+                const matchesPrice = (!minPrice || priceInt >= parseInt(minPrice)) && (!maxPrice || priceInt <= parseInt(maxPrice));
+    
+                // Check if the payment matches the criteria
+                return matchesItemName && matchesPrice;
+            });
+        }
+    
+        // Filter by date range
+        if (dateRange && dateRange.length === 2) {
+            filtered = filtered.filter(payment => {
+                const paymentDate = new Date(payment.date);
+                return paymentDate >= dateRange[0] && paymentDate <= dateRange[1];
+            });
+        }
+    
+        setFilteredPayments(filtered);
+    };
+    
+
+    return (
+        <Content style={{ padding: '0 2px' }}>
+                
+                <div className='bg-white p-3 m-2 rounded-md shadow-md'>
+                <FilterComponent onSearch={filterPayments} name={true} date={true} price={true}/>
+                </div>
+                <div className="site-layout-background" style={{ padding: 8, minHeight: 380 }}>
+                    <Row style={{ marginTop: 1 }}>
+                        <Col span={24}>
+                            <Card title="Payments" bordered={true} style={{ borderRadius: '2px' }}>
+                                <Table
+                                    dataSource={filteredPayments}
+                                    columns={PaymentsColumns}
+                                    onRow={(record) => ({
+                                        style: {
+                                            cursor: 'pointer',
+                                        },
+                                        onClick: () => {
+                                            navigate(`/user/payments/${record.key}`);
+                                        },
+                                    })}
+                                    pagination={true}
+                                    rowClassName="editable-row"
+                                    scroll={{ x: 'max-content' }}
+                                />
+                            </Card>
+                        </Col>
+                    </Row>
+                </div>
+            </Content>
+    );
+};
 const ProfilePage = () => {
     const {userdetails} = useParams();
     console.log(userdetails+"==========");
+    const subtitle='activity';
     
     const [editprofile,setEditProfile] = React.useState(false);
     
@@ -231,7 +357,7 @@ const ProfilePage = () => {
     const pages =[
         {title:'Profile Dashboard'},
         {title:'Billing Details'},
-        {title:'Activities'},
+        {title:'Activities',subtitle:['activity','payments']},
         {title:'Change Password'},
         {title:'Terminate Account'},
         {title:'Sign Out'}
@@ -433,7 +559,7 @@ const ProfilePage = () => {
                 </div>
             }
             {currentpage.title === 'Activities' && 
-                <Activities />
+                (subtitle === currentpage.subtitle[0])?<Activities />:<Payments/>
             }
             {currentpage.title === 'Change Password' && 
                 <ChangePassword />

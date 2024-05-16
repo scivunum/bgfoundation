@@ -55,7 +55,7 @@ const Footer = ({Companyname}) => {
                     </div>
 
                     <div className="col-md-5 offset-md-1 mb-3">
-                        <form>
+                        <div>
                         <h5 className='text-dark'>Subscribe to our newsletter</h5>
                         <p className='text-dark'> Monthly digest of what's new and exciting from us.</p>
                         <div className="d-flex flex-column w-100 gap-2">
@@ -106,7 +106,7 @@ const Footer = ({Companyname}) => {
                                 </a>
                             </p>
                         </div>
-                        </form>
+                        </div>
                         
 
                     </div>

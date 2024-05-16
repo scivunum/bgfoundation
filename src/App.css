@@ -2,6 +2,8 @@
 .ant-input-outlined,
 .ant-collapse,
 .ant-picker,
+.ant-checkbox,
+.ant-input-number-outlined,
 .ant-input-group-addon {
     border: 1.5px solid transparent !important;
     background-color: whitesmoke !important;
@@ -13,34 +15,52 @@
 .ant-input-outlined:hover,
 .ant-input-outlined:focus,
 .ant-input-outlined:active,
+.ant-input-number-outlined:hover,
+.ant-input-number-outlined:focus,
+.ant-input-number-outlined:active,
 .ant-input:hover,
   .ant-input:focus,
-  .ant-input:active  {
+  .ant-input:active {
     box-shadow: none !important;
     background-color: whitesmoke !important;
     border-color: rgb(94, 106, 47) !important;
 }
+.ant-input-number-status-error,
+.ant-picker-status-error,
+.ant-input-status-error{
+  border-color: #ff4d4f !important;
+}
 
 .form-check-input,
-.form-check-input:focus,
-.form-check-input:active {
+.ant-checkbox{
     cursor: pointer;
     color: white  !important;
     background-color: white !important;
-    border:1.5px solid rgb(196, 207, 152);
+    border:1.5px solid rgb(94, 106, 47) !important;
     box-shadow: none !important;
     border-radius: 0%;
 }
 
   
-.form-check-input:checked {
+.form-check-input:checked,
+.ant-checkbox-checked {
     box-shadow: none !important;
     color: white  !important;
     background-color: rgb(94, 106, 47) !important;
-    border-color: rgb(94, 106, 47) !important;
     border-radius: 0%;
-    border-width: 1.5px;
+    border:1.5px solid rgb(94, 106, 47) !important;
 }
+.ant-radio-checked .ant-radio-inner,
+.ant-radio-checked .ant-radio-input {
+  background-color: whitesmoke !important;
+  border:4.5px solid rgb(94, 106, 47) !important;
+}
+.ant-radio .ant-radio-inner:hover,
+.ant-radio .ant-radio-input:hover {
+  background-color: whitesmoke !important;
+  border:1.5px solid rgb(94, 106, 47) !important;
+}
+
 
 
   .ant-btn {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Card, Row, Col, Table,Breadcrumb } from 'antd';
+import { Layout, Card, Row, Col, Table,Breadcrumb} from 'antd';
 import { colors } from '../../components/style';
 import { HomeOutlined, UserOutlined, DollarOutlined, ProfileOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';

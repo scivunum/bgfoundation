@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col, Card,Breadcrumb} from 'antd';
-import { HomeOutlined, UserOutlined,DashboardOutlined,InfoCircleOutlined,CalendarOutlined, DollarOutlined, ProfileOutlined,FormatPainterOutlined } from '@ant-design/icons';
+import { HomeOutlined, UsergroupAddOutlined,DashboardOutlined,InfoCircleOutlined,CalendarOutlined, DollarOutlined, FormatPainterOutlined } from '@ant-design/icons';
 import { colors } from '../../components/style';
 import { Link } from 'react-router-dom';
 
@@ -9,10 +9,9 @@ const AdminPage = ({isloggedin}) => {
         {title:'Dashboard', url:'/admin/dashboard',icon:<DashboardOutlined style={{color:colors.primary, fontSize:24}}/>,},
         {title:'About', url:'/admin/about',icon:<InfoCircleOutlined style={{color:colors.primary, fontSize:24}}/>},
         {title:'Artworks', url:'/admin/artworks',icon:<FormatPainterOutlined style={{color:colors.primary, fontSize:24}}/>},
-        {title:'Blogs', url:'/admin/blogs',icon:<ProfileOutlined style={{color:colors.primary, fontSize:24}}/>},
         {title:'Events', url:'/admin/events',icon:<CalendarOutlined style={{color:colors.primary, fontSize:24}}/>},
         {title:'Payments', url:'/admin/payments',icon:<DollarOutlined style={{color:colors.primary, fontSize:24}}/>},
-        {title:'Profile', url:'/admin/profile',icon:<UserOutlined style={{color:colors.primary, fontSize:24}}/>}
+        {title:'Users', url:'/admin/users',icon:<UsergroupAddOutlined style={{color:colors.primary, fontSize:24}}/>}
     ]
 
   return (

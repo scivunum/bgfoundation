@@ -75,13 +75,13 @@ const ArtworksPage = () => {
             filtered = filtered.filter(artwork => {
                 const lowerTitle = artwork.title.toLowerCase();
                 const lowerAuthor = artwork.author.toLowerCase();
-                const lowerPrice = artwork.price.toLowerCase();
+                const priceInt = parseInt(artwork.price.replace(/[^0-9]/g, ''), 10);
                 const lowerTags = artwork.hashtags.map(tag => tag.toLowerCase());
     
-                const matchesItemName = !itemName || lowerTitle.includes(lowerItemName) || lowerAuthor.includes(lowerItemName) || lowerPrice.includes(lowerItemName) || lowerTags.some(tag => lowerItemName.includes(tag));
+                const matchesItemName = !itemName || lowerTitle.includes(lowerItemName) || lowerAuthor.includes(lowerItemName) (priceInt >= parseInt(minPrice) && priceInt <= parseInt(maxPrice)) || lowerTags.some(tag => lowerItemName.includes(tag));
                 
                 // Check if the artwork matches the criteria
-                return matchesItemName;
+                return matchesItemName  && (priceInt >= parseInt(minPrice) && priceInt <= parseInt(maxPrice));
             });
         }
     
