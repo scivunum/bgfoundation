@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useContext } from 'react';
+import React, { useState, useEffect, useMemo} from 'react';
 import PropTypes from 'prop-types';
 import { MessageOutlined } from '@ant-design/icons';
 import { Button } from "../../components/button";
@@ -80,8 +80,6 @@ const Context = React.createContext({
 
 const AppLayout = ({ children, isloggedIn }) => {
   const [visible, setVisible] = useState(false);
-  const [userJoinedMessages, setUserJoinedMessages] = useState([]);
-
   const handleOpen = () => {
     setVisible(true);
   };
@@ -95,76 +93,10 @@ const AppLayout = ({ children, isloggedIn }) => {
   const contextValue = useMemo(() => ({
     name: 'Ant Design',
   }), []);
-
-  const possibleNotifications = [
-    { message: 'User joined', description: 'John Doe just joined!' },
-    { message: 'New Bid', description: `Emma Watson just bid on "Starry Night" for $12,000` },
-    { message: 'New Bid', description: `Robert Brown just bid on "The Persistence of Memory" for $9,000` },
-    { message: 'User joined', description: 'Alice Johnson just joined!' },
-    { message: 'User joined', description: 'Michael Smith just joined!' },
-    { message: 'New Bid', description: `Olivia Williams just bid on "The Last Supper" for $35,000` },
-    { message: 'New Bid', description: `James Miller just bid on "Guernica" for $28,000` },
-    { message: 'User joined', description: 'Sophia Davis just joined!' },
-    { message: 'New Bid', description: `Isabella Martinez just bid on "The Scream" for $15,000` },
-    { message: 'User joined', description: 'Mia Rodriguez just joined!' },
-    { message: 'New Bid', description: `Benjamin Wilson just bid on "The Kiss" for $42,000` },
-    { message: 'User joined', description: 'William Moore just joined!' },
-    { message: 'New Bid', description: `Elijah Taylor just bid on "Girl with a Pearl Earring" for $19,000` },
-    { message: 'User joined', description: 'Lucas Anderson just joined!' },
-    { message: 'New Bid', description: `Charlotte Thomas just bid on "The Creation of Adam" for $30,000` },
-    { message: 'New Bid', description: `Henry White just bid on "American Gothic" for $25,000` },
-    { message: 'User joined', description: 'Amelia Harris just joined!' },
-    { message: 'New Bid', description: `Daniel Clark just bid on "The Birth of Venus" for $40,000` },
-    { message: 'User joined', description: 'Jackson Lewis just joined!' },
-    { message: 'New Bid', description: `Lily King just bid on "Mona Lisa" for $50,000` },
-    { message: 'New Bid', description: `Sebastian Walker just bid on "The Night Watch" for $21,000` },
-    { message: 'User joined', description: 'Grace Hall just joined!' },
-    { message: 'New Bid', description: `Zoe Allen just bid on "The Thinker" for $16,000` },
-    { message: 'User joined', description: 'Jack Young just joined!' },
-    { message: 'New Bid', description: `Madison Hernandez just bid on "The Arnolfini Portrait" for $27,000` },
-    { message: 'New Bid', description: `Alexander Wright just bid on "Las Meninas" for $32,000` },
-    { message: 'User joined', description: 'Ella Lopez just joined!' },
-    { message: 'New Bid', description: `Logan Hill just bid on "The Hay Wain" for $18,000` },
-    { message: 'User joined', description: 'Harper Scott just joined!' },
-    { message: 'New Bid', description: `Mason Green just bid on "The Fighting Temeraire" for $26,000` },
-    { message: 'New Bid', description: `Aiden Adams just bid on "The Garden of Earthly Delights" for $37,000` },
-    { message: 'User joined', description: 'Aria Baker just joined!' },
-    { message: 'New Bid', description: `Lucas Gonzalez just bid on "The Persistence of Memory" for $9,000` },
-    { message: 'User joined', description: 'Leah Nelson just joined!' },
-    { message: 'New Bid', description: `Charlotte Carter just bid on "The Last Supper" for $35,000` },
-    { message: 'User joined', description: 'Owen Mitchell just joined!' },
-    { message: 'New Bid', description: `Henry Perez just bid on "Guernica" for $28,000` },
-    { message: 'User joined', description: 'Luna Roberts just joined!' },
-    { message: 'New Bid', description: `Samuel Turner just bid on "The Scream" for $15,000` },
-    { message: 'User joined', description: 'Sophie Phillips just joined!' },
-    { message: 'New Bid', description: `Isaac Campbell just bid on "The Kiss" for $42,000` },
-    { message: 'User joined', description: 'Ava Parker just joined!' },
-    { message: 'New Bid', description: `Nathan Evans just bid on "Girl with a Pearl Earring" for $19,000` },
-    { message: 'User joined', description: 'Emma Edwards just joined!' },
-    { message: 'New Bid', description: `Levi Collins just bid on "The Creation of Adam" for $30,000` },
-    { message: 'User joined', description: 'Ella Stewart just joined!' },
-    { message: 'New Bid', description: `Liam Sanchez just bid on "American Gothic" for $25,000` },
-    { message: 'User joined', description: 'Harper Morris just joined!' },
-    { message: 'New Bid', description: `Daniel Bell just bid on "The Birth of Venus" for $40,000` },
-    { message: 'User joined', description: 'James Rivera just joined!' },
-    { message: 'New Bid', description: `Jackson Murphy just bid on "Mona Lisa" for $50,000` },
-    { message: 'User joined', description: 'Grace Cook just joined!' },
-    { message: 'New Bid', description: `Elijah Rogers just bid on "The Night Watch" for $21,000` },
-    { message: 'User joined', description: 'Aiden Reed just joined!' },
-    { message: 'New Bid', description: `Logan Cooper just bid on "The Thinker" for $16,000` },
-    { message: 'User joined', description: 'Madison Bailey just joined!' },
-    { message: 'New Bid', description: `Benjamin Morgan just bid on "The Arnolfini Portrait" for $27,000` },
-    { message: 'User joined', description: 'Mason Kelly just joined!' },
-    { message: 'New Bid', description: `Zoe Howard just bid on "Las Meninas" for $32,000` },
-    { message: 'User joined', description: 'Jack Hughes just joined!' },
-    { message: 'New Bid', description: `Isabella Diaz just bid on "The Hay Wain" for $18,000` }
-  ];
-  
-  
-
   const getRandomInterval = () => Math.floor(Math.random() * (10000 - 5000 + 1)) + 5000;
+  
 
-  const openNotification = () => {
+  const openNotification = (possibleNotifications, api) => {
     const randomNotification = possibleNotifications[Math.floor(Math.random() * possibleNotifications.length)];
     api.success({
       message: randomNotification.message,
@@ -174,9 +106,72 @@ const AppLayout = ({ children, isloggedIn }) => {
   };
 
   useEffect(() => {
+    const possibleNotifications = [
+      { message: 'User joined', description: 'John Doe just joined!' },
+      { message: 'New Bid', description: `Emma Watson just bid on "Starry Night" for $12,000` },
+      { message: 'New Bid', description: `Robert Brown just bid on "The Persistence of Memory" for $9,000` },
+      { message: 'User joined', description: 'Alice Johnson just joined!' },
+      { message: 'User joined', description: 'Michael Smith just joined!' },
+      { message: 'New Bid', description: `Olivia Williams just bid on "The Last Supper" for $35,000` },
+      { message: 'New Bid', description: `James Miller just bid on "Guernica" for $28,000` },
+      { message: 'User joined', description: 'Sophia Davis just joined!' },
+      { message: 'New Bid', description: `Isabella Martinez just bid on "The Scream" for $15,000` },
+      { message: 'User joined', description: 'Mia Rodriguez just joined!' },
+      { message: 'New Bid', description: `Benjamin Wilson just bid on "The Kiss" for $42,000` },
+      { message: 'User joined', description: 'William Moore just joined!' },
+      { message: 'New Bid', description: `Elijah Taylor just bid on "Girl with a Pearl Earring" for $19,000` },
+      { message: 'User joined', description: 'Lucas Anderson just joined!' },
+      { message: 'New Bid', description: `Charlotte Thomas just bid on "The Creation of Adam" for $30,000` },
+      { message: 'New Bid', description: `Henry White just bid on "American Gothic" for $25,000` },
+      { message: 'User joined', description: 'Amelia Harris just joined!' },
+      { message: 'New Bid', description: `Daniel Clark just bid on "The Birth of Venus" for $40,000` },
+      { message: 'User joined', description: 'Jackson Lewis just joined!' },
+      { message: 'New Bid', description: `Lily King just bid on "Mona Lisa" for $50,000` },
+      { message: 'New Bid', description: `Sebastian Walker just bid on "The Night Watch" for $21,000` },
+      { message: 'User joined', description: 'Grace Hall just joined!' },
+      { message: 'New Bid', description: `Zoe Allen just bid on "The Thinker" for $16,000` },
+      { message: 'User joined', description: 'Jack Young just joined!' },
+      { message: 'New Bid', description: `Madison Hernandez just bid on "The Arnolfini Portrait" for $27,000` },
+      { message: 'New Bid', description: `Alexander Wright just bid on "Las Meninas" for $32,000` },
+      { message: 'User joined', description: 'Ella Lopez just joined!' },
+      { message: 'New Bid', description: `Logan Hill just bid on "The Hay Wain" for $18,000` },
+      { message: 'User joined', description: 'Harper Scott just joined!' },
+      { message: 'New Bid', description: `Mason Green just bid on "The Fighting Temeraire" for $26,000` },
+      { message: 'New Bid', description: `Aiden Adams just bid on "The Garden of Earthly Delights" for $37,000` },
+      { message: 'User joined', description: 'Aria Baker just joined!' },
+      { message: 'New Bid', description: `Lucas Gonzalez just bid on "The Persistence of Memory" for $9,000` },
+      { message: 'User joined', description: 'Leah Nelson just joined!' },
+      { message: 'New Bid', description: `Charlotte Carter just bid on "The Last Supper" for $35,000` },
+      { message: 'User joined', description: 'Owen Mitchell just joined!' },
+      { message: 'New Bid', description: `Henry Perez just bid on "Guernica" for $28,000` },
+      { message: 'User joined', description: 'Luna Roberts just joined!' },
+      { message: 'New Bid', description: `Samuel Turner just bid on "The Scream" for $15,000` },
+      { message: 'User joined', description: 'Sophie Phillips just joined!' },
+      { message: 'New Bid', description: `Isaac Campbell just bid on "The Kiss" for $42,000` },
+      { message: 'User joined', description: 'Ava Parker just joined!' },
+      { message: 'New Bid', description: `Nathan Evans just bid on "Girl with a Pearl Earring" for $19,000` },
+      { message: 'User joined', description: 'Emma Edwards just joined!' },
+      { message: 'New Bid', description: `Levi Collins just bid on "The Creation of Adam" for $30,000` },
+      { message: 'User joined', description: 'Ella Stewart just joined!' },
+      { message: 'New Bid', description: `Liam Sanchez just bid on "American Gothic" for $25,000` },
+      { message: 'User joined', description: 'Harper Morris just joined!' },
+      { message: 'New Bid', description: `Daniel Bell just bid on "The Birth of Venus" for $40,000` },
+      { message: 'User joined', description: 'James Rivera just joined!' },
+      { message: 'New Bid', description: `Jackson Murphy just bid on "Mona Lisa" for $50,000` },
+      { message: 'User joined', description: 'Grace Cook just joined!' },
+      { message: 'New Bid', description: `Elijah Rogers just bid on "The Night Watch" for $21,000` },
+      { message: 'User joined', description: 'Aiden Reed just joined!' },
+      { message: 'New Bid', description: `Logan Cooper just bid on "The Thinker" for $16,000` },
+      { message: 'User joined', description: 'Madison Bailey just joined!' },
+      { message: 'New Bid', description: `Benjamin Morgan just bid on "The Arnolfini Portrait" for $27,000` },
+      { message: 'User joined', description: 'Mason Kelly just joined!' },
+      { message: 'New Bid', description: `Zoe Howard just bid on "Las Meninas" for $32,000` },
+      { message: 'User joined', description: 'Jack Hughes just joined!' },
+      { message: 'New Bid', description: `Isabella Diaz just bid on "The Hay Wain" for $18,000` }
+    ];
     const scheduleNextNotification = () => {
       setTimeout(() => {
-        openNotification();
+        openNotification(possibleNotifications, api);
         scheduleNextNotification();
       }, getRandomInterval());
     };
@@ -184,7 +179,7 @@ const AppLayout = ({ children, isloggedIn }) => {
     scheduleNextNotification();
 
     return () => clearTimeout(scheduleNextNotification);
-  }, []);
+  }, [api]);
 
   return (
     <Context.Provider value={contextValue}>
@@ -221,31 +216,10 @@ const AppLayout = ({ children, isloggedIn }) => {
             >
               <ChatPage />
             </Modal>
-            <div className="user-joined-messages">
-              {userJoinedMessages.map((message, index) => (
-                <div key={index} className="user-joined-message  border border-success">
-                  {message}
-                </div>
-              ))}
-            </div>
+            
           </div>
         </Content>
         <Footer style={footerStyle} />
-        <style jsx>{`
-          .user-joined-messages {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 1000;
-          }
-          .user-joined-message {
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 2px 6px;
-            margin-top: 5px;
-            border-radius: 2px;
-          }
-        `}</style>
       </Layout>
     </Context.Provider>
   );

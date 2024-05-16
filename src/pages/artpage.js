@@ -45,10 +45,11 @@ const ArtworkDetailPage = () => {
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
     const [timeleft, setTimeLeft] = useState([]);
-    const now = new Date();
-    const eventStart = new Date(artworkDetails.eventstart);
-    const eventEnd = new Date(artworkDetails.eventend);
-    const getTimeLeft = () => {
+    
+    const getTimeLeft = (artworkDetails) => {
+        const now = new Date();
+        const eventStart = new Date(artworkDetails.eventstart);
+        const eventEnd = new Date(artworkDetails.eventend);
         if (eventStart > now) {
             const timeDiff = eventStart - now;
             const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
@@ -76,8 +77,22 @@ const ArtworkDetailPage = () => {
     // Fetch the artwork details based on the ID
     // You can fetch the details from your data source or API
     useEffect(() => {
-        getTimeLeft();
-    }, [eventStart, eventEnd]);
+        const artwork = {
+            title: 'Artwork Title',
+            imageUrl: 'https://via.placeholder.com/400x300',
+            artist: 'Artist Name',
+            date: '2022-01-01',
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac hendrerit ex. Integer ac velit quis nisl placerat gravida nec a lorem. Proin consequat consequat est, sit amet fermentum libero congue ut. Maecenas vehicula elit vel libero posuere aliquet. Curabitur at mi eu lacus cursus tincidunt in nec elit.',
+            price: '$1,000',
+            hashtags: ['#abstract', '#modern', '#colorful'],
+            dimensions: '20" x 30"',
+            materials: 'Oil on canvas',
+            event: 'Spring Collection 2022',
+            eventstart: '2024-03-15',
+            eventend: '2024-04-30',
+        };
+        getTimeLeft(artwork);
+    }, []);
 
 
     return (

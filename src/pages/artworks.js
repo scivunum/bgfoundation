@@ -96,10 +96,11 @@ const ArtworksPage = () => {
         setFilteredArtworks(filtered);
     };
     const [timeleft, setTimeLeft] = useState([]);
-    const now = new Date();
-    const eventStart = new Date(eventstart);
-    const eventEnd = new Date(eventend);
+    
     const getTimeLeft = () => {
+        const now = new Date();
+        const eventStart = new Date(eventstart);
+        const eventEnd = new Date(eventend);
         if (eventStart > now) {
             const timeDiff = eventStart - now;
             const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
@@ -128,7 +129,7 @@ const ArtworksPage = () => {
     // You can fetch the details from your data source or API
     useEffect(() => {
         getTimeLeft();
-    }, [eventStart, eventEnd]);
+    }, []);
     return (
         <div style={{ padding: '24px', paddingTop: "80px", backgroundColor: 'white' }}>
             <Title level={2} className='mt-4'>Artworks </Title>

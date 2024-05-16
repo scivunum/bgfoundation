@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React from 'react';
 import {Link} from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { colors, fontsizes } from './style';
@@ -17,7 +17,7 @@ import { Autoplay, Pagination, Navigation } from 'swiper/modules';
 const { Title, Paragraph } = Typography;
 
 export default function Scroller({Firsttitle, Secondtitle, Thirdtitle, Items}) {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+    const isMobile = window.innerWidth < 768;
     
     //artworks must be on bid----------------
     const slideItems = Items || [
