@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/bgfoundation/static/css/main.450799b2.css",
-    "main.js": "/bgfoundation/static/js/main.f47d17b1.js",
+    "main.js": "/bgfoundation/static/js/main.ad63d71d.js",
     "static/js/453.da79d90c.chunk.js": "/bgfoundation/static/js/453.da79d90c.chunk.js",
-    "static/media/slide1.jpg": "/bgfoundation/static/media/slide1.f731a09e5b164142dd72.jpg",
     "static/media/slide2.jpg": "/bgfoundation/static/media/slide2.e6c5db9b9b19b44c24ab.jpg",
-    "static/media/painting.jpg": "/bgfoundation/static/media/painting.47e1b998c91fe0ba7fb6.jpg",
-    "static/media/heroimg.jpg": "/bgfoundation/static/media/heroimg.6f80a33aff79fcea64f5.jpg",
-    "static/media/slide3.jpg": "/bgfoundation/static/media/slide3.579307a733ba34b6c203.jpg",
+    "static/media/slide1.jpg": "/bgfoundation/static/media/slide1.3196358eeafbd0ff60c3.jpg",
+    "static/media/heroimg.jpg": "/bgfoundation/static/media/heroimg.6fa4e1a0cf62ade0b8f2.jpg",
+    "static/media/painting.jpg": "/bgfoundation/static/media/painting.c008a2aabb473c904a3e.jpg",
+    "static/media/slide3.jpg": "/bgfoundation/static/media/slide3.81fe066ab2ae198b691d.jpg",
     "static/media/blog1.jpeg": "/bgfoundation/static/media/blog1.bd8760e83e455212d1fd.jpeg",
     "static/media/blog2.jpeg": "/bgfoundation/static/media/blog2.1db0fda0dbfd1cd6f35e.jpeg",
     "static/media/blog5.jpeg": "/bgfoundation/static/media/blog5.224ea1031966371e8cac.jpeg",
@@ -16,16 +16,16 @@
     "static/media/blog3.jpeg": "/bgfoundation/static/media/blog3.f120ff9c952c76c4b71c.jpeg",
     "static/media/blog6.jpeg": "/bgfoundation/static/media/blog6.f8ca686eea8f2b229f6c.jpeg",
     "static/media/logo.jpg": "/bgfoundation/static/media/logo.bd479c8171634325bdf4.jpg",
-    "static/media/auctioning.jpg": "/bgfoundation/static/media/auctioning.a667a0c389fd871ad4f8.jpg",
-    "static/media/auctioningmace.jpg": "/bgfoundation/static/media/auctioningmace.9beccd115057234e2deb.jpg",
-    "static/media/bidding.jpg": "/bgfoundation/static/media/bidding.c3fc1a7f141684240ffc.jpg",
+    "static/media/auctioning.jpg": "/bgfoundation/static/media/auctioning.d378d31f15122fbc277f.jpg",
+    "static/media/bidding.jpg": "/bgfoundation/static/media/bidding.9a160e9d4748616e0bfc.jpg",
+    "static/media/auctioningmace.jpg": "/bgfoundation/static/media/auctioningmace.b6488c4f531c0c574234.jpg",
     "index.html": "/bgfoundation/index.html",
     "main.450799b2.css.map": "/bgfoundation/static/css/main.450799b2.css.map",
-    "main.f47d17b1.js.map": "/bgfoundation/static/js/main.f47d17b1.js.map",
+    "main.ad63d71d.js.map": "/bgfoundation/static/js/main.ad63d71d.js.map",
     "453.da79d90c.chunk.js.map": "/bgfoundation/static/js/453.da79d90c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.450799b2.css",
-    "static/js/main.f47d17b1.js"
+    "static/js/main.ad63d71d.js"
   ]
 }
