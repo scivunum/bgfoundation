@@ -1,6 +1,6 @@
-import React, { useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import { useParams } from 'react-router-dom';
-import { Typography, Row, Col, Image, Card, Pagination  } from 'antd';
+import { Typography, Row, Col, Image, Card, Pagination, Button  } from 'antd';
 import { Link } from 'react-router-dom';
 const { Title, Paragraph } = Typography;
 
@@ -18,6 +18,9 @@ const ArtworkDetailPage = () => {
         hashtags: ['#abstract', '#modern', '#colorful'],
         dimensions: '20" x 30"',
         materials: 'Oil on canvas',
+        event: 'Spring Collection 2022',
+        eventstart: '2024-03-15',
+        eventend: '2024-04-30',
     };
     const alsolike = [
         { id:1, title: 'Artwork 1', imageUrl: 'https://via.placeholder.com/150', date: '2022-01-01', author: 'Artist 1', hashtags: ['#abstract', '#modern', '#colorful'], price:'$500' },
@@ -41,10 +44,41 @@ const ArtworkDetailPage = () => {
     // Calculate start and end index for current page
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
-
+    const [timeleft, setTimeLeft] = useState([]);
+    const now = new Date();
+    const eventStart = new Date(artworkDetails.eventstart);
+    const eventEnd = new Date(artworkDetails.eventend);
+    const getTimeLeft = () => {
+        if (eventStart > now) {
+            const timeDiff = eventStart - now;
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+            setTimeLeft([`Upcoming - ${days}d ${hours}h ${minutes}m ${seconds}s left`, 'info']);
+        } else if (eventEnd < now) {
+            const timeDiff = now - eventEnd;
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+            setTimeLeft([`Ended - Ended ${days}d ${hours}h ${minutes}m ${seconds}s ago`, 'danger']);
+        } else {
+            const timeDiff = eventEnd - now;
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+            setTimeLeft([`Ongoing - ${days}d ${hours}h ${minutes}m ${seconds}s left`, 'success']);
+        }
+    };
 
     // Fetch the artwork details based on the ID
     // You can fetch the details from your data source or API
+    useEffect(() => {
+        getTimeLeft();
+    }, [eventStart, eventEnd]);
+
 
     return (
         <div style={{ padding: '24px', marginTop: '80px' }}>
@@ -62,6 +96,14 @@ const ArtworkDetailPage = () => {
                     <Paragraph><strong>Dimensions:</strong> {artworkDetails.dimensions}</Paragraph>
                     <Paragraph><strong>Materials:</strong> {artworkDetails.materials}</Paragraph>
                     <Paragraph><strong>Hashtags:</strong> {artworkDetails.hashtags.join(', ')}</Paragraph>
+                    <Paragraph className={`text-${timeleft[1]}`}>
+                        {timeleft[0]}
+                    </Paragraph>
+                    <Link to={`/profile/${id}/payments/add`} className='mt-1 text-decoration-none'>
+                        <Button className={`text-${timeleft[1]}`}>
+                            {(timeleft[1] === 'info') ? 'Upcoming' : (timeleft[1] === 'danger')?'Ended': 'Pay now'}
+                        </Button>
+                    </Link>
                 </Col>
             </Row>
             <div className='mt-4 p-2 bg-light'>
@@ -79,8 +121,12 @@ const ArtworkDetailPage = () => {
                                         title={artwork.title}
                                         description={`By ${artwork.author}`}
                                     />
-                                    <small className='fw-bold'>Price: {artwork.price}</small> <br/>
-                                    <small>Date: {artwork.date}</small>
+                                    
+                                    <Link className='mt-2 text-decoration-none'>
+                                        <Button className={`text-${new Date(artworkDetails.eventstart) < new Date()?'info':(new Date(artworkDetails.eventend) > new Date())? 'danger':'success'}`}>
+                                            {(new Date(artworkDetails.eventstart) < new Date()) ? 'Upcoming' : (new Date(artworkDetails.eventend) > new Date())?'Ended': 'Place Bid'}
+                                        </Button>
+                                    </Link>
                                 </Card>
                             </Link>
                         </Col>

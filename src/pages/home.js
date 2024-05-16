@@ -186,7 +186,7 @@ function LandingPage({companyname,isloggedIn}) {
                         <h1 className="text-center fw-bold mb-2 mt-3">Discover Unique Art Treasures</h1>
                         <p className="text-center fw-bold">Bid and Auction Exquisite Artwork from Artists</p>
                         <div className="d-flex justify-content-center  mb-1">
-                            <Button to="/events:8786" text="Bid" classname={'text-center'}  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '60px'}}/>
+                            <Button to="/events" text="Bid" classname={'text-center'}  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '60px'}}/>
                                 <span className="mx-3"></span>
                             <Button to="/about" text="Contact Us" classname={'text-center'}  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '121px'}}/>
                         </div>
@@ -209,7 +209,7 @@ function LandingPage({companyname,isloggedIn}) {
                     emerging artists.
                 </Paragraph>
                 <div className="d-flex justify-content-center  mb-1">
-                    <Button to="/events" text="Explore" classname={'text-center'}  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '100px'}}/>
+                    <Button to="/artworks" text="Explore" classname={'text-center'}  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '100px'}}/>
                 </div>
                 </div>
             </Col>
@@ -228,7 +228,7 @@ function LandingPage({companyname,isloggedIn}) {
                                   {isloggedIn ===false ? 
                                   <Button to="/login" text="Place Bid" classname='text-center'  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '100%'}}/>
                                   :
-                                  <Button to="/bid" text="Place Bid" classname='text-center'  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '100%'}}/>
+                                  <Button to={`/artworks/${artwork.id}`} text="Place Bid" classname='text-center'  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)', width: '100%'}}/>
                                   }
                               </Space>
                           </Card>

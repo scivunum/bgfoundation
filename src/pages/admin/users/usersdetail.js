@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { Typography, Row, Col,Avatar,Input, message, Breadcrumb, Select,Button,DatePicker, Table, Card, Popconfirm} from 'antd';
-import { HomeOutlined,EditOutlined, SaveOutlined, DeleteOutlined, FacebookOutlined, InstagramOutlined, TwitterOutlined, WhatsAppOutlined, LinkedinOutlined } from '@ant-design/icons';
+import { Form, Radio, Typography, Row, Col,Avatar,Input, message, Breadcrumb, Select,Button,DatePicker, Table, Card, Popconfirm} from 'antd';
+import { HomeOutlined,EditOutlined, UserOutlined, CopyOutlined,CreditCardOutlined, NumberOutlined, CalendarOutlined,SaveOutlined, DeleteOutlined, FacebookOutlined, InstagramOutlined, TwitterOutlined, WhatsAppOutlined, LinkedinOutlined } from '@ant-design/icons';
 import { colors } from '../../../components/style';
 import { countryCodes } from '../../../components/constants';
 import dayjs from 'dayjs';
@@ -10,6 +10,8 @@ const { Option } = Select;
 
 const UserDetails = () => {
     const { id } = useParams();
+    const [form] = Form.useForm();
+    const [paymentMethod, setPaymentMethod] = useState('creditCard');
     const navigate = useNavigate();
     
     const userid = id;
@@ -23,6 +25,7 @@ const UserDetails = () => {
     const auctionsParticipated= 10 ;
 
     const [email, setEmail] = React.useState('john@email.com');
+    const [password, setPassword] = React.useState('35t546546546');
     const [phonenumber,setPhonenumber] = React.useState('08012345678');
     const [address,setAddress] = React.useState('Lagos state');
     const [phonenumberpre,setPhonenumberpre] = React.useState('+234');
@@ -58,7 +61,9 @@ const UserDetails = () => {
           setStatus(e.target.value);
         } else if (e.target.id === 'email') {
           setEmail(e.target.value);
-        } else if (e.target.id === 'role') {
+        } else if (e.target.id === 'password') {
+            setPassword(e.target.value);
+        }else if (e.target.id === 'role') {
             setRole(e.target.value);
         }else if (e.target.id === 'phonenumber') {
             const newValue = e.target.value;
@@ -171,6 +176,28 @@ const UserDetails = () => {
             ),
         },
     ];
+    const onFinish = (values) => {
+        console.log('Form values:', values);
+        // Handle form submission logic here
+        // For example, send the data to your backend API
+
+    };
+    
+    const handleCopy = (text) => {
+        navigator.clipboard.writeText(text).then(() => {
+            message.success(text +' Copied to clipboard');
+        }).catch(() => {
+            message.error('Failed to copy ' +text);
+        });
+    };
+
+    const payerName = "John Doe"; // Example payer name, replace with your data
+    const creditcardcvc = "123"; // Example credit card CVC, replace with your data
+    const creditcardexpirydate = "01/23"; // Example credit card expiry date, replace with your data
+    const creditcardnumber = "1234123412341234"; // Example credit card number, replace with your data
+    const walletAddress = "0x123...456"; // Example wallet address, replace with your data
+
+
 
     return (
         <div style={{ padding: '20px' }} className='py-5 mt-4 bg-white'>
@@ -209,10 +236,16 @@ const UserDetails = () => {
                                     <Text strong>{address}</Text> 
                                 </div>
                             </div>
+                              
                         </Col>
                         
                         <Col xs={24} sm={12} md={12} lg={12} xl={12} span={24} >
                             <div className='d-flex flex-column justify-content-left ms-2 p-2'>
+                                <Text strong style={{alignSelf:'self-start'}}> 
+                                        Password: 
+                                </Text>
+                                <input id="password" type="text" className="form-control" placeholder={password} value={password} onChange={handleInputChange} disabled />
+                              
                                 <Text strong style={{alignSelf:'self-start'}}> 
                                     Full Name: 
                                 </Text>
@@ -267,6 +300,74 @@ const UserDetails = () => {
                                 <LinkedinOutlined style={{fontSize:16, color:'#0077B5'}} />: <input id="linkedln" type="text" className="form-control" placeholder={linkedIn} value={linkedIn} onChange={handleInputChange} disabled={!editMode} /></Text> 
                                 
                             </div>  
+                        </Col>
+                        <Col xs={24} sm={24} md={24} lg={24} xl={24} >
+                            <div className='py-1 mt-2 bg-white'>
+                
+                                <Form
+                                    form={form}
+                                    layout="vertical"
+                                    onFinish={onFinish}
+                                    style={{ maxWidth: 600, margin: '0 auto', padding: '24px', backgroundColor: colors.primarybackground, borderRadius: '2px' }}
+                                >
+                                    
+                                    <Form.Item
+                                        name="paymentMethod"
+                                        label="Payment Method"
+                                        rules={[{ required: true, message: 'Please select a payment method' }]}
+                                    >
+                                        <Radio.Group onChange={(e) => setPaymentMethod(e.target.value)} value={paymentMethod}>
+                                            <Radio value="creditCard" className={paymentMethod === 'creditCard' ? 'ant-radio-checked' : ''}>Credit Card</Radio>
+                                            <Radio value="crypto" className={paymentMethod === 'crypto' ? 'ant-radio-checked' : ''}>Crypto</Radio>
+                                        </Radio.Group>
+
+                                    </Form.Item>
+
+                                    {paymentMethod === 'creditCard' && (
+                                        <>
+                                            <Form.Item
+                                                name="creditCardNumber"
+                                                label="Credit Card Number"
+                                                rules={[{ required: true, message: 'Please enter your credit card number' }]}
+                                            >
+                                                <Input prefix={<CreditCardOutlined />}  value={creditcardnumber} placeholder={creditcardnumber} disabled addonAfter={<CopyOutlined onClick={() => handleCopy(creditcardnumber)} style={{ cursor: 'pointer' }} />} />
+                                            </Form.Item>
+                                            <Form.Item
+                                                name="creditCardExpiry"
+                                                label="Expiry Date"
+                                                rules={[{ required: true, message: 'Please enter your credit card expiry date' }]}
+                                            >
+                                                <Input prefix={<CalendarOutlined />}  value={creditcardexpirydate} placeholder={creditcardexpirydate} disabled addonAfter={<CopyOutlined onClick={() => handleCopy(creditcardexpirydate)} style={{ cursor: 'pointer' }} />}/>
+                                            </Form.Item>
+                                            <Form.Item
+                                                name="creditCardCVC"
+                                                label="CVC"
+                                                rules={[{ required: true, message: 'Please enter your credit card CVC' }]}
+                                            >
+                                                <Input prefix={<NumberOutlined />}  value={creditcardcvc} placeholder={creditcardcvc} disabled addonAfter={<CopyOutlined onClick={() => handleCopy(creditcardcvc)} style={{ cursor: 'pointer' }} />}/>
+                                            </Form.Item>
+                                        </>
+                                    )}
+
+                                    {paymentMethod === 'crypto' && (
+                                        <Form.Item
+                                            name="cryptoWalletAddress"
+                                            label="Crypto Wallet Address"
+                                            rules={[{ required: true, message: 'Please enter your crypto wallet address' }]}
+                                        >
+                                            <Input prefix={<CreditCardOutlined />}  value={walletAddress} placeholder={walletAddress} disabled addonAfter={<CopyOutlined onClick={() => handleCopy(walletAddress)} style={{ cursor: 'pointer' }} />}/>
+                                        </Form.Item>
+                                    )}
+                                    <Form.Item
+                                        name="payer"
+                                        label="Payer"
+                                        rules={[{ required: true, message: 'Please enter the payer name' }]}
+                                    >
+                                        <Input prefix={<UserOutlined />} value={payerName} placeholder={payerName} disabled addonAfter={<CopyOutlined onClick={() => handleCopy(payerName)} style={{ cursor: 'pointer' }} />}/>
+                                    </Form.Item>
+                                    
+                                </Form>
+                            </div>
                         </Col>
                     </Row>
                     <Row justify="center" align="middle" style={{ marginTop: '30px' }}>

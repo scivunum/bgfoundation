@@ -25,6 +25,8 @@ import PaymentDetail from '../pages/admin/payments/paymentdetails';
 import AdminUsers from '../pages/admin/users/users';
 import UserDetails from '../pages/admin/users/usersdetail';
 import AddUserForm from '../pages/admin/users/adduser';
+import Event from '../pages/eventpage';
+import AddPayment from '../pages/payments/addpayment';
 
 const Main = () => {
     const [visible, setVisible] = useState(false);
@@ -215,7 +217,11 @@ export const loggedInUserRoutes = [
     },
     {
         route:'/events/:id',
-        component:NotFoundPage
+        component:() => {
+            return <AppLayout isloggedIn={true}>
+                <Event isloggedIn={true}/>
+            </AppLayout>
+        }
     },
     {
         route:'/profile/:id',
@@ -277,15 +283,7 @@ export const loggedInUserRoutes = [
         route:'/profile/:id/payments/add',
         component:() => {
             return <AppLayout isloggedIn={true}>
-                <AddPaymentForm isloggedIn={true}/>
-            </AppLayout>
-        }
-    },
-    {
-        route:'/profile/:id/payments/:id',
-        component:() => {
-            return <AppLayout isloggedIn={true}>
-                <PaymentDetail isloggedIn={true}/>
+                <AddPayment isloggedIn={true}/>
             </AppLayout>
         }
     },

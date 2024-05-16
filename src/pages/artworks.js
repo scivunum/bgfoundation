@@ -1,5 +1,5 @@
-import React, { useState} from 'react';
-import { Typography,Row, Col, Image, Card, Pagination } from 'antd';
+import React, { useState, useEffect} from 'react';
+import { Typography,Row, Col, Image, Card, Pagination, Button } from 'antd';
 import FilterComponent from '../components/Filter';
 import { Link } from 'react-router-dom';
 import blog1 from '../assets/blog1.jpeg';
@@ -12,14 +12,14 @@ import blog6 from '../assets/blog6.jpeg';
 const { Title, Paragraph } = Typography;
 
 const ArtworksPage = () => {
-    
-
     // Sample artwork data
+    const eventstart = '2020-03-15';
+    const eventend = '2026-04-30';
     const artworks = [
         { id:1, title: 'Artwork 1', imageUrl: blog4, date: '2022-01-01', author: 'Artist 1', hashtags: ['#abstract', '#modern', '#colorful'], price:'$500' },
-        { id:2, title: 'Artwork 2', imageUrl: blog3, date: '2022-01-02', author: 'Artist 2', hashtags: ['#portrait', '#classic', '#monochrome'], price:'$500' },
+        { id:2, title: 'Artwork 2', imageUrl: blog3, date: '2025-01-02', author: 'Artist 2', hashtags: ['#portrait', '#classic', '#monochrome'], price:'$500' },
         { id:3, title: 'Artwork 3', imageUrl: blog5, date: '2022-01-03', author: 'Artist 3', hashtags: ['#landscape', '#impressionist', '#scenic'], price:'$500' },
-        { id:4, title: 'Artwork 4', imageUrl: blog6, date: '2022-01-04', author: 'Artist 4', hashtags: ['#abstract', '#surreal', '#dreamy'], price:'$500' },
+        { id:4, title: 'Artwork 4', imageUrl: blog6, date: '2026-01-04', author: 'Artist 4', hashtags: ['#abstract', '#surreal', '#dreamy'], price:'$500' },
         { id:5, title: 'Artwork 5', imageUrl: blog5, date: '2022-01-05', author: 'Artist 5', hashtags: ['#modern', '#geometric', '#vibrant'], price:'$500' },
         { id:6, title: 'Artwork 6', imageUrl: blog6, date: '2022-01-06', author: 'Artist 6', hashtags: ['#portrait', '#realism', '#expressive'], price:'$500' },
         { id:7, title: 'Artwork 7', imageUrl: blog4, date: '2022-01-07', author: 'Artist 7', hashtags: ['#landscape', '#naturalistic', '#serene'], price:'$500' },
@@ -47,7 +47,7 @@ const ArtworksPage = () => {
         { id:29, title: 'Artwork 29', imageUrl: blog5, date: '2022-01-29', author: 'Artist 29', hashtags: ['#modern', '#experimental', '#bold'], price:'$500' },
         { id:30, title: 'Artwork 30', imageUrl: blog6, date: '2022-01-30', author: 'Artist 30', hashtags: ['#portrait', '#introspective', '#symbolic'], price:'$500' }
       ];
-         
+    
 
     // Pagination state
     const [currentPage, setCurrentPage] = useState(1);
@@ -95,8 +95,40 @@ const ArtworksPage = () => {
     
         setFilteredArtworks(filtered);
     };
-    
+    const [timeleft, setTimeLeft] = useState([]);
+    const now = new Date();
+    const eventStart = new Date(eventstart);
+    const eventEnd = new Date(eventend);
+    const getTimeLeft = () => {
+        if (eventStart > now) {
+            const timeDiff = eventStart - now;
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+            setTimeLeft([`Upcoming - ${days}d ${hours}h ${minutes}m ${seconds}s left`, 'info']);
+        } else if (eventEnd < now) {
+            const timeDiff = now - eventEnd;
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+            setTimeLeft([`Ended - Ended ${days}d ${hours}h ${minutes}m ${seconds}s ago`, 'danger']);
+        } else {
+            const timeDiff = eventEnd - now;
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+            setTimeLeft([`Ongoing - ${days}d ${hours}h ${minutes}m ${seconds}s left`, 'success']);
+        }
+    };
 
+    // Fetch the artwork details based on the ID
+    // You can fetch the details from your data source or API
+    useEffect(() => {
+        getTimeLeft();
+    }, [eventStart, eventEnd]);
     return (
         <div style={{ padding: '24px', paddingTop: "80px", backgroundColor: 'white' }}>
             <Title level={2} className='mt-4'>Artworks </Title>
@@ -117,8 +149,12 @@ const ArtworksPage = () => {
                                     title={artwork.title}
                                     description={`By ${artwork.author}`}
                                 />
-                                <small className='fw-bold'>Price: {artwork.price}</small> <br/>
-                                <small>Date: {artwork.date}</small>
+                                
+                                <Link to={`/artworks/${artwork.id}`} className='mt-1 text-decoration-none'>
+                                    <Button className={`text-${timeleft[1]}`}>
+                                        {new Date(artwork.date) < new Date() ? 'Upcoming' : 'Place Bid'}
+                                    </Button>
+                                </Link>
                             </Card>
                         </Link>
                         

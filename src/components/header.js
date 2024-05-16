@@ -77,7 +77,7 @@ const Header = ({ Companyname,isloggedIn, logo, menuItems }) => {
                             :
                             <NavLink to="/login" text="Login" className="m-2" />}
                             
-                            <Button to="/contribute" text="Bid"  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)'}}/>
+                            <Button to="/events" text="Events"  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)'}}/>
                         </Drawer>
 
                         
@@ -104,7 +104,7 @@ const Header = ({ Companyname,isloggedIn, logo, menuItems }) => {
                             
                             <Avatar size={30} icon={<UserOutlined />} className="me-3" style={{ fontSize: '20px', cursor:'pointer' }} />
                         </Dropdown>
-                        <Button to="/contribute" text="Bid"  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)'}}/>
+                        <Button to="/events" text="Events"  style={{boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)'}}/>
                     </Container>
                 )}
         </Navbar>
