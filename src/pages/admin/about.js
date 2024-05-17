@@ -29,6 +29,7 @@ const AdminAboutPage = () => {
     const [twitter, setTwitter] = useState('twitter.com/john');
     const [linkedIn, setLinkedIn] = useState('linkedin.com/in/john');
     const [whatsapp, setWhatsapp] = useState('whatsapp.com/john');
+    const [termsAndConditions, setTermsAndConditions] = useState('Terms and Conditions text');
 
     const saveEdit = () => {
         setEditAbout(false);
@@ -83,6 +84,9 @@ const AdminAboutPage = () => {
                 break;
             case 'whatsapp':
                 setWhatsapp(value);
+                break;
+            case 'termsAndConditions':
+                setTermsAndConditions(value);
                 break;
             default:
                 break;
@@ -140,6 +144,7 @@ const AdminAboutPage = () => {
                         twitter: twitter,
                         linkedIn: linkedIn,
                         whatsapp: whatsapp,
+                        termsandconditions: termsAndConditions,
                     }}
                     onFinish={onFinish}
                 >
@@ -175,6 +180,9 @@ const AdminAboutPage = () => {
                     </Form.Item>
                     <Form.Item label="Updated By" name="updatedBy">
                         <Input placeholder="Updated By" defaultValue={adminFullName} disabled />
+                    </Form.Item>
+                    <Form.Item label="termsAndConditions" name="termsAndConditions">
+                        <Input.TextArea rows={20} placeholder="Set the Terms adn Conditions" defaultValue={termsAndConditions} disabled={!editAbout} />
                     </Form.Item>
                     <Row justify="center" align="middle" style={{display: 'flex',alignItems: 'flex-start'}} >
                         <Col xs={24} sm={24} md={24} lg={24} xl={24} >

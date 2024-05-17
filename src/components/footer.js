@@ -39,18 +39,17 @@ const Footer = ({Companyname}) => {
                         <h4 className='text-dark'>Contact Info</h4>
                         <Nav className='flex-column'>
                             <NavLink to="/" text="Home" className='text-dark' style={{margin: '0px', padding:'0px'}} />
-                            <NavLink to="/auction" text="Auction" className='text-dark m-0' />
-                            <NavLink to="/about" text="Membership" className='text-dark m-0'/>
                             <NavLink to="/about" text="About" className='text-dark m-0'/>
+                            <NavLink to="/about#contactus" text="Contact Us" className='text-dark m-0'/>
+                            <NavLink to="/about#termsandconditions" text="T & C" className='text-dark m-0'/>
                         </Nav>
                     </Col>
 
                     <div className="col-6 col-md-2 mb-3">
-                        <h4 className='text-dark'>Our Support </h4>
+                        <h4 className='text-dark'>Contents</h4>
                         <Nav className='flex-column p-0'>
-                            <NavLink to="/policies" text="Policies" className='text-dark m-0'/>
-                            <NavLink to="/contact" text="Contact us" className='text-dark  m-0'/>
-                            <NavLink to="/partnership" text="Partnership" className='text-dark  m-0'/>
+                            <NavLink to="/artworks" text="Artworks" className='text-dark m-0'/>
+                            <NavLink to="/events" text="Events" className='text-dark m-0' />
                         </Nav>
                     </div>
 
