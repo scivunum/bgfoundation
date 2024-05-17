@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/bgfoundation/static/css/main.450799b2.css",
-    "main.js": "/bgfoundation/static/js/main.ad63d71d.js",
+    "main.js": "/bgfoundation/static/js/main.f38c1650.js",
     "static/js/453.da79d90c.chunk.js": "/bgfoundation/static/js/453.da79d90c.chunk.js",
     "static/media/slide2.jpg": "/bgfoundation/static/media/slide2.e6c5db9b9b19b44c24ab.jpg",
     "static/media/slide1.jpg": "/bgfoundation/static/media/slide1.3196358eeafbd0ff60c3.jpg",
@@ -21,11 +21,11 @@
     "static/media/auctioningmace.jpg": "/bgfoundation/static/media/auctioningmace.b6488c4f531c0c574234.jpg",
     "index.html": "/bgfoundation/index.html",
     "main.450799b2.css.map": "/bgfoundation/static/css/main.450799b2.css.map",
-    "main.ad63d71d.js.map": "/bgfoundation/static/js/main.ad63d71d.js.map",
+    "main.f38c1650.js.map": "/bgfoundation/static/js/main.f38c1650.js.map",
     "453.da79d90c.chunk.js.map": "/bgfoundation/static/js/453.da79d90c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.450799b2.css",
-    "static/js/main.ad63d71d.js"
+    "static/js/main.f38c1650.js"
   ]
 }
