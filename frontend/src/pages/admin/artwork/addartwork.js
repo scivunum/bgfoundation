@@ -19,6 +19,7 @@ const AddArtworkForm = () => {
     };
 
     const handleUploadChange = ({ fileList }) => {
+        console.log(fileList[0]);
         setFileList(fileList);
     };
 
