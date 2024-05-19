@@ -8,6 +8,14 @@ const aboutSchema = new Schema({
         type: SchemaTypes.String,
         required: true,
     },
+    info: {
+        type: SchemaTypes.String,
+        required: true,
+    },
+    mission: {
+        type: SchemaTypes.String,
+        required: true,
+    },
     name: {
         type: SchemaTypes.String,
         required: true,
@@ -24,21 +32,21 @@ const aboutSchema = new Schema({
         type: SchemaTypes.String,
         required: true,
     },
-    description: {
-        type: SchemaTypes.String,
-        required: true,
-    },
     how_to_bid: {
-        type: SchemaTypes.String,
-        required: true,
+        type: [SchemaTypes.String],
+        default: [],
     },
-    how_to_auction: {
-        type: SchemaTypes.String,
-        required: true,
+    register_as_bidder: {
+        type: [SchemaTypes.String],
+        default: [],
+    },
+    register_as_auctioneer: {
+        type: [SchemaTypes.String],
+        default: [],
     },
     how_to_register: {
-        type: SchemaTypes.String,
-        required: true,
+        type: [SchemaTypes.String],
+        default: [],
     },
     updated_by: {
         type: SchemaTypes.String,
@@ -75,22 +83,22 @@ const aboutSchema = new Schema({
     },
 }, { timestamps: true });
 
-
-
 const validateAboutData = (aboutObj, isUpdating = false) => {
     let aboutValidationSchema;
 
     if (isUpdating) {
         aboutValidationSchema = Joi.object({
             logo: Joi.string().uri(),
+            info: Joi.string().min(10),
+            mission: Joi.string().min(10),
             name: Joi.string().min(2),
             email: Joi.string().email({ minDomainSegments: 2 }),
             phonenumber: Joi.string().pattern(/^[0-9]+$/),
             address: Joi.string().min(5),
-            description: Joi.string().min(10),
-            how_to_bid: Joi.string().min(10),
-            how_to_auction: Joi.string().min(10),
-            how_to_register: Joi.string().min(10),
+            how_to_bid: Joi.array().items(Joi.string().min(10)),
+            register_as_bidder: Joi.array().items(Joi.string().min(10)),
+            register_as_auctioneer: Joi.array().items(Joi.string().min(10)),
+            how_to_register: Joi.array().items(Joi.string().min(10)),
             updated_by: Joi.string().min(2),
             last_updated: Joi.date(),
             fb: Joi.string().uri().allow(null),
@@ -103,14 +111,16 @@ const validateAboutData = (aboutObj, isUpdating = false) => {
     } else {
         aboutValidationSchema = Joi.object({
             logo: Joi.string().uri().required(),
+            info: Joi.string().min(10).required(),
+            mission: Joi.string().min(10).required(),
             name: Joi.string().min(2).required(),
             email: Joi.string().email({ minDomainSegments: 2 }).required(),
             phonenumber: Joi.string().pattern(/^[0-9]+$/).required(),
             address: Joi.string().min(5).required(),
-            description: Joi.string().min(10).required(),
-            how_to_bid: Joi.string().min(10).required(),
-            how_to_auction: Joi.string().min(10).required(),
-            how_to_register: Joi.string().min(10).required(),
+            how_to_bid: Joi.array().items(Joi.string().min(10)).required(),
+            register_as_bidder: Joi.array().items(Joi.string().min(10)).required(),
+            register_as_auctioneer: Joi.array().items(Joi.string().min(10)).required(),
+            how_to_register: Joi.array().items(Joi.string().min(10)).required(),
             updated_by: Joi.string().min(2).required(),
             last_updated: Joi.date().default(Date.now),
             fb: Joi.string().uri().allow(null),
@@ -124,8 +134,10 @@ const validateAboutData = (aboutObj, isUpdating = false) => {
 
     return aboutValidationSchema.validate(aboutObj);
 }
+
 // Define the About model
 const About = model('About', aboutSchema);
+
 module.exports = {
     About,
     validateAboutData,

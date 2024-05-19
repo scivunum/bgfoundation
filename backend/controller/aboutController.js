@@ -5,7 +5,7 @@ class AboutController {
     static async getAllAbout(req, res) {
         try {
             const aboutEntries = await About.find();
-            res.json(aboutEntries);
+            res.json({success:true,data:aboutEntries, size:aboutEntries.length});
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
@@ -19,7 +19,7 @@ class AboutController {
             if (!aboutEntry) {
                 return res.status(404).json({ message: "About entry not found" });
             }
-            res.json(aboutEntry);
+            res.json({success:true,data:aboutEntry});
         } catch (error) {
             res.status(500).json({ message: error.message });
         }
@@ -62,9 +62,11 @@ class AboutController {
         if (req.body.email) aboutData.email = req.body.email;
         if (req.body.phonenumber) aboutData.phonenumber = req.body.phonenumber;
         if (req.body.address) aboutData.address = req.body.address;
-        if (req.body.description) aboutData.description = req.body.description;
+        if (req.body.mission) aboutData.mission = req.body.mission;
         if (req.body.how_to_bid) aboutData.how_to_bid = req.body.how_to_bid;
-        if (req.body.how_to_auction) aboutData.how_to_auction = req.body.how_to_auction;
+        if (req.body.info) aboutData.info = req.body.info;
+        if (req.body.register_as_bidder) aboutData.register_as_bidder = req.body.register_as_bidder;
+        if (req.body.register_as_auctioneer) aboutData.register_as_auctioneer = req.body.register_as_auctioneer;
         if (req.body.how_to_register) aboutData.how_to_register = req.body.how_to_register;
         if (req.body.updated_by) aboutData.updated_by = req.body.updated_by;
         if (req.body.fb) aboutData.fb = req.body.fb;

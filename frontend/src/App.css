@@ -125,22 +125,22 @@
     border-radius: 0% !important;
     border-width: 1.5px !important; 
 } 
-  /* Loading spinner */
-  .spinner {
-    border: 4px solid #f3f3f3; /* Light grey */
-    border-top: 4px solid rgb(94, 106, 47); /* Blue */
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-    margin: 20px auto; /* Center the spinner */
-  }
-  
-  /* Spinner animation */
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
+/* Loading spinner */
+.spinner {
+  border: 4px solid #f3f3f3; /* Light grey */
+  border-top: 4px solid rgb(94, 106, 47); /* Blue */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto; /* Center the spinner */
+}
+
+/* Spinner animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
   
   #components-slider-demo-mark h4 {
     margin: 0 0 16px;
