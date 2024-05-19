@@ -9,7 +9,7 @@ router.post('/add', userController.createUser);
 router.get('/get', userController.getAllUsers);
 router.get('/get/:id', userController.getUserById);
 router.patch('/update/:id', userController.updateUser); // Using PATCH for partial updates
-router.patch('/softdelete/:id', userController.updateUser);
+router.patch('/softdelete/:id', userController.softdeleteUser);
 router.delete('/harddelete/:id', userController.deleteUser);
 
 // Export the router

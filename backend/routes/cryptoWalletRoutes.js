@@ -12,9 +12,12 @@ router.get('/', CryptoWalletController.getAllCryptoWallets);
 router.get('/:id', CryptoWalletController.getCryptoWalletById);
 
 // Update an existing crypto wallet
-router.put('/:id', CryptoWalletController.updateCryptoWallet);
+router.patch('/:id', CryptoWalletController.updateCryptoWallet);
+
+// Soft delete an existing crypto wallet
+router.patch('/softdelete/:id', CryptoWalletController.softdeleteCryptoWallet);
 
 // Delete an existing crypto wallet
-router.delete('/:id', CryptoWalletController.deleteCryptoWallet);
+router.delete('/harddelete/:id', CryptoWalletController.deleteCryptoWallet);
 
 module.exports = router;

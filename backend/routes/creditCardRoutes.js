@@ -12,9 +12,12 @@ router.get('/', CreditCardController.getAllCreditCards);
 router.get('/:id', CreditCardController.getCreditCardById);
 
 // Update an existing credit card
-router.put('/:id', CreditCardController.updateCreditCard);
+router.patch('/:id', CreditCardController.updateCreditCard);
+
+// Soft delete an existing credit card
+router.patch('/softdelete/:id', CreditCardController.softdeleteCreditCard);
 
 // Delete an existing credit card
-router.delete('/:id', CreditCardController.deleteCreditCard);
+router.delete('/harddelete/:id', CreditCardController.deleteCreditCard);
 
 module.exports = router;

@@ -1,11 +1,9 @@
 const Joi = require("joi");
 const { Schema, model } = require("mongoose");
-const Event = require("./eventModel");
-const participant = require("./userModel")
 
 const artworkSchema = new Schema({
     name: {
-        type: SchemaTypes.String,
+        type: Schema.Types.String,
         required: true,
     },
     artist_id: {
@@ -14,27 +12,27 @@ const artworkSchema = new Schema({
         required: true,
     },
     price: {
-        type: SchemaTypes.Number,
+        type: Schema.Types.Number,
         required: true,
     },
     current_bid: {
-        type: SchemaTypes.Number,
+        type: Schema.Types.Number,
         required: true,
     },
     image: {
-        type: SchemaTypes.String,
+        type: Schema.Types.String,
         required: true,
     },
     bought: {
-        type: SchemaTypes.Boolean,
+        type: Schema.Types.Boolean,
         required: true,
     },
     description: {
-        type: SchemaTypes.String,
+        type: Schema.Types.String,
         required: true,
     },
     deleted: {
-        type: SchemaTypes.Boolean,
+        type: Schema.Types.Boolean,
         default: false
     },
     

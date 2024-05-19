@@ -12,9 +12,12 @@ router.get('/', EventController.getAllEvents);
 router.get('/:id', EventController.getEventById);
 
 // Update an existing event
-router.put('/:id', EventController.updateEvent);
+router.patch('/:id', EventController.updateEvent);
+
+// Soft delete an existing event
+router.patch('/softdelete/:id', EventController.softdeleteEvent);
 
 // Delete an existing event
-router.delete('/:id', EventController.deleteEvent);
+router.delete('/harddelete/:id', EventController.deleteEvent);
 
 module.exports = router;

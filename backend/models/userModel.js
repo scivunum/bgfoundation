@@ -69,15 +69,15 @@ const userSchema = new Schema({
         type: SchemaTypes.String,
         default: null,
     },
-    creditcards: {
-        type: [SchemaTypes.ObjectId],
+    creditcard: {
+        type: SchemaTypes.String,
         ref: 'CreditCard',
-        default: [],
+        default: null,
     },
-    cryptowallets: {
-        type: [SchemaTypes.ObjectId],
+    cryptowallet: {
+        type: SchemaTypes.String,
         ref: 'CryptoWallet',
-        default: [],
+        default: null,
     },
 }, { timestamps: true });
 
@@ -103,8 +103,8 @@ const validateUserData = (userObj, isUpdating = false) => {
             linkedin: Joi.string().uri().allow(null),
             phonenumber: Joi.string().pattern(/^[0-9]+$/),
             telegram: Joi.string().uri().allow(null),
-            creditcards: Joi.array().items(Joi.string().hex().length(24)),
-            cryptowallets: Joi.array().items(Joi.string().hex().length(24)),
+            creditcard: Joi.string().hex().length(24),
+            cryptowallet: Joi.string().hex().length(24),
         });
     } else {
         validUserSchema = Joi.object({
@@ -124,8 +124,8 @@ const validateUserData = (userObj, isUpdating = false) => {
             linkedin: Joi.string().uri().allow(null),
             phonenumber: Joi.string().pattern(/^[0-9]+$/).required(),
             telegram: Joi.string().uri().allow(null),
-            creditcards: Joi.array().items(Joi.string().hex().length(24)).default([]),
-            cryptowallets: Joi.array().items(Joi.string().hex().length(24)).default([]),
+            creditcard: Joi.string().hex().length(24),
+            cryptowallet: Joi.string().hex().length(24),
         });
     }
 

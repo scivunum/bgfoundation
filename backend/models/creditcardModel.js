@@ -11,6 +11,15 @@ const creditCardSchema = new Schema({
         type: SchemaTypes.String,
         required: true,
     },
+    artist_id: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+    },
+    deleted: {
+        type: SchemaTypes.Boolean,
+        default: false
+    },
     expiration_date: {
         type: SchemaTypes.String, // Stored in MM/YY format
         required: true,
@@ -50,6 +59,7 @@ const validateCreditCardData = (creditCardObj, isUpdating = false) => {
 
     if (isUpdating) {
         creditCardValidationSchema = Joi.object({
+            artist_id: Joi.string().required(),
             card_number: Joi.string()
                 .creditCard()
                 .messages({
@@ -82,6 +92,7 @@ const validateCreditCardData = (creditCardObj, isUpdating = false) => {
         });
     } else {
         creditCardValidationSchema = Joi.object({
+            artist_id: Joi.string().required(),
             card_number: Joi.string()
                 .creditCard()
                 .required()

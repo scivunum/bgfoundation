@@ -2,18 +2,17 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const express = require("express");
-const PORT = process.env.PORT || 5000;
+const {createEnvFile} = require('./utils/createenv');
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const { connectToDb } = require('./config/db');
-const { User } = require("./models/userModel");
-const { createMessage } = require('./controller/messageController'); 
-const {sendMail} = require('./utils/mailer');
-//const adminInit = require('./utils/admin.kafka');
-//const {callProducer,producerRun, consumerRun} = require('./utils/kafka');
-//const TOPIC = process.env.KAFKA_TOPIC;
+//const { User } = require("./models/userModel");
+//const { createMessage } = require('./controller/messageController'); 
+//const {sendMail} = require('./utils/mailer');
 // creating a new express application
 const app = express();
+createEnvFile();// initialize the env file
+const PORT = process.env.PORT || 5000;
 
 // loading and parsing all the permitted frontend urls for cors
 let allowedOrigins = [];
@@ -93,20 +92,8 @@ io.on("connection", (socket) => {
 function startServer() {
   httpServer.listen(PORT, async () => {
     console.log(`Server running on port ${PORT}`);
-    sendMail('oscarchiagoziem@gmail.com', 'fridaytodaycandidate','oscarchiagoziem@gmail.com', ['oscaroguledo06@gmail.com'], 'Test Email', 'Hello, this is a test email.', '<p>Hello, this is a test email.</p>');
-    console.log("Email sent successfully");
-    //await adminInit(TOPIC);
-    //await consumerRun("realtime-messages", [TOPIC]);
-
-    // testing the producer-----
-    // const message = {
-    //   eventId: '123344',
-    //   useremail:'test@gmail.com',
-    //   username: 'oscaroguledo',
-    //   message: 'a test message',
-    //   tagged:['oscar', 'john'],
-    // };
-    //await callProducer(message);
+    //sendMail('oscarchiagoziem@gmail.com', 'fridaytodaycandidate','oscarchiagoziem@gmail.com', ['oscaroguledo06@gmail.com'], 'Test Email', 'Hello, this is a test email.', '<p>Hello, this is a test email.</p>');
+    //console.log("Email sent successfully");
   });
 }
 

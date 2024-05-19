@@ -12,9 +12,12 @@ router.get('/', MessageController.getAllMessages);
 router.get('/:id', MessageController.getMessageById);
 
 // Update an existing message
-router.put('/:id', MessageController.updateMessage);
+router.patch('/:id', MessageController.updateMessage);
+
+// Soft delete an existing message
+router.patch('/softdelete/:id', MessageController.softdeleteMessage);
 
 // Delete an existing message
-router.delete('/:id', MessageController.deleteMessage);
+router.delete('/harddelete/:id', MessageController.deleteMessage);
 
 module.exports = router;

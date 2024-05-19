@@ -36,19 +36,44 @@ class CryptoWalletController {
     }
 
     async updateCryptoWallet(req, res) {
+        const { id } = req.params;
+        let walletData = {};
+
+        if (req.body.wallet_address) walletData.wallet_address = req.body.wallet_address;
+        if (req.body.wallet_name) walletData.wallet_name = req.body.wallet_name;
+        if (req.body.balance) walletData.balance = req.body.balance;
+        if (req.body.user_id) walletData.user_id = req.body.user_id;
+
         try {
-            const { error } = validateCryptoWalletData(req.body);
+            const { error } = validateCryptoWalletData(walletData, true);
             if (error) return res.status(400).send(error.details[0].message);
 
             const cryptoWallet = await CryptoWallet.findByIdAndUpdate(
-                req.params.id,
-                req.body,
+                id,
+                { $set: walletData },
                 { new: true }
             );
 
             if (!cryptoWallet) return res.status(404).send("Crypto wallet not found");
 
             return res.send(cryptoWallet);
+        } catch (err) {
+            return res.status(500).send("Internal Server Error");
+        }
+    }
+    
+    async softdeleteCryptoWallet(req, res) {
+        const { id } = req.params;
+        try {
+            const cryptowallet = await CryptoWallet.findByIdAndUpdate(
+                id,
+                {$set: {delete: true}},
+                { new: true }
+            );
+
+            if (!cryptowallet) return res.status(404).send("CryptoWallet not found");
+
+            return res.send("CryptoWallet deleted");
         } catch (err) {
             return res.status(500).send("Internal Server Error");
         }

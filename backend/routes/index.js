@@ -7,12 +7,14 @@ const creditCardRoutes = require("./creditCardRoutes")
 const userRoutes = require("./userRoutes")
 const messageRoutes = require("./messageRoutes")
 const cryptoWalletRoutes = require("./cryptoWalletRoutes");
+const artworkRoutes = require("./artworkRoutes");
 
 
 module.exports = (app) => {
     // declaring all the different parent paths to be used in the api
     app.use("/api/v1/status", statusRoutes);
     app.use("/api/v1/about", aboutRoutes);
+    app.use("/api/v1/artworks", artworkRoutes);
     app.use("/api/v1/events", eventRoutes);
     app.use("/api/v1/creditcards", creditCardRoutes);
     app.use("/api/v1/payments", paymentRoutes);

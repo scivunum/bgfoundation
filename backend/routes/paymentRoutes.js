@@ -12,9 +12,12 @@ router.get('/', PaymentController.getAllPayments);
 router.get('/:id', PaymentController.getPaymentById);
 
 // Update an existing payment
-router.put('/:id', PaymentController.updatePayment);
+router.patch('/:id', PaymentController.updatePayment);
+
+// Soft delete an existing payment
+router.patch('/softdelete/:id', PaymentController.softdeletePayment);
 
 // Delete an existing payment
-router.delete('/:id', PaymentController.deletePayment);
+router.delete('/harddelete/:id', PaymentController.deletePayment);
 
 module.exports = router;
