@@ -1,20 +1,46 @@
-import React from 'react';
-import { Form, Input, Button, DatePicker, Breadcrumb } from 'antd';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Form, Input, Button, DatePicker, Breadcrumb, Select, InputNumber } from 'antd';
+import { Link } from 'react-router-dom';
 import { HomeOutlined } from '@ant-design/icons';
+import axios from 'axios';
+import { backendUrl } from '../../../utils/utils';
 import { colors } from '../../../components/style';
+
+const { Option } = Select;
 
 const AddEventForm = () => {
     const [form] = Form.useForm();
-    const history = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
 
-    const onFinish = (values) => {
-        console.log('Form values:', values);
-        // Handle form submission logic here
-        // For example, send the data to your backend API
+    const onFinish = async (values) => {
+        console.log(values);
+        setIsLoading(true);
+        try {
+            const response = await axios.post(`${backendUrl}/api/v1/events`, values);
+            console.log('Event created:', response.data);
+            //history('/admin/events');
+        } catch (error) {
+            console.error('Error creating event:', error);
+        }
+        setIsLoading(false);
+    };
 
-        // Navigate back to events list or show a success message
-        history('/admin/events');
+    const handleStartDateChange = (_, startDateString) => {
+        const startDate = new Date(startDateString);
+        const endDate = form.getFieldValue('close_date');
+        if (endDate) {
+            const durationInHours = Math.abs(endDate - startDate) / 36e5; // Calculating duration in hours
+            form.setFieldsValue({ duration_in_hours: durationInHours });
+        }
+    };
+
+    const handleEndDateChange = (_, endDateString) => {
+        const endDate = new Date(endDateString);
+        const startDate = form.getFieldValue('start_date');
+        if (startDate) {
+            const durationInHours = Math.abs(endDate - startDate) / 36e5; // Calculating duration in hours
+            form.setFieldsValue({ duration_in_hours: durationInHours });
+        }
     };
 
     return (
@@ -36,25 +62,43 @@ const AddEventForm = () => {
                 style={{ maxWidth: 600, margin: '0 auto', padding: '24px', backgroundColor: colors.primarybackground, borderRadius: '2px' }}
             >
                 <Form.Item
-                    name="title"
-                    label="Event Title"
-                    rules={[{ required: true, message: 'Please enter the event title' }]}
+                    name="name"
+                    label="Event Name"
+                    rules={[{ required: true, message: 'Please enter the event name' }]}
                 >
                     <Input />
                 </Form.Item>
                 <Form.Item
-                    name="date"
-                    label="Event Date"
-                    rules={[{ required: true, message: 'Please select the event date' }]}
+                    name="start_date"
+                    label="Start Date"
+                    rules={[{ required: true, message: 'Please select the start date' }]}
                 >
-                    <DatePicker />
+                    <DatePicker onChange={handleStartDateChange} />
+                </Form.Item>
+                <Form.Item
+                    name="close_date"
+                    label="Close Date"
+                    rules={[{ required: true, message: 'Please select the close date' }]}
+                >
+                    <DatePicker onChange={handleEndDateChange} />
+                </Form.Item>
+                <Form.Item
+                    name="duration_in_hours"
+                    label="Duration (in hours)"
+                    rules={[{ required: true, message: 'Please enter the duration in hours' }]}
+                >
+                    <InputNumber />
                 </Form.Item>
                 <Form.Item
                     name="status"
-                    label="Event Status"
-                    rules={[{ required: true, message: 'Please enter the event status' }]}
+                    label="Status"
+                    rules={[{ required: true, message: 'Please select the status' }]}
                 >
-                    <Input />
+                    <Select>
+                        <Option value="upcoming">Upcoming</Option>
+                        <Option value="ongoing">Ongoing</Option>
+                        <Option value="ended">Ended</Option>
+                    </Select>
                 </Form.Item>
                 <Form.Item
                     name="description"
@@ -64,7 +108,7 @@ const AddEventForm = () => {
                     <Input.TextArea rows={4} />
                 </Form.Item>
                 <Form.Item>
-                    <Button type="primary" htmlType="submit">Add Event</Button>
+                    <Button type="primary" htmlType="submit" loading={isLoading}>Add Event</Button>
                 </Form.Item>
             </Form>
         </div>

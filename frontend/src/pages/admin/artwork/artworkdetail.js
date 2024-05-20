@@ -1,89 +1,119 @@
-import React, { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
-import { Row, Col, Card, Tag, Form, Input, Button, message, Breadcrumb } from 'antd';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useParams, Link} from 'react-router-dom';
+import { Row, Col, Card, Form, Input, Button, message, Breadcrumb } from 'antd';
 import { HomeOutlined, EditOutlined } from '@ant-design/icons';
 import { colors } from '../../../components/style';
+import { backendUrl } from '../../../utils/utils'; // Import backendUrl for the API endpoint
+import LoadingSpinner from '../../../components/LoadingSpinner';
+import { getBase64, base64ToFile } from '../../../utils/imageconverter';
 
 const ArtworkDetail = () => {
     const { id } = useParams();
-
-    // Dummy artwork details (replace this with actual fetching from API or state)
-    const artwork ={
-        id: id,
-        title: 'Artwork Title',
-        author: 'Artist Name',
-        price: '$500',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget suscipit mauris. Nullam vel urna nec urna tempus efficitur. Vestibulum auctor, libero sit amet accumsan fringilla, justo leo viverra purus, at vestibulum risus felis non justo. Aenean ac enim vitae sapien gravida vehicula.',
-        hashtags: ['#abstract', '#modern', '#colorful'],
-        date: '2022-01-01',
-        imageUrl: 'https://via.placeholder.com/300x200', // Example image URL
-    };
-
+    const [isLoading, setIsLoading] = useState(true);
+    const [artwork, setArtwork] = useState(null);
     const [editMode, setEditMode] = useState(false);
+    const [form] = Form.useForm();
+    const [file, setFile] = useState(null);
+
+    useEffect(() => {
+        axios.get(`${backendUrl}/api/v1/artworks/${id}`)
+            .then(response => {
+                const fetchedArtwork = response.data.data;
+                // Convert image back to File object if needed
+                const imageFile = base64ToFile(fetchedArtwork.image, 'artwork.jpg');
+                setArtwork({ ...fetchedArtwork, imageFile });
+                setIsLoading(false);
+            })
+            .catch(error => {
+                console.error('Error fetching artwork details:', error);
+                message.error('Failed to fetch artwork details.');
+                setIsLoading(false);
+            });
+    }, [id]);
 
     const handleEdit = () => {
         setEditMode(!editMode);
     };
 
-    const handleSave = () => {
-        // Here you can implement logic to save the updated artwork details
-        // For now, let's just toggle back to view mode
-        setEditMode(false);
-        message.success('Artwork details saved!');
+    const handleFileChange = (e) => {
+        const newFile = e.target.files[0];
+        setFile(newFile);
     };
+
+    const handleSave = async (values) => {
+        if (file) {
+            values.image = await getBase64(file);
+        }
+
+        axios.put(`${backendUrl}/api/v1/artworks/${id}`, values)
+            .then(response => {
+                setArtwork(response.data.data);
+                setEditMode(false);
+                message.success('Artwork details saved!');
+            })
+            .catch(error => {
+                console.error('Error updating artwork details:', error);
+                message.error('Failed to save artwork details.');
+            });
+    };
+
+    if (isLoading) {
+        return <LoadingSpinner />;
+    }
 
     return (
         <div style={{ padding: '20px' }} className='py-5 mt-4 bg-white'>
             <div className="d-flex justify-content-between align-items-center p-2 mb-4" style={{ backgroundColor: colors.primarybackground }}>
-                    <Breadcrumb
-                        items={[
-                            { title: (<Link to="/"><HomeOutlined /></Link>) },
-                            { title: (<Link to="/admin"><span>Admin</span></Link>) },
-                            { title: (<Link to="/admin/artworks"><span>Art Works</span></Link>) },
-                            { title: (<span>Artwork({id})</span>) },
-                        ]}
-                    />
+                <Breadcrumb>
+                    <Breadcrumb.Item>
+                        <Link to="/"><HomeOutlined /></Link>
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item>
+                        <Link to="/admin">Admin</Link>
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item>
+                        <Link to="/admin/artworks">Art Works</Link>
+                    </Breadcrumb.Item>
+                    <Breadcrumb.Item>Artwork ({id})</Breadcrumb.Item>
+                </Breadcrumb>
                 <EditOutlined onClick={handleEdit} style={{ fontSize: '20px', color: 'black', cursor: 'pointer' }} />
             </div>
             <Row gutter={[16, 16]}>
                 <Col xs={24} sm={12} md={8} lg={6}>
-                    <img src={artwork.imageUrl} alt={artwork.title} style={{ width: '100%', height: 'auto' }} />
+                    {artwork.image && (
+                        <img src={artwork.image} alt={artwork.name} style={{ width: '100%', height: 'auto' }} />
+                    )}
                 </Col>
                 <Col xs={24} sm={12} md={16} lg={18}>
-                    <Card title={editMode ? 'Edit Artwork' : artwork.title} style={{ borderRadius: '2px', borderColor: colors.primary }}>
+                    <Card title={editMode ? 'Edit Artwork' : artwork.name} style={{ borderRadius: '2px', borderColor: colors.primary }}>
                         {editMode ? (
-                            <Form layout="vertical">
-                                <Form.Item label="Title" name="title" initialValue={artwork.title}>
+                            <Form form={form} layout="vertical" initialValues={artwork} onFinish={handleSave}>
+                                <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please enter the artwork name' }]}>
                                     <Input />
                                 </Form.Item>
-                                <Form.Item label="Author" name="author" initialValue={artwork.author}>
+                                <Form.Item label="Artist" name="artist_id" rules={[{ required: true, message: 'Please enter the artist name' }]}>
                                     <Input />
                                 </Form.Item>
-                                <Form.Item label="Price" name="price" initialValue={artwork.price}>
+                                <Form.Item label="Price" name="price" rules={[{ required: true, message: 'Please enter the price' }]}>
                                     <Input />
                                 </Form.Item>
-                                <Form.Item label="Description" name="description" initialValue={artwork.description}>
+                                <Form.Item label="Description" name="description" rules={[{ required: true, message: 'Please enter the description' }]}>
                                     <Input.TextArea />
                                 </Form.Item>
-                                <Form.Item label="Hashtags" name="hashtags" initialValue={artwork.hashtags}>
-                                    <Input />
-                                </Form.Item>
-                                <Form.Item label="Date" name="date" initialValue={artwork.date}>
-                                    <Input />
+                                <Form.Item label="Upload Image">
+                                    <Input type="file" onChange={handleFileChange} />
                                 </Form.Item>
                                 <Form.Item>
-                                    <Button type="primary" onClick={handleSave}>
-                                        Save
-                                    </Button>
+                                    <Button type="primary" htmlType="submit">Save</Button>
                                 </Form.Item>
                             </Form>
                         ) : (
                             <>
-                                <p><strong>Author:</strong> {artwork.author}</p>
+                                <p><strong>Artist:</strong> {artwork.artist_id}</p>
                                 <p><strong>Price:</strong> {artwork.price}</p>
                                 <p><strong>Description:</strong> {artwork.description}</p>
-                                <p><strong>Hashtags:</strong> {artwork.hashtags.map(tag => <Tag key={tag}>{tag}</Tag>)}</p>
-                                <p><strong>Date:</strong> {artwork.date}</p>
+                                <p><strong>Created Date:</strong> {artwork.createdAt}</p>
                                 <Button onClick={handleEdit}>Edit</Button>
                             </>
                         )}

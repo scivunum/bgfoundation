@@ -12,7 +12,7 @@ router.get('/', EventController.getAllEvents);
 router.get('/:id', EventController.getEventById);
 
 // Update an existing event
-router.patch('/:id', EventController.updateEvent);
+router.put('/:id', EventController.updateEvent);
 
 // Soft delete an existing event
 router.patch('/softdelete/:id', EventController.softdeleteEvent);

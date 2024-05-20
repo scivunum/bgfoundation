@@ -11,16 +11,16 @@ class EventController {
 
             return res.status(201).send(event);
         } catch (err) {
-            return res.status(500).send("Internal Server Error");
+            return res.status(500).send({'success':false,'error':"Internal Server Error", 'message':err});
         }
     }
 
     async getAllEvents(req, res) {
         try {
             const events = await Event.find();
-            return res.send(events);
+            return res.send({'success':true,'data':events, 'size':events.length});
         } catch (err) {
-            return res.status(500).send("Internal Server Error");
+            return res.status(500).send({'success':false,'error':"Internal Server Error", 'message':err});
         }
     }
 
@@ -31,38 +31,23 @@ class EventController {
 
             return res.send(event);
         } catch (err) {
-            return res.status(500).send("Internal Server Error");
+            return res.status(500).send({'success':false,'error':"Internal Server Error", 'message':err});
         }
     }
 
     async updateEvent(req, res) {
         const { id } = req.params;
-        let eventData = {};
-
-        if (req.body.name) eventData.name = req.body.name;
-        if (req.body.start_date) eventData.start_date = req.body.start_date;
-        if (req.body.close_date) eventData.close_date = req.body.close_date;
-        if (req.body.duration_in_hours) eventData.duration_in_hours = req.body.duration_in_hours;
-        if (req.body.status) eventData.status = req.body.status;
-        if (req.body.description) eventData.description = req.body.description;
-        if (req.body.artworks) eventData.artworks = req.body.artworks;
-        if (req.body.max_artworks) eventData.max_artworks = req.body.max_artworks;
-        if (req.body.started) eventData.started = req.body.started;
-        if (req.body.ended) eventData.ended = req.body.ended;
-        if (req.body.registration_end_date) eventData.registration_end_date = req.body.registration_end_date;
-
         try {
             const event = await Event.findByIdAndUpdate(
                 id,
-                { $set: eventData },
+                req.body,
                 { new: true }
             );
-
             if (!event) return res.status(404).send("Event not found");
 
-            return res.send(event);
+            return res.send({'success':true,'data':event});
         } catch (err) {
-            return res.status(500).send("Internal Server Error");
+            return res.status(500).send({'success':false,'error':"Internal Server Error", 'message':err});
         }
     }
 
@@ -79,18 +64,18 @@ class EventController {
 
             return res.send("Event deleted");
         } catch (err) {
-            return res.status(500).send("Internal Server Error");
+            return res.status(500).send({'success':false,'error':"Internal Server Error", 'message':err});
         }
     }
 
     async deleteEvent(req, res) {
         try {
-            const event = await Event.findByIdAndRemove(req.params.id);
+            const event = await Event.findByIdAndDelete(req.params.id);
             if (!event) return res.status(404).send("Event not found");
 
             return res.send(event);
         } catch (err) {
-            return res.status(500).send("Internal Server Error");
+            return res.status(500).send({'success':false,'error':"Internal Server Error", 'message':err});
         }
     }
 }

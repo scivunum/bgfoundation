@@ -17,10 +17,10 @@ class ArtworkController {
 
     async getAllArtworks(req, res) {
         try {
-            const artworks = await Artwork.find({delete: false});
+            const artworks = await Artwork.find({deleted: false});
             return res.send({'success':true,'data':artworks, 'size':artworks.length});
         } catch (err) {
-            return res.status(500).send("Internal Server Error");
+            return res.status(500).send({'success':false,'error':"Internal Server Error", 'message':err});
         }
     }
 
@@ -29,9 +29,9 @@ class ArtworkController {
             const artwork = await Artwork.findById(req.params.id);
             if (!artwork) return res.status(404).send("Artwork not found");
 
-            return res.send(artwork);
+            return res.send({'success':true,'data':artwork});
         } catch (err) {
-            return res.status(500).send("Internal Server Error");
+            return res.status(500).send({'success':false,'error':"Internal Server Error", 'message':err});
         }
     }
 
@@ -48,7 +48,7 @@ class ArtworkController {
 
             return res.send({'success':true,'data':artwork});
         } catch (err) {
-            return res.status(500).send("Internal Server Error");
+            return res.status(500).send({'success':false,'error':"Internal Server Error", 'message':err});
         }
     }
     async softdeleteArtwork(req, res) {
@@ -64,18 +64,17 @@ class ArtworkController {
 
             return res.send("Artwork deleted");
         } catch (err) {
-            return res.status(500).send("Internal Server Error");
+            return res.status(500).send({'success':false,'error':"Internal Server Error", 'message':err});
         }
     }
 
     async deleteArtwork(req, res) {
         try {
-            const artwork = await Artwork.findByIdAndRemove(req.params.id);
+            const artwork = await Artwork.findByIdAndDelete(req.params.id);
             if (!artwork) return res.status(404).send("Artwork not found");
-
             return res.send(artwork);
         } catch (err) {
-            return res.status(500).send("Internal Server Error");
+            return res.status(500).send({'success':false,'error':"Internal Server Error", 'message':err});
         }
     }
 }

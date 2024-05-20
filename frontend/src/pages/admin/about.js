@@ -4,7 +4,7 @@ import { HomeOutlined, EditOutlined, SaveOutlined, LinkedinOutlined, FacebookOut
 import { Link } from 'react-router-dom';
 import { countryCodes } from '../../components/constants';
 import axios from 'axios';
-import { backendUrl } from '../../layouts/AppLayout/utils';
+import { backendUrl } from '../../utils/utils'; // Import backendUrl for the API endpoint
 import LoadingSpinner from '../../components/LoadingSpinner';
 
 const { Text } = Typography;

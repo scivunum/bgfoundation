@@ -3,8 +3,9 @@ import { Form, Input, Button, Upload, InputNumber, Breadcrumb } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { UploadOutlined, HomeOutlined } from '@ant-design/icons';
 import axios from 'axios';
-import { backendUrl } from '../../../layouts/AppLayout/utils';
+import { backendUrl } from '../../../utils/utils';
 import { colors } from '../../../components/style';
+import { getBase64 } from '../../../utils/imageconverter';
 
 const AddArtworkForm = () => {
     const [form] = Form.useForm();
@@ -17,14 +18,6 @@ const AddArtworkForm = () => {
         const file = fileList[0].originFileObj;
 
         // Convert image file to Base64 string
-        const getBase64 = (file) => {
-            return new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
-                reader.onload = () => resolve(reader.result);
-                reader.onerror = error => reject(error);
-            });
-        };
 
         const imageBase64 = await getBase64(file);
 

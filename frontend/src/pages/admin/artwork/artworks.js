@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Layout, Card, Row, Col, Table, Breadcrumb, Button } from 'antd';
 import { HomeOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import FilterComponent from '../../../components/Filter';
-import { backendUrl } from '../../../layouts/AppLayout/utils';
+import { backendUrl } from '../../../utils/utils'; // Import backendUrl for the API endpoint
 import { colors } from '../../../components/style';
 import LoadingSpinner from '../../../components/LoadingSpinner';
 
@@ -15,8 +15,7 @@ const AdminArtworks = () => {
     const [artworks, setArtworks] = useState([]);
     const [filteredArtworks, setFilteredArtworks] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-
-    
+    const [display, setDisplay] = useState(1);
 
     useEffect(() => {
         const dummyArtworks = [
@@ -26,14 +25,15 @@ const AdminArtworks = () => {
         ];
         axios.get(`${backendUrl}/api/v1/artworks`)
             .then(response => {
-                const fetchedArtworks = response.data.data.map((artwork, index) => ({ ...artwork, key: index + 1 }));
-                console.log('fetchedArtworks:', fetchedArtworks);
+                const fetchedArtworks = response.data.data;
                 if (fetchedArtworks.length === 0) {
                     setArtworks(dummyArtworks);
                     setFilteredArtworks(dummyArtworks);
+                    setDisplay(0);
                 } else {
                     setArtworks(fetchedArtworks);
                     setFilteredArtworks(fetchedArtworks);
+                    setDisplay(1);
                 }
                 setIsLoading(false);
             })
@@ -42,6 +42,7 @@ const AdminArtworks = () => {
                 setArtworks(dummyArtworks);
                 setFilteredArtworks(dummyArtworks);
                 setIsLoading(false);
+                setDisplay(0);
             });
     }, []);
 
@@ -49,11 +50,29 @@ const AdminArtworks = () => {
         navigate('/admin/artworks/add');
     };
 
+    const deleteArtwork = (id) => {
+        axios.delete(`${backendUrl}/api/v1/artworks/harddelete/${id}`)
+            .then(response => {
+                console.log(response);
+                const newArtworks = artworks.filter(artwork => artwork._id !== id);
+                setArtworks(newArtworks);
+                setFilteredArtworks(newArtworks);
+            })
+            .catch(error => {
+                console.error("There was an error deleting the artwork!", error);
+            });
+    }
+
     const ArtworksColumns = [
         {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
+            render: (text, record) => (
+                <div>
+                    <Button type="primary" onClick={() => navigate(`/admin/artworks/${record._id}`)}>{record.name} </Button>
+                </div>
+            ),
         },
         {
             title: 'Artist',
@@ -62,8 +81,8 @@ const AdminArtworks = () => {
         },
         {
             title: 'Date',
-            dataIndex: 'date',
-            key: 'date',
+            dataIndex: 'createdAt',
+            key: 'createdAt',
         },
         {
             title: 'Price',
@@ -90,7 +109,7 @@ const AdminArtworks = () => {
         {
             render: (text, record) => (
                 <div>
-                    <Button type="primary" icon={<DeleteOutlined />}></Button>
+                    <Button type="primary" icon={<DeleteOutlined />} onClick={() => deleteArtwork(record._id)} />
                 </div>
             ),
         },
@@ -99,19 +118,18 @@ const AdminArtworks = () => {
     const filterArtworks = ({ itemName, dateRange, minPrice, maxPrice }) => {
         let filtered = artworks;
 
-        // Filter by item name, artist, price, and description
+        // Filter by item name, artist, and price
         if (itemName || minPrice || maxPrice) {
             const lowerItemName = itemName ? itemName.toLowerCase() : '';
-            console.log(lowerItemName);
             filtered = filtered.filter(artwork => {
                 const lowerName = artwork.name.toLowerCase();
                 const lowerArtistId = artwork.artist_id.toLowerCase();
                 const priceInt = parseInt(artwork.price, 10);
-                console.log(priceInt);  
-                const matchesItemName = !itemName || lowerName.includes(lowerItemName) || lowerArtistId.includes(lowerItemName);
 
-                // Check if the artwork matches the criteria
-                return matchesItemName && (priceInt >= parseInt(minPrice) && priceInt <= parseInt(maxPrice));
+                const matchesItemName = !itemName || lowerName.includes(lowerItemName) || lowerArtistId.includes(lowerItemName);
+                const matchesPrice = (!minPrice || priceInt >= parseInt(minPrice, 10)) && (!maxPrice || priceInt <= parseInt(maxPrice, 10));
+
+                return matchesItemName && matchesPrice;
             });
         }
 
@@ -128,6 +146,35 @@ const AdminArtworks = () => {
 
     if (isLoading) {
         return <LoadingSpinner />;
+    }
+    if (display === 0) {
+        return (
+            <div style={{ padding: '0 12px', marginTop: '70px', backgroundColor: 'white' }}>
+            <Content style={{ padding: '0 2px' }}>
+                <div className="d-flex justify-content-between align-items-center p-2 mb-4" style={{ backgroundColor: colors.primarybackground }}>
+                    <Breadcrumb
+                        items={[
+                            { title: (<Link to="/"><HomeOutlined /></Link>) },
+                            { title: (<Link to="/admin"><span>Admin</span></Link>) },
+                            { title: (<span>Artworks</span>) },
+                        ]}
+                    />
+                    <PlusOutlined onClick={onEdit} style={{ fontSize: '20px', color: 'black', cursor: 'pointer' }} />
+                </div>
+                <FilterComponent onSearch={filterArtworks} name={true} date={true} price={true} />
+                <div className="site-layout-background" style={{ padding: 8, minHeight: 380 }}>
+                    <Row style={{ marginTop: 1 }}>
+                        <Col span={24}>
+                            <Card title={`Artworks - ${filteredArtworks.length}`} bordered={true} style={{ borderRadius: '2px'}}>
+                                Add an artwork.
+                                <PlusOutlined onClick={onEdit} style={{ fontSize: '20px', color: 'black', cursor: 'pointer' }} />
+                            </Card>
+                        </Col>
+                    </Row>
+                </div>
+            </Content>
+        </div>
+        );
     }
 
     return (
@@ -147,18 +194,10 @@ const AdminArtworks = () => {
                 <div className="site-layout-background" style={{ padding: 8, minHeight: 380 }}>
                     <Row style={{ marginTop: 1 }}>
                         <Col span={24}>
-                            <Card title="Artworks" bordered={true} style={{ borderRadius: '2px'}}>
+                            <Card title={`Artworks - ${filteredArtworks.length}`} bordered={true} style={{ borderRadius: '2px'}}>
                                 <Table
                                     dataSource={filteredArtworks}
                                     columns={ArtworksColumns}
-                                    onRow={(record) => ({
-                                        style: {
-                                            cursor: 'pointer',
-                                        },
-                                        onClick: () => {
-                                            navigate(`/admin/artworks/${record.key}`);
-                                        },
-                                    })}
                                     pagination={true}
                                     rowClassName="editable-row"
                                     scroll={{ x: 'max-content' }}

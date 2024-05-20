@@ -8,7 +8,7 @@ import auctionimg from '../assets/auctioningmace.jpg';
 import auctioneer from '../assets/auctioning.jpg';
 import bidder from '../assets/bidding.jpg';
 import axios from 'axios';
-import { backendUrl } from '../layouts/AppLayout/utils';
+import { backendUrl } from '../utils/utils';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 const { Title, Paragraph } = Typography;
