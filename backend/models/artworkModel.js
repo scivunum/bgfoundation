@@ -14,10 +14,12 @@ const artworkSchema = new Schema({
     price: {
         type: Schema.Types.Number,
         required: true,
+        default: 0,
     },
     current_bid: {
         type: Schema.Types.Number,
         required: true,
+        default: 0,
     },
     image: {
         type: Schema.Types.String,
@@ -26,10 +28,12 @@ const artworkSchema = new Schema({
     bought: {
         type: Schema.Types.Boolean,
         required: true,
+        default: false,
     },
     description: {
         type: Schema.Types.String,
         required: true,
+        default:'',
     },
     deleted: {
         type: Schema.Types.Boolean,
@@ -42,12 +46,16 @@ const artworkSchema = new Schema({
         required: false,
         default: null
     },
+
 }, { timestamps: true });
 
 const validateArtwork = (artwork) => {
     const schema = Joi.object({
-        participant_id: Joi.string().required(),
-        event_id: Joi.string().required(),
+        artist_id: Joi.string().required(),
+        image: Joi.string().required(),
+        name: Joi.string().required(),
+        price: Joi.number().required(),
+        description: Joi.string().required(),
     });
     return schema.validate(artwork);
 };

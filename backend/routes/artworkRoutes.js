@@ -12,7 +12,7 @@ router.get('/', ArtworkController.getAllArtworks);
 router.get('/:id', ArtworkController.getArtworkById);
 
 // Route to update an artwork
-router.patch('/:id', ArtworkController.updateArtwork);
+router.put('/:id', ArtworkController.updateArtwork);
 
 // Route to soft delete an artwork
 router.patch('/softdelete/:id', ArtworkController.softdeleteArtwork);

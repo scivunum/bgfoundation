@@ -1,39 +1,69 @@
 import React, { useState } from 'react';
-import { Form, Input, Button, Upload, DatePicker, InputNumber, Breadcrumb } from 'antd';
+import { Form, Input, Button, Upload, InputNumber, Breadcrumb } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import { UploadOutlined, HomeOutlined } from '@ant-design/icons';
+import axios from 'axios';
+import { backendUrl } from '../../../layouts/AppLayout/utils';
 import { colors } from '../../../components/style';
 
 const AddArtworkForm = () => {
     const [form] = Form.useForm();
-    const history = useNavigate();
+    const navigate = useNavigate();
     const [fileList, setFileList] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
-    const onFinish = (values) => {
-        console.log('Form values:', values);
-        // Handle form submission logic here
-        // For example, send the data to your backend API
+    const onFinish = async (values) => {
+        setIsLoading(true);
+        const file = fileList[0].originFileObj;
 
-        // Navigate back to artworks list or show a success message
-        history('/admin/artworks');
+        // Convert image file to Base64 string
+        const getBase64 = (file) => {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+            });
+        };
+
+        const imageBase64 = await getBase64(file);
+
+        const artworkData = {
+            name: values.name,
+            artist_id: values.artist_id,
+            price: values.price,
+            description: values.description,
+            image: imageBase64, // Use the Base64 string of the image
+        };
+
+        try {
+            await axios.post(`${backendUrl}/api/v1/artworks`, artworkData, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            navigate('/admin/artworks');
+            setIsLoading(false);
+        } catch (error) {
+            console.error('There was an error uploading the artwork!', error);
+        }
     };
 
     const handleUploadChange = ({ fileList }) => {
-        console.log(fileList[0]);
         setFileList(fileList);
     };
 
     return (
         <div className='py-5 mt-4 bg-white'>
             <div className="d-flex justify-content-between align-items-center p-2 mb-2" style={{ backgroundColor: colors.primarybackground }}>
-                    <Breadcrumb
-                        items={[
-                            { title: (<Link to="/"><HomeOutlined /></Link>) },
-                            { title: (<Link to="/admin"><span>Admin</span></Link>) },
-                            { title: (<Link to="/admin/artworks"><span>Art Works</span></Link>) },
-                            { title: (<span>Add</span>) },
-                        ]}
-                    />
+                <Breadcrumb
+                    items={[
+                        { title: (<Link to="/"><HomeOutlined /></Link>) },
+                        { title: (<Link to="/admin"><span>Admin</span></Link>) },
+                        { title: (<Link to="/admin/artworks"><span>Art Works</span></Link>) },
+                        { title: (<span>Add</span>) },
+                    ]}
+                />
             </div>
             <Form
                 form={form}
@@ -49,18 +79,11 @@ const AddArtworkForm = () => {
                     <Input />
                 </Form.Item>
                 <Form.Item
-                    name="artist"
-                    label="Artist"
-                    rules={[{ required: true, message: 'Please enter the artist name' }]}
+                    name="artist_id"
+                    label="Artist ID"
+                    rules={[{ required: true, message: 'Please enter the artist ID' }]}
                 >
                     <Input />
-                </Form.Item>
-                <Form.Item
-                    name="date"
-                    label="Creation Date"
-                    rules={[{ required: true, message: 'Please select the creation date' }]}
-                >
-                    <DatePicker />
                 </Form.Item>
                 <Form.Item
                     name="price"
@@ -72,6 +95,13 @@ const AddArtworkForm = () => {
                         parser={value => value.replace(/\$\s?|(,*)/g, '')}
                         style={{ width: '100%' }}
                     />
+                </Form.Item>
+                <Form.Item
+                    name="description"
+                    label="Description"
+                    rules={[{ required: true, message: 'Please enter the description' }]}
+                >
+                    <Input.TextArea rows={4} />
                 </Form.Item>
                 <Form.Item
                     name="image"
@@ -90,7 +120,7 @@ const AddArtworkForm = () => {
                     </Upload>
                 </Form.Item>
                 <Form.Item>
-                    <Button type="primary" htmlType="submit">Add Artwork</Button>
+                    <Button type="primary" htmlType="submit">{isLoading?<div className='spinner' style={{fontSize:'4px'}}></div>:'Add Artwork'}</Button>
                 </Form.Item>
             </Form>
         </div>
