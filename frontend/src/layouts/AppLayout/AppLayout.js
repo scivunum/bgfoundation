@@ -6,6 +6,7 @@ import Header from '../../components/header';
 import Footer from '../../components/footer';
 import { colors } from '../../components/style';
 import { Modal, Layout, List, Input, FloatButton, notification } from 'antd';
+import Paragraph from 'antd/es/typography/Paragraph';
 
 const { Content } = Layout;
 const logo = 'https://cdn.durable.co/blocks/1cgSWideq4sUHRAzrib9feRIIn3eEPdrb9UZwYFoNKcRu1AL3KgsrmP6V0KfqeZz.jpg';
@@ -91,17 +92,18 @@ const AppLayout = ({ children, isloggedIn }) => {
   const [api, contextHolder] = notification.useNotification();
   
   const contextValue = useMemo(() => ({
-    name: 'Ant Design',
+    name: 'unknown',
   }), []);
-  const getRandomInterval = () => Math.floor(Math.random() * (10000 - 5000 + 1)) + 5000;
+  const getRandomInterval = () => Math.floor(Math.random() * (20000 - 10000 + 1)) + 10000;
   
 
   const openNotification = (possibleNotifications, api) => {
     const randomNotification = possibleNotifications[Math.floor(Math.random() * possibleNotifications.length)];
     api.success({
       message: randomNotification.message,
-      description: <Context.Consumer>{({ name }) => randomNotification.description}</Context.Consumer>,
+      description: <Context.Consumer>{({ name }) => <Paragraph>{randomNotification.description}</Paragraph>}</Context.Consumer>,
       placement: 'bottomLeft',
+      
     });
   };
 

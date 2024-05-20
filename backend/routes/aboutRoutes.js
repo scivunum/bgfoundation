@@ -12,7 +12,7 @@ router.get('/:id', AboutController.getAboutById);
 router.post('/', AboutController.createAbout);
 
 // Update an existing about entry
-router.patch('/:id', AboutController.updateAbout);
+router.put('/:id', AboutController.updateAbout);
 
 // Delete an existing about entry
 router.delete('/:id', AboutController.deleteAbout);
