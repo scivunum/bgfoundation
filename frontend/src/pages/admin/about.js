@@ -5,11 +5,13 @@ import { Link } from 'react-router-dom';
 import { countryCodes } from '../../components/constants';
 import axios from 'axios';
 import { backendUrl } from '../../layouts/AppLayout/utils';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 const { Text } = Typography;
 const { Option } = Select;
 
 const AdminAboutPage = () => {
+    const [isLoading, setIsLoading] = useState(true);
     const [aboutData, setAboutData] = useState({
         _id: 'dummy-id',
         logo: 'http://dummy-logo-url.com/logo.png',
@@ -38,17 +40,20 @@ const AdminAboutPage = () => {
     const [form] = Form.useForm();
 
     const fetchAboutData = async () => {
+        setIsLoading(true);
         try {
             const response = await axios.get(`${backendUrl}/api/v1/about`);
-            console.log('response.data:', response.data.data);
             if (response.data.size > 0) {
+                
                 setAboutData(response.data.data[0]); // Assuming the first item in the response array is what you want
+                console.log('response.data.data[0]:', response.data.data[0]);
             }
         } catch (error) {
             console.error('Error fetching the about data:', error);
         }
+        setIsLoading(false);
     };
-
+    
     useEffect(() => {
         fetchAboutData();
     }, []);
@@ -75,6 +80,10 @@ const AdminAboutPage = () => {
         }
         
     };
+
+    if (isLoading) {
+        return <LoadingSpinner />
+    }
 
     return (
         <div style={{ padding: '24px', marginTop: "70px", backgroundColor: 'white' }}>

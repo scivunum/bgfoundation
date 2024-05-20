@@ -7,8 +7,7 @@ const envFilePath = path.join(__dirname, '../.env');
 // Define the environment variables you want to add as an object
 const newEnvVariables = {
     FRONTEND_URLS: '["http://localhost:3000","https://scivunum.github.io/bgfoundation/"]',
-    //MONGO_DB_URI: "'mongodb+srv://raxicompanylimited:YTJvNf2sGbXpNwBP@cluster0.o4wk6is.mongodb.net/'",
-    MONGO_DB_URI :"'mongodb://localhost:27017/bgfoundation?retryWrites=true&w=majority'",
+    MONGO_DB_URI: "'mongodb+srv://raxicompanylimited:YTJvNf2sGbXpNwBP@cluster0.o4wk6is.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'",
     PORT: '5000',
 };
 
