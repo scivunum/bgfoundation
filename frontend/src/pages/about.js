@@ -19,8 +19,31 @@ const AboutPage = ({ companyname, IsloggedIn }) => {
   const termsConditionsRef = useRef(null);
   const contactUsRef = useRef(null);
   const location = useLocation();
-  const [about, setAbout] = useState(null);
-  const [aboutfaqs, setAboutfaqs] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+    const [about, setAbout] = useState({
+        _id: 'dummy-id',
+        logo: 'http://dummy-logo-url.com/logo.png',
+        info: 'Dummy company info',
+        mission: 'Dummy mission statement',
+        name: 'Dummy Company Name',
+        email: 'dummy-email@company.com',
+        phonenumber: '08012345678',
+        phonenumberpre: '+234',
+        address: 'Dummy address, City, Country',
+        how_to_bid: 'Step 1: Do this\nStep 2: Do that',
+        register_as_bidder: 'Step 1: Register here\nStep 2: Verification process',
+        register_as_auctioneer: 'Step 1: Apply here\nStep 2: Verification process',
+        how_to_register: 'Step 1: Fill the form\nStep 2: Submit documents',
+        updated_by: 'Admin Name',
+        last_updated: new Date().toISOString(),
+        terms_and_conditions: 'Dummy terms and conditions.',
+        fb: 'http://facebook.com/dummy',
+        twitter: 'http://twitter.com/dummy',
+        ig: 'http://instagram.com/dummy',
+        linkedin: 'http://linkedin.com/in/dummy',
+        telegram: 'http://telegram.com/dummy',
+    });
+  
 
   const onFinish = (values) => {
     console.log('Received values:', values);
@@ -31,98 +54,23 @@ const AboutPage = ({ companyname, IsloggedIn }) => {
     console.log('Failed:', errorInfo);
     message.error('Please check the form fields and try again.');
   };
+  const fetchAboutData = async () => {
+      setIsLoading(true);
+      try {
+          const response = await axios.get(`${backendUrl}/api/v1/about`);
+          if (response.data.size > 0) {
+              
+              setAbout(response.data.data[0]); // Assuming the first item in the response array is what you want
+              console.log('response.data.data[0]:', response.data.data[0]);
+          }
+      } catch (error) {
+          console.error('Error fetching the about data:', error);
+      }
+      setIsLoading(false);
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${backendUrl}/api/v1/about`);
-        const aboutData = response.data;
-        if (aboutData.size < 1) {
-          setAbout({
-            companyName: companyname,
-            info: `${companyname} is a leading provider of art auction services, dedicated to connecting artists and collectors worldwide.`,
-            mission: `Our mission is to promote the appreciation and accessibility of art by offering a platform for artists to showcase their work and for collectors to discover unique pieces.`,
-            terms_and_conditions: `Terms and Conditions for ${companyname} Auction.
-                ...
-                `
-          });
-          setAboutfaqs([
-            {
-              header: 'How to Auction',
-              content: [
-                '1. Register as a seller',
-                '2. Create an auction',
-                '3. Add your artwork',
-                '4. Set your auction details',
-                '5. Start bidding',
-                '6. Collect your artwork'
-              ],
-              img: auctionimg
-            },
-            {
-              header: 'How to Bid',
-              content: [
-                '1. Register as a buyer',
-                '2. Search for an auction',
-                '3. Bid on the auction',
-                '4. Collect your artwork'
-              ],
-              img: biddingimg
-            },
-            {
-              header: 'Register as an Auctioneer',
-              content: [
-                '1. Fill out the registration form',
-                '2. Verify your email address',
-                '3. Complete your profile information',
-                '4. Agree to the terms and conditions'
-              ],
-              img: auctioneer
-            },
-            {
-              header: 'Register as a Bidder',
-              content: [
-                '1. Fill out the registration form',
-                '2. Verify your email address',
-                '3. Complete your profile information',
-                '4. Agree to the terms and conditions'
-              ],
-              img: bidder
-            }
-          ]);
-        } else {
-          setAbout(aboutData);
-          setAboutfaqs([
-            {
-              header: 'How to Auction',
-              content: aboutData.how_to_auction,
-              img: auctionimg
-            },
-            {
-              header: 'How to Bid',
-              content: aboutData.how_to_bid,
-              img: bidder
-            },
-            {
-              header: 'Register as Bidder',
-              content: aboutData.register_as_bidder,
-              img: bidder
-            },
-            {
-              header: 'Register as Auctioneer',
-              content: aboutData.register_as_auctioneer,
-              img: auctioneer
-            }
-          ]);
-        }
-
-       
-      } catch (error) {
-        console.error('Error fetching the about data:', error);
-      }
-    };
-
-    fetchData();
+    fetchAboutData();
 
     const hash = location.hash.substring(1);
     if (hash === 'termsandconditions' && termsConditionsRef.current) {
@@ -133,9 +81,9 @@ const AboutPage = ({ companyname, IsloggedIn }) => {
     }
   }, [location.hash, companyname]);
 
-  if (!about || !aboutfaqs) {
-    return <LoadingSpinner style={{ padding: '24px', marginTop: "70px", backgroundColor: 'white' }} />;
-  }
+  if (isLoading) {
+    return <LoadingSpinner />
+}
 
   return (
     <div style={{ padding: '24px', marginTop: "70px", backgroundColor: 'white' }}>
@@ -148,11 +96,18 @@ const AboutPage = ({ companyname, IsloggedIn }) => {
       <Row gutter={[16, 16]} justify="space-between">
         <Col xs={24} sm={24} lg={12} xl={12} className='py-5 mt-3'>
           <Collapse accordion>
-            {aboutfaqs.map((faq, index) => (
-              <Panel header={faq.header} key={index} onClick={() => setCurrentFaqImg(faq.img)}>
-                {faq.content.map((f, idx) => (<Paragraph key={idx}>{f}</Paragraph>))}
-              </Panel>
-            ))}
+            <Panel header='How to Bid' onClick={() => setCurrentFaqImg(biddingimg)}>
+              <Paragraph>{about.how_to_bid}</Paragraph>
+            </Panel>
+            <Panel header='How to Register' onClick={() => setCurrentFaqImg(auctionimg)}>
+              <Paragraph>{about.how_to_register}</Paragraph>
+            </Panel>
+            <Panel header='Register as Auctioneer' onClick={() => setCurrentFaqImg(auctioneer)}>
+              <Paragraph>{about.register_as_auctioneer}</Paragraph>
+            </Panel>
+            <Panel header='Register as Bidder' onClick={() => setCurrentFaqImg(bidder)}>
+              <Paragraph>{about.register_as_bidder}</Paragraph>
+            </Panel>
           </Collapse>
         </Col>
         <Col xs={24} sm={24} lg={12} xl={12}>
