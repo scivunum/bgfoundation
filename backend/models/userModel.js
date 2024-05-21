@@ -69,16 +69,6 @@ const userSchema = new Schema({
         type: SchemaTypes.String,
         default: null,
     },
-    creditcard: {
-        type: SchemaTypes.String,
-        ref: 'CreditCard',
-        default: null,
-    },
-    cryptowallet: {
-        type: SchemaTypes.String,
-        ref: 'CryptoWallet',
-        default: null,
-    },
 }, { timestamps: true });
 
 // Validate user data for creation or update
@@ -103,8 +93,6 @@ const validateUserData = (userObj, isUpdating = false) => {
             linkedin: Joi.string().uri().allow(null),
             phonenumber: Joi.string().pattern(/^[0-9]+$/),
             telegram: Joi.string().uri().allow(null),
-            creditcard: Joi.string().hex().length(24),
-            cryptowallet: Joi.string().hex().length(24),
         });
     } else {
         validUserSchema = Joi.object({
@@ -124,8 +112,6 @@ const validateUserData = (userObj, isUpdating = false) => {
             linkedin: Joi.string().uri().allow(null),
             phonenumber: Joi.string().pattern(/^[0-9]+$/).required(),
             telegram: Joi.string().uri().allow(null),
-            creditcard: Joi.string().hex().length(24),
-            cryptowallet: Joi.string().hex().length(24),
         });
     }
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { Layout, Card, Row, Col, Table, Breadcrumb, Button } from 'antd';
+import { Layout, Card, Row, Col, Table, Breadcrumb, Button, message } from 'antd';
 import { HomeOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import FilterComponent from '../../../components/Filter';
 import { backendUrl } from '../../../utils/utils'; // Import backendUrl for the API endpoint
@@ -57,9 +57,11 @@ const AdminArtworks = () => {
                 const newArtworks = artworks.filter(artwork => artwork._id !== id);
                 setArtworks(newArtworks);
                 setFilteredArtworks(newArtworks);
+                message.success("Artwork deleted successfully!", 5);
             })
             .catch(error => {
                 console.error("There was an error deleting the artwork!", error);
+                message.error("There was an error deleting the artwork!", 5);
             });
     }
 

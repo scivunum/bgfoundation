@@ -42,6 +42,10 @@ const eventSchema = new Schema({
             return new Date(this.start_date.getTime() - 24 * 60 * 60 * 1000);
         }
     },
+    deleted: {
+        type: Schema.Types.Boolean,
+        default: false
+    },
 }, { timestamps: true });
 
 const Event = model("Event", eventSchema);

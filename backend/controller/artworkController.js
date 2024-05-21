@@ -16,8 +16,11 @@ class ArtworkController {
     }
 
     async getAllArtworks(req, res) {
+        let query = req.query;
+        query.deleted = false;
+
         try {
-            const artworks = await Artwork.find({deleted: false});
+            const artworks = await Artwork.find(query);
             return res.send({'success':true,'data':artworks, 'size':artworks.length});
         } catch (err) {
             return res.status(500).send({'success':false,'error':"Internal Server Error", 'message':err});

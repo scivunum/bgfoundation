@@ -12,7 +12,7 @@ router.get('/', PaymentController.getAllPayments);
 router.get('/:id', PaymentController.getPaymentById);
 
 // Update an existing payment
-router.patch('/:id', PaymentController.updatePayment);
+router.put('/:id', PaymentController.updatePayment);
 
 // Soft delete an existing payment
 router.patch('/softdelete/:id', PaymentController.softdeletePayment);

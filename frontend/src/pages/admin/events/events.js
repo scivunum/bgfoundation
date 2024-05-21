@@ -60,6 +60,11 @@ const AdminEvents = () => {
             title: 'Name',
             dataIndex: 'name',
             key: 'name',
+            render: (text, record) => (
+                <div>
+                    <Button type="primary" onClick={() => navigate(`/admin/events/${record._id}`)}>{record.name} </Button>
+                </div>
+            ),
         },
         {
             title: 'Start Date',

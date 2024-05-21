@@ -29,7 +29,7 @@ const paymentSchema = new Schema({
         enum: ['pending', 'completed', 'failed', 'refunded'],
         default: 'pending',
     },
-    transaction_id: {
+    event_id: {
         type: SchemaTypes.String,
         required: true,
         unique: true,
@@ -43,6 +43,14 @@ const paymentSchema = new Schema({
         type: SchemaTypes.Mixed,
         required: false, // Optional additional details
     },
+    deleted: {
+        type: Schema.Types.Boolean,
+        default: false
+    },
+    artwork_id: {
+        type: SchemaTypes.String,
+        required: true,
+    },
 }, { timestamps: true });
 
 const validatePaymentData = (paymentObj, isUpdating = false) => {
@@ -55,9 +63,10 @@ const validatePaymentData = (paymentObj, isUpdating = false) => {
             currency: Joi.string().valid('USD', 'EUR', 'GBP', 'JPY', 'CAD'),
             method: Joi.string().valid('credit_card', 'crypto_wallet', 'bank_transfer', 'paypal'),
             status: Joi.string().valid('pending', 'completed', 'failed', 'refunded'),
-            transaction_id: Joi.string().min(1),
+            event_id: Joi.string().min(1),
             payment_date: Joi.date(),
             details: Joi.object().optional(),
+            artwork_id: Joi.string().hex().length(24),
         });
     } else {
         paymentValidationSchema = Joi.object({
@@ -66,9 +75,10 @@ const validatePaymentData = (paymentObj, isUpdating = false) => {
             currency: Joi.string().valid('USD', 'EUR', 'GBP', 'JPY', 'CAD').required(),
             method: Joi.string().valid('credit_card', 'crypto_wallet', 'bank_transfer', 'paypal').required(),
             status: Joi.string().valid('pending', 'completed', 'failed', 'refunded').default('pending'),
-            transaction_id: Joi.string().min(1).required(),
+            event_id: Joi.string().min(1).required(),
             payment_date: Joi.date().default(Date.now),
             details: Joi.object().optional(),
+            artwork_id: Joi.string().hex().length(24).required(),
         });
     }
 

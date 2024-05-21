@@ -16,8 +16,10 @@ class EventController {
     }
 
     async getAllEvents(req, res) {
+        let query = req.query;
+        query.deleted = false;
         try {
-            const events = await Event.find();
+            const events = await Event.find(query);
             return res.send({'success':true,'data':events, 'size':events.length});
         } catch (err) {
             return res.status(500).send({'success':false,'error':"Internal Server Error", 'message':err});

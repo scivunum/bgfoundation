@@ -16,9 +16,11 @@ class PaymentController {
     }
 
     async getAllPayments(req, res) {
+        let query = req.query;
+        query.deleted = false;
         try {
-            const payments = await Payment.find();
-            return res.send(payments);
+            const payments = await Payment.find(query);
+            return res.send({'success':true,'data':payments, 'size':payments.length});
         } catch (err) {
             return res.status(500).send("Internal Server Error");
         }
@@ -37,30 +39,17 @@ class PaymentController {
 
     async updatePayment(req, res) {
         const { id } = req.params;
-        let paymentData = {};
-
-        if (req.body.user) paymentData.user = req.body.user;
-        if (req.body.amount) paymentData.amount = req.body.amount;
-        if (req.body.currency) paymentData.currency = req.body.currency;
-        if (req.body.method) paymentData.method = req.body.method;
-        if (req.body.status) paymentData.status = req.body.status;
-        if (req.body.transaction_id) paymentData.transaction_id = req.body.transaction_id;
-        if (req.body.payment_date) paymentData.payment_date = req.body.payment_date;
-        if (req.body.details) paymentData.details = req.body.details;
 
         try {
-            const { error } = validatePaymentData(paymentData, true);
-            if (error) return res.status(400).send(error.details[0].message);
-
             const payment = await Payment.findByIdAndUpdate(
                 id,
-                { $set: paymentData },
+                req.body,
                 { new: true }
             );
 
             if (!payment) return res.status(404).send("Payment not found");
 
-            return res.send(payment);
+            return res.send({'success':true,'data':payment});
         } catch (err) {
             return res.status(500).send("Internal Server Error");
         }

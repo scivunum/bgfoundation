@@ -48,6 +48,8 @@ const ArtworkDetail = () => {
 
         axios.put(`${backendUrl}/api/v1/artworks/${id}`, values)
             .then(response => {
+                console.log('Artwork details updated:', response.data);
+                console.log(values);
                 setArtwork(response.data.data);
                 setEditMode(false);
                 message.success('Artwork details saved!');
@@ -92,7 +94,7 @@ const ArtworkDetail = () => {
                                 <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please enter the artwork name' }]}>
                                     <Input />
                                 </Form.Item>
-                                <Form.Item label="Artist" name="artist_id" rules={[{ required: true, message: 'Please enter the artist name' }]}>
+                                <Form.Item label="Artist" name="artist_id" rules={[{ required: true, message: 'Please enter the artist id' }]}>
                                     <Input />
                                 </Form.Item>
                                 <Form.Item label="Price" name="price" rules={[{ required: true, message: 'Please enter the price' }]}>
@@ -100,6 +102,9 @@ const ArtworkDetail = () => {
                                 </Form.Item>
                                 <Form.Item label="Description" name="description" rules={[{ required: true, message: 'Please enter the description' }]}>
                                     <Input.TextArea />
+                                </Form.Item>
+                                <Form.Item label="Event" name="event_id" rules={[{ required: true, message: 'Please enter the Event id' }]}>
+                                    <Input />
                                 </Form.Item>
                                 <Form.Item label="Upload Image">
                                     <Input type="file" onChange={handleFileChange} />
@@ -113,6 +118,7 @@ const ArtworkDetail = () => {
                                 <p><strong>Artist:</strong> {artwork.artist_id}</p>
                                 <p><strong>Price:</strong> {artwork.price}</p>
                                 <p><strong>Description:</strong> {artwork.description}</p>
+                                <p><strong>Event:</strong> {artwork.event_id}</p>
                                 <p><strong>Created Date:</strong> {artwork.createdAt}</p>
                                 <Button onClick={handleEdit}>Edit</Button>
                             </>
